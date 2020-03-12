@@ -7,8 +7,9 @@ import Addgift from './pages/AddGift/Addgift'
 import Gifts from './pages/Gifts/Gifts'
 import Charts from  './pages/Charts/Charts'
 import Favorites from './pages/Favorites/Favorites'
-
+import Menu from './components/Menu/Menu'
 ReactDOM.render(
+    <Menu/>,
     <BrowserRouter>
     <Switch>
         <Route exact path='/' component={App}/>
