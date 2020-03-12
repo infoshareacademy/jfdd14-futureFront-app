@@ -9,8 +9,9 @@ import Charts from  './pages/Charts/Charts'
 import Favorites from './pages/Favorites/Favorites'
 import Menu from './components/Menu/Menu'
 ReactDOM.render(
-    <Menu/>,
+    
     <BrowserRouter>
+    <Menu/>
     <Switch>
         <Route exact path='/' component={App}/>
         <Route path='/addgift' component = {Addgift}/>
