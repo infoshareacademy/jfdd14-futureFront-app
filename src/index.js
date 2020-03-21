@@ -17,7 +17,7 @@ ReactDOM.render(
         <Route path='/addgift' component = {Addgift}/>
         <Route path='/gifts' component ={Gifts}/>
         <Route path='/charts' component ={Charts}/>
-        <Route path='/favorites' component ={Favorites}/>
+        <Route path='/favorites' component={Favorites}/>
 
     </Switch>
     </BrowserRouter>,

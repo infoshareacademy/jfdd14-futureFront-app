@@ -1,9 +1,9 @@
 import React from 'react'
 
-const Addgift = () => {
+const Charts = () => {
     return (
-        <div>dodaj prezent</div>
+        <div>Wykresy</div>
     )
 }
 
-export default Addgift;
+export default Charts;
