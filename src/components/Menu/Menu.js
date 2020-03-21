@@ -5,14 +5,15 @@ class Menu extends Component {
   render() {
     return (
       <div>
-        <Link to='/'>Wyszukaj prezent</Link>
-        <Link to='/about'>Dodaj prezent</Link>
-        <Link to='/contact'>Dashboard</Link>
-        <Link to='/post'>Ulubione</Link>
+        <Link to='/gifts'>Wyszukaj prezent</Link>
+        <Link to='/addgift'>Dodaj prezent</Link>
+        <Link to='/charts'>Dashboard</Link>
+        <Link to='/favorites'>Ulubione</Link>
         
       </div>
     )
   }
 }
+
 
 export default Menu;
