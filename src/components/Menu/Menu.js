@@ -8,8 +8,7 @@ class Menu extends Component {
         <Link to='/'>Wyszukaj prezent</Link>
         <Link to='/about'>Dodaj prezent</Link>
         <Link to='/contact'>Dashboard</Link>
-        <Link to='/post'>Ulubione</Link>
-        
+        <Link to='/post'>Ulubione</Link>   
       </div>
     )
   }
