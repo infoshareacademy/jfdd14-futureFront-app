@@ -13,6 +13,7 @@ const Addgift = (props) => {
     const addToList = () => {
         changeList([...itemList, {name, category, photo, price}])
         props.addItem(itemList)
+        console.log(itemList)
     }
     return (
         <Container fixed style={{backgroundColor: '#cfe8fc', height: '80vh'}}>

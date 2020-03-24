@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import Addgift from './pages/AddGift/Addgift'
-import Gifts from './pages/Gifts/Gifts'
+import Giftslist from './pages/Giftslist/Giftslist'
 import Charts from './pages/Charts/Charts'
 import Favorites from './pages/Favorites/Favorites'
 import Home from './pages/Home/Home'
@@ -22,7 +22,7 @@ function App() {
           <Route exact path='/' component={Home} />
           <Route path='/addgift' 
           render={(props) => <Addgift {...props} addItem={addItem}/>}/>
-          <Route path='/gifts' render={(props) => <Gifts {...props} newItem={newItem}/>} />
+          <Route path='/gifts' render={(props) => <Giftslist {...props} newItem={newItem}/>} />
           <Route path='/charts' component={Charts} />
           <Route path='/favorites' component={Favorites} />
         </Switch>
