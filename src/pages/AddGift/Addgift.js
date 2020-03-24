@@ -1,20 +1,29 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import './AddGift.css'
 const Addgift = (props) => {
-    
+   
     const [name, setName] = useState('')
     const [category, setCategory] = useState('')
     const [photo, setPhoto] = useState('')
     const [price, setPrice] = useState('')
     const [itemList, changeList] = useState([])
     const addToList = () => {
+        
         changeList([...itemList, {name, category, photo, price}])
-        props.addItem(itemList)
-        console.log(itemList)
+        
     }
+    useEffect(() => {
+        props.addItem(itemList)
+    
+    },[itemList,props])
+  
+    useEffect(() => {
+        setName(name)
+        
+    },[name])
     return (
         <Container fixed style={{backgroundColor: '#cfe8fc', height: '80vh'}}>
             <form >
