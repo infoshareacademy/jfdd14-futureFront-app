@@ -1,9 +1,11 @@
-import React from 'react'
+import React from 'react';
 
-const Gifts = () => {
+const gift = function () {
     return (
-        <div>Lista prezentow</div>
-    )
+        <h1>
+           Gift!
+        </h1>
+    );
 }
 
-export default Gifts;
+export default gift;
