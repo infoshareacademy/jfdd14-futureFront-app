@@ -9,14 +9,17 @@ import Menu from './components/Menu/Menu_Material'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
 function App() {
-
+  const addItem = (b) => {
+    console.log(b)
+  }
   return (
-
+      
       <BrowserRouter>
         <Menu>
         <Switch>
           <Route exact path='/' component={Home} />
-          <Route path='/addgift' component={Addgift} />
+          <Route path='/addgift' 
+          render={(props) => <Addgift {...props} addItem={addItem}/>}/>
           <Route path='/gifts' component={Gifts} />
           <Route path='/charts' component={Charts} />
           <Route path='/favorites' component={Favorites} />
