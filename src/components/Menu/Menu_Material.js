@@ -97,6 +97,12 @@ function ResponsiveDrawer(props) {
                 </ListItemIcon>
                 <ListItemText primary="FAVORITES" />
             </ListItem>
+            <ListItem button component={Link} to={"/gifts"}>
+                <ListItemIcon>
+                    <InboxIcon />
+                </ListItemIcon>
+                <ListItemText primary="GIFTS" />
+            </ListItem>
       </List>
             <Divider />
             <List>
