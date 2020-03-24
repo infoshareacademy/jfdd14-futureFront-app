@@ -11,7 +11,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom'
 function App() {
   let newItem;
   const addItem = (b) => {
-    console.log(b)
+    
     newItem = b
   }
   return (

@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import Card from '@material-ui/core/Card';
+
 import Container from '@material-ui/core/Container';
 import Gift from '../../components/Gift/Gift'
 const gift = function (props) {

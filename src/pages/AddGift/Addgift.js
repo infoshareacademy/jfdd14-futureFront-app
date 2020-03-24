@@ -9,10 +9,11 @@ const Addgift = (props) => {
     const [category, setCategory] = useState('')
     const [photo, setPhoto] = useState('')
     const [price, setPrice] = useState('')
+    const [description, setDescription] = useState('')
     const [itemList, changeList] = useState([])
     const addToList = () => {
         
-        changeList([...itemList, {name, category, photo, price}])
+        changeList([...itemList, {name, category, photo, price, description}])
         
     }
     useEffect(() => {
@@ -20,10 +21,7 @@ const Addgift = (props) => {
     
     },[itemList,props])
   
-    useEffect(() => {
-        setName(name)
-        
-    },[name])
+    
     return (
         <Container fixed style={{backgroundColor: '#cfe8fc', height: '80vh'}}>
             <form >
@@ -32,6 +30,16 @@ const Addgift = (props) => {
             <TextField onChange={e => setCategory(e.target.value)}id="standard-basic" label="Kategoria" style={{paddingBottom: '3vh'}} />
             <TextField onChange={e => setPhoto(e.target.value)}id="standard-basic" label="Zdjęcie" style={{paddingBottom: '3vh'}} />
             <TextField onChange={e => setPrice(e.target.value)}id="standard-basic" label="Cena" style={{paddingBottom: '3vh'}} />
+            <TextField
+          id="outlined-multiline-static"
+          label="Opis prezentu"
+          multiline
+          rows="4"
+          style={{paddingBottom: '3vh'}}
+          variant='outlined'
+          fullWidth='true'
+          onChange={e => setDescription(e.target.value)}
+        />
             <Button variant="contained" color="primary" onClick={addToList}>Dodaj!</Button>
             </form>
     
