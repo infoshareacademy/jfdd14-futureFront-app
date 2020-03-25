@@ -4,6 +4,8 @@ import Container from '@material-ui/core/Container';
 import Gift from '../../components/Gift/Gift'
 const gift = function (props) {
     let newItem = props.newItem
+
+    console.log('what?')
     
     return (
         <Fragment>
@@ -11,8 +13,9 @@ const gift = function (props) {
            
            Gift!
         </h1>
-         <Container display="flex">{newItem ? newItem.map((e,i) => <Gift key={i} item={e}/>) : null}
-        </Container>
+         <Container display="flex">
+            {newItem ? newItem.map((e,i) => <Gift key={i} item={e}/>) : null}
+         </Container>
          
         </Fragment>
         

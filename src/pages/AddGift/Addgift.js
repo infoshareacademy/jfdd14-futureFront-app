@@ -13,13 +13,9 @@ const Addgift = (props) => {
     const [itemList, changeList] = useState([])
     const addToList = () => {
         
-        changeList([...itemList, {name, category, photo, price, description}])
+        props.addGift({name, category, photo, price, description})
         
     }
-    useEffect(() => {
-        props.addItem(itemList)
-    
-    },[itemList,props])
   
     
     return (
