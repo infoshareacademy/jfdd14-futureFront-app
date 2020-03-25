@@ -19,7 +19,7 @@ const Addgift = (props) => {
   
     
     return (
-        <Container fixed style={{backgroundColor: '#cfe8fc', height: '80vh'}}>
+        <Container fixed style={{backgroundColor: '#cfe8fc', minHeight: '80vh', padding:'2vh'}}>
             <form >
                 <h2>Dodaj swój prezent:</h2>
             <TextField onChange={e => setName(e.target.value)} id="standard-basic" label="Nazwa prezentu" style={{paddingBottom: '3vh'}}/>
