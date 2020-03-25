@@ -10,10 +10,12 @@ const Addgift = (props) => {
     const [photo, setPhoto] = useState('')
     const [price, setPrice] = useState('')
     const [description, setDescription] = useState('')
+    let id = Date.now();
+    let isFavorite = false;
   
     const addToList = () => {
         
-        props.addGift({name, category, photo, price, description})
+        props.addGift({name, category, photo, price, description, id, isFavorite})
         
     }
   
@@ -23,9 +25,9 @@ const Addgift = (props) => {
             <form >
                 <h2>Dodaj swój prezent:</h2>
             <TextField onChange={e => setName(e.target.value)} id="standard-basic" label="Nazwa prezentu" style={{paddingBottom: '3vh'}}/>
-            <TextField onChange={e => setCategory(e.target.value)}id="standard-basic" label="Kategoria" style={{paddingBottom: '3vh'}} />
-            <TextField onChange={e => setPhoto(e.target.value)}id="standard-basic" label="Zdjęcie" style={{paddingBottom: '3vh'}} />
-            <TextField onChange={e => setPrice(e.target.value)}id="standard-basic" label="Cena" style={{paddingBottom: '3vh'}} />
+            <TextField onChange={e => setCategory(e.target.value)} id="standard-basic" label="Kategoria" style={{paddingBottom: '3vh'}} />
+            <TextField onChange={e => setPhoto(e.target.value)} id="standard-basic" label="Zdjęcie" style={{paddingBottom: '3vh'}} />
+            <TextField onChange={e => setPrice(e.target.value)} id="standard-basic" label="Cena" style={{paddingBottom: '3vh'}} />
             <TextField
           id="outlined-multiline-static"
           label="Opis prezentu"

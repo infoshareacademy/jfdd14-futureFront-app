@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Card from '@material-ui/core/Card';
 
 import CardHeader from '@material-ui/core/CardHeader';
@@ -36,12 +36,30 @@ const useStyles = makeStyles(theme => ({
 
 const Gift = (props) => {
     const classes = useStyles();
+    const [id, setId] = useState('111')
+    const [isFavorite, setIsFavorite] = useState(props.item.isFavorite)
+
+    console.log(id, isFavorite, "AAAAAA")
+
+    useEffect (() => {
+        console.log(props.item.id, isFavorite, "BBBBB")
+        props.setFavorites(isFavorite, props.item.id);
+    });
+
+
+
+
 
     return (
+
         <Card className={classes.root}>
+        {console.log(props.item, "PROPS GIFT", props.item.isFavorite, "favorite")}
             <CardHeader title={props.item.name} /><CardMedia className={classes.media} image="https://picsum.photos/200"><div>{props.item.description}</div>
                 <CardActions disableSpacing>
-                    <IconButton aria-label="add to favorites">
+                    <IconButton
+                        aria-label="add to favorites"
+                        onClick={(e) => { setIsFavorite(!isFavorite); console.log(isFavorite,'click')}}
+                       >
                         <FavoriteIcon />
                     </IconButton>  </CardActions>
                 <div>{`${props.item.price}$`}</div>
