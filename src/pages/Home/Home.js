@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Charts = function () {
+const home = function () {
     return (
         <h1>
-            CHARTS!
+            Welcome!
         </h1>
     );
 }
 
-export default Charts;
+export default home;
