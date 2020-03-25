@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import Addgift from './pages/AddGift/Addgift'
 import Giftslist from './pages/Giftslist/Giftslist'
@@ -9,10 +9,11 @@ import Menu from './components/Menu/Menu_Material'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
 function App() {
-  let newItem;
-  const addItem = (b) => {
-    
-    newItem = b
+  const [gifts, setGift] = useState ([])
+
+  const addGift = (gift) => {
+    setGift([...gifts, gift])
+    console.log(gifts, gift)
   }
   return (
       
@@ -20,9 +21,8 @@ function App() {
         <Menu>
         <Switch>
           <Route exact path='/' component={Home} />
-          <Route path='/addgift' 
-          render={(props) => <Addgift {...props} addItem={addItem}/>}/>
-          <Route path='/gifts' render={(props) => <Giftslist {...props} newItem={newItem}/>} />
+          <Route path='/addgift'><Addgift addGift={addGift}/></Route> 
+          <Route path='/gifts'><Giftslist gifts={gifts}/></Route>
           <Route path='/charts' component={Charts} />
           <Route path='/favorites' component={Favorites} />
         </Switch>
