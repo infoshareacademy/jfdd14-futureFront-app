@@ -38,7 +38,7 @@ const Gift = (props) => {
     const classes = useStyles();
 
     return (
-        <Card className={classes.root}>
+        <Card className={classes.root} id={props.item.id}>
             <CardHeader title={props.item.name} /><CardMedia className={classes.media} image="https://picsum.photos/200"><div>{props.item.description}</div>
                 <CardActions disableSpacing>
                     <IconButton aria-label="add to favorites">

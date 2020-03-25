@@ -9,7 +9,7 @@ import Menu from './components/Menu/Menu_Material'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
 function App() {
-  const [gifts, setGift] = useState ([])
+  const [gifts, setGift] = useState ([{name:'bb', category:'cc', photo:'dd', price:'ee', description:'ff'}])
 
   const addGift = (gift) => {
     setGift([...gifts, gift])

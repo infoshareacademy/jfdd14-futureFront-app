@@ -11,7 +11,7 @@ const gift = function (props) {
            
            Gift!
         </h1>
-         <Container display="flex">{gifts ? gifts.map((e,i) => <Gift key={i} item={e}/>) : null}
+         <Container display="flex">{gifts ? gifts.map((e,i) => <Gift key={i} id={i} item={e}/>) : null}
         </Container>
          
         </Fragment>
