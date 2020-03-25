@@ -22,12 +22,12 @@ function App() {
     console.log(gifts, gift, 'GIIFTS AfTER ADD')
   }
 
-  // const addFavorite = (idCheck, isFavoriteCheck) => {
-  //   let favoritesArr = gifts.filter(el => el.id === idCheck
-  //   )
-  //   setFavorites(favoritesArr);
-  //   console.log(favorites)
-  // }
+  const addFavorite = (idCheck, isFavoriteCheck) => {
+    let favoritesArr = gifts.filter(el => el.id === idCheck
+    )
+    setFavorites(favoritesArr);
+    console.log(favorites, "FAVORITES APPPPPPP")
+  }
 
 
   // const updateGifts = (idCheck, isFavoriteCheck) => gifts.forEach(el => {
