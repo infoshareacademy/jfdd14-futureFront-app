@@ -20,7 +20,7 @@ const Addgift = (props) => {
   
     
     return (
-        <Container fixed style={{backgroundColor: 'rgb(227, 188, 190)', minHeight: '80vh', padding:'2vh', boxShadow: '3px 7px 35px -4px rgba(0,0,0,0.45)'}}>
+        <Container fixed style={{backgroundColor: 'rgb(227, 188, 190)', minHeight: '80vh', padding:'2vh', boxShadow: '3px 7px 35px -4px rgba(0,0,0,0.45)', borderRadius: '2vh'}}>
             <form >
                 <h2>Dodaj swój prezent:</h2>
             <Box width="30%"><TextField fullWidth color='secondary'onChange={e => setName(e.target.value)} id="standard-basic" label="Nazwa prezentu" style={{paddingBottom: '3vh'}}/></Box>
