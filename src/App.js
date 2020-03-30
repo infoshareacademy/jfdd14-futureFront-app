@@ -45,7 +45,7 @@ function App() {
           <Route path='/addgift'><Addgift addGift={addGift} /></Route>
           <Route path='/gifts'><Giftslist gifts={giftsWithFavs} toggleFavorite={toggleFavorite} /></Route>
           <Route path='/charts' component={Charts} />
-          <Route path='/favorites'><Favorites gifts={giftsWithFavs} /></Route>
+          <Route path='/favorites'><Favorites gifts={giftsWithFavs} toggleFavorite={toggleFavorite}/></Route>
         </Switch>
       </Menu>
     </BrowserRouter>
