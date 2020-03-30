@@ -36,19 +36,13 @@ const useStyles = makeStyles(theme => ({
 
 const Gift = (props) => {
     const classes = useStyles();
-    const [id, setId] = useState('111')
-    const [isFavorite, setIsFavorite] = useState(props.item.isFavorite)
+    const [isFavorite, setIsFavorite] = useState('')
 
-    console.log(id, isFavorite, "AAAAAA")
 
     useEffect (() => {
-        console.log(props.item.id, isFavorite, "BBBBB")
+        console.log(props.item.id, isFavorite, "IN GIFT")
         props.setFavorites(isFavorite, props.item.id);
     });
-
-
-
-
 
     return (
 
@@ -58,7 +52,7 @@ const Gift = (props) => {
                 <CardActions disableSpacing>
                     <IconButton
                         aria-label="add to favorites"
-                        onClick={(e) => { setIsFavorite(!isFavorite); console.log(isFavorite,'click')}}
+                        onClick={(e) => {setIsFavorite(!isFavorite); console.log(isFavorite,'click')}}
                        >
                         <FavoriteIcon />
                     </IconButton>  </CardActions>

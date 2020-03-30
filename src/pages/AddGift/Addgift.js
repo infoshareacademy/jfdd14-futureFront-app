@@ -10,8 +10,8 @@ const Addgift = (props) => {
     const [photo, setPhoto] = useState('')
     const [price, setPrice] = useState('')
     const [description, setDescription] = useState('')
-    let id = Date.now();
-    let isFavorite = false;
+    const id = Date.now();
+    const isFavorite = false;
   
     const addToList = () => {
         

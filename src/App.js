@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import Addgift from './pages/AddGift/Addgift'
 import Giftslist from './pages/Giftslist/Giftslist'
@@ -9,12 +9,11 @@ import Menu from './components/Menu/Menu_Material'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
 function App() {
-  const [gifts, setGift] = useState ([{name:'bb', category:'cc', photo:'dd', price:'ee', description:'ff', isFavorite: false, id: '' }])
-  const [favorites, setFavorites]  = useState([])
+  const [gifts, setGift] = useState([{ name: 'bb', category: 'cc', photo: 'dd', price: 'ee', description: 'ff', isFavorite: false, id: '666' }])
+  const [favorites, setFavorites] = useState([])
+
 
   console.log(gifts, 'GIIFTS FROM APP')
-
-
 
 
   const addGift = (gift) => {
@@ -22,31 +21,32 @@ function App() {
     console.log(gifts, gift, 'GIIFTS AfTER ADD')
   }
 
-  const addFavorite = (idCheck, isFavoriteCheck) => {
-    let favoritesArr = gifts.filter(el => el.id === idCheck
-    )
-    setFavorites(favoritesArr);
-    console.log(favorites, "FAVORITES APPPPPPP")
+  const updateIsFavorite = (idCheck, favoriteCheck) => {
+    let arr = gifts.map(el => el.id === idCheck ? el.isFavorite = favoriteCheck : el.isFavorite = el.isFavorite);
+    console.log(arr, gifts,  "ARR");
   }
 
 
-  // const updateGifts = (idCheck, isFavoriteCheck) => gifts.forEach(el => {
-  //   if(el.id === idCheck){el.isFavorite = isFavoriteCheck}
-  // });
+  // const addFavorite = (idCheck) => {
+  //   let favoritesArr = gifts.filter(el => el.id === idCheck)
+  //   setFavorites(favoritesArr);
+  //   console.log(favorites, "FAVORITES IN APP")
+  // }
+
 
   return (
 
-      <BrowserRouter>
-        <Menu>
+    <BrowserRouter>
+      <Menu>
         <Switch>
           <Route exact path='/' component={Home} />
-          <Route path='/addgift'><Addgift addGift={addGift}/></Route> 
-          <Route path='/gifts'><Giftslist gifts={gifts} addFavorite={addFavorite}/></Route>
+          <Route path='/addgift'><Addgift addGift={addGift} /></Route>
+          <Route path='/gifts'><Giftslist gifts={gifts} updateIsFavorite={updateIsFavorite} /></Route>
           <Route path='/charts' component={Charts} />
-          <Route path='/favorites' component={Favorites} />
+          <Route path='/favorites'><Favorites gifts={gifts} /></Route>
         </Switch>
-        </Menu>
-      </BrowserRouter>
+      </Menu>
+    </BrowserRouter>
 
   );
 }
