@@ -1,5 +1,6 @@
 * {
     font-family: "Lato", sans-serif;
+    box-sizing: border-box;
     
 }
 form {
@@ -8,4 +9,8 @@ form {
     
     align-items: center;
  
+}
+.giftAdded{
+    padding: 2vh;
+    font-weight: bold;
 }
