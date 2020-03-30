@@ -1,21 +1,22 @@
 
 import React, { Component } from 'react';
-import PieChart from './pieChart';
-import BarChart from './chartBar'
-import Box from '@material-ui/core/Container';
-import { Grid, Container } from '@material-ui/core';
+import BarTemp from './bars'
+import { Grid, Container} from '@material-ui/core';
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
+
+
+
 
 class Charts extends Component {
     render() {
         return(
-            <Grid flex-direction="row">
-                <PieChart/>
-            
-                <BarChart/>
-           
+            <BrowserRouter>
+            <Container>
+                                        
+                <BarTemp/>
+                </Container>
         
-                </Grid>
-                
+                </BrowserRouter>
         )
     }
 }
