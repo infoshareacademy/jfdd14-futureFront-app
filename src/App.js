@@ -13,19 +13,21 @@ function App() {
   const [favorites, setFavorites] = useState([])
 
 
-  console.log(gifts, 'GIIFTS FROM APP')
-
-
   const addGift = (gift) => {
     setGift([...gifts, gift])
     console.log(gifts, gift, 'GIIFTS AfTER ADD')
   }
 
-  const updateIsFavorite = (idCheck, favoriteCheck) => {
-    let arr = gifts.map(el => el.id === idCheck ? el.isFavorite = favoriteCheck : el.isFavorite = el.isFavorite);
-    console.log(arr, gifts,  "ARR");
+  // const updateIsFavorite = (idCheck, favoriteCheck) => {
+  //   let arr = gifts.map(el => el.id === idCheck ? el.isFavorite = favoriteCheck : el.isFavorite = el.isFavorite);
+  //   console.log(arr, gifts,  "ARR");
+  // }
+
+  const toggleFavorite = (giftId) => {
+    setFavorites(favorites => favorites.includes(giftId) ? favorites.filter(id => id !== giftId) : [...favorites, giftId])
   }
 
+    const giftsWithFavs = gifts.map(gift => ({ ...gift, isFavorite: favorites.includes(gift.id)}))
 
   // const addFavorite = (idCheck) => {
   //   let favoritesArr = gifts.filter(el => el.id === idCheck)
@@ -41,9 +43,9 @@ function App() {
         <Switch>
           <Route exact path='/' component={Home} />
           <Route path='/addgift'><Addgift addGift={addGift} /></Route>
-          <Route path='/gifts'><Giftslist gifts={gifts} updateIsFavorite={updateIsFavorite} /></Route>
+          <Route path='/gifts'><Giftslist gifts={giftsWithFavs} toggleFavorite={toggleFavorite} /></Route>
           <Route path='/charts' component={Charts} />
-          <Route path='/favorites'><Favorites gifts={gifts} /></Route>
+          <Route path='/favorites'><Favorites gifts={giftsWithFavs} /></Route>
         </Switch>
       </Menu>
     </BrowserRouter>

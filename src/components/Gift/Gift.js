@@ -34,32 +34,28 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const Gift = (props) => {
+const Gift = props => {
+    const { toggleFavorite } = props;
     const classes = useStyles();
-    const [isFavorite, setIsFavorite] = useState('')
-
-
-    useEffect (() => {
-        console.log(props.item.id, isFavorite, "IN GIFT")
-        props.setFavorites(isFavorite, props.item.id);
-    });
-
+  
     return (
-
-        <Card className={classes.root}>
-        {console.log(props.item, "PROPS GIFT", props.item.isFavorite, "favorite")}
-            <CardHeader title={props.item.name} /><CardMedia className={classes.media} image="https://picsum.photos/200"><div>{props.item.description}</div>
-                <CardActions disableSpacing>
-                    <IconButton
-                        aria-label="add to favorites"
-                        onClick={(e) => {setIsFavorite(!isFavorite); console.log(isFavorite,'click')}}
-                       >
-                        <FavoriteIcon />
-                    </IconButton>  </CardActions>
-                <div>{`${props.item.price}$`}</div>
-            </CardMedia></Card>
-
-    )
-}
+      <Card className={classes.root}>
+        <CardHeader title={props.item.name} />
+        <CardMedia className={classes.media} image="https://picsum.photos/200">
+          <div>{props.item.description}</div>
+          <CardActions disableSpacing>
+            <IconButton
+              style={{ color: props.item.isFavorite ? "red" : undefined }}
+              aria-label="add to favorites"
+              onClick={() => toggleFavorite(props.item.id)}
+            >
+              <FavoriteIcon />
+            </IconButton>{" "}
+          </CardActions>
+          <div>{`${props.item.price}$`}</div>
+        </CardMedia>
+      </Card>
+    );
+  };
 
 export default Gift;
