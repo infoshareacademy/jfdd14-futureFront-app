@@ -41,7 +41,7 @@ const Gift = (props) => {
 
     return (
         <Card className={classes.root} id={props.item.id}>
-            <CardHeader title={props.item.name} /><CardMedia className={classes.media} image="https://picsum.photos/200"><div>{props.item.description}</div>
+            <CardHeader title={props.item.name} /><CardMedia className={classes.media} image="https://picsum.photos/200"><div>{props.item.category}</div><div>{props.item.description}</div>
                 <Box>
                 <div>{`${props.item.price}$`}</div><CardActions disableSpacing>
                     <IconButton aria-label="add to favorites">
