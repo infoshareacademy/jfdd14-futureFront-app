@@ -15,7 +15,7 @@ const Addgift = (props) => {
     const addToList = () => {
         
         props.addGift({name, category, photo, price, description})
-        
+        props.modalHandle()
     }
   
     
