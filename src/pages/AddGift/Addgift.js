@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -10,16 +10,12 @@ const Addgift = (props) => {
     const [photo, setPhoto] = useState('')
     const [price, setPrice] = useState('')
     const [description, setDescription] = useState('')
-    const [itemList, changeList] = useState([])
+  
     const addToList = () => {
         
-        changeList([...itemList, {name, category, photo, price, description}])
+        props.addGift({name, category, photo, price, description})
         
     }
-    useEffect(() => {
-        props.addItem(itemList)
-    
-    },[itemList,props])
   
     
     return (
@@ -37,7 +33,7 @@ const Addgift = (props) => {
           rows="4"
           style={{paddingBottom: '3vh'}}
           variant='outlined'
-          fullWidth='true'
+          fullWidth
           onChange={e => setDescription(e.target.value)}
         />
             <Button variant="contained" color="primary" onClick={addToList}>Dodaj!</Button>
