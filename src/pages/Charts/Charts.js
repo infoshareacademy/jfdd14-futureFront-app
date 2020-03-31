@@ -1,7 +1,8 @@
 
 import React, { Component } from 'react';
 import BarTemp from './bars'
-import { Grid, Container} from '@material-ui/core';
+import PieTemp from './pie'
+import { Grid } from '@material-ui/core';
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
 
@@ -9,14 +10,13 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
 class Charts extends Component {
     render() {
-        return(
+        return (
             <BrowserRouter>
-            <Container>
-                                        
-                <BarTemp/>
-                </Container>
-        
-                </BrowserRouter>
+
+                    <BarTemp/>
+                    <PieTemp />
+
+            </BrowserRouter>
         )
     }
 }

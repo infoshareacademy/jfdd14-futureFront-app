@@ -1,0 +1,7 @@
+.recharts-wrapper,
+.recharts-surface,
+.recharts-responsive-container {
+    width: 100%!important;
+    height: 100%!important;
+  border: 1px solid;
+}
