@@ -176,7 +176,7 @@ function ResponsiveDrawer(props) {
                 <div className={classes.toolbar} />
                 <Grid
                     container
-                    spacing={1}
+                    spacing={3}
                     direction="row"
                     justify="center"
                     alignItems="center"
