@@ -11,6 +11,17 @@ form {
  
 }
 .giftAdded{
+    display: inline-block;
     padding: 2vh;
     font-weight: bold;
+    color: rgb(230, 54, 142);
+    font-size: 1.3rem;
+}
+.counter {
+    color: white;
+    background-color:rgb(230, 54, 142); 
+    border-radius: 10px;
+    font-size: 1.3rem;
+    display: inline-block;
+    
 }

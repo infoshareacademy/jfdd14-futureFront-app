@@ -7,26 +7,23 @@ import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-
 import './AddGift.css'
 
-
 const Addgift = (props) => {
-    
-  
 
     const [name, setName] = useState('')
-    const [category, setCategory] = useState('')
+    const [category, setCategory] = useState('Inne')
     const [photo, setPhoto] = useState('')
     const [price, setPrice] = useState('')
     const [description, setDescription] = useState('')
     const [giftAddedText, setGiftAddedText] = useState(false)
 
+    const handleChangeName = (e) => {
+        setName(e.target.value);
+        setGiftAddedText(false)
+    }
+
     const addToList = () => {
-        if(typeof price !== 'number') {
-            console.log(price)
-        }
-        console.log(category)
         props.addGift({ name, category, photo, price, description })
         setName('');
         setCategory('');
@@ -34,17 +31,13 @@ const Addgift = (props) => {
         setPrice('');
         setDescription('')
         setGiftAddedText(true)
-        setTimeout(function () {
-            setGiftAddedText(false)
-        }, 3000)
     }
-
 
     return (
         <Container fixed style={{ backgroundColor: 'rgb(227, 188, 190)', minHeight: '80vh', padding: '1vh', boxShadow: '3px 7px 35px -4px rgba(0,0,0,0.45)', borderRadius: '2vh' }}>
             <form >
                 <h2>Dodaj swój prezent:</h2>
-                <Box width="30%"><TextField value={name} fullWidth color='secondary' onChange={e => setName(e.target.value)} id="standard-basic" label="Nazwa prezentu" style={{ paddingBottom: '3vh' }} /></Box>
+                <Box width="30%"><TextField value={name} fullWidth color='secondary' onChange={e => handleChangeName(e)} id="standard-basic" label="Nazwa prezentu" style={{ paddingBottom: '3vh' }} /></Box>
                 <Box width='30%'><FormControl fullWidth color='secondary' style={{ paddingBottom: '3vh' }}>
                     <InputLabel id="demo-simple-select-label">Kategoria</InputLabel>
                     <Select
@@ -58,9 +51,8 @@ const Addgift = (props) => {
                         <MenuItem value='Inne'>Inne</MenuItem>
                     </Select>
                 </FormControl></Box>
-
-                <Box width="30%"><TextField value={photo} fullWidth color='secondary' onChange={e => setPhoto(e.target.value)} id="standard-basic" label="Zdjęcie" style={{ paddingBottom: '3vh' }} /></Box>
-                <Box width="30%"><TextField value={price} fullWidth color='secondary' onChange={e => setPrice(e.target.value)} id="standard-basic" label="Cena" style={{ paddingBottom: '3vh' }} /></Box>
+                { <Box width="30%"><TextField value={photo} helperText="Adres URL, na przykład: 'https://picsum.photos/200'" fullWidth color='secondary' onChange={e => setPhoto(e.target.value)} id="standard-basic" label="Zdjęcie" style={{ paddingBottom: '3vh' }} /></Box> }
+                <Box width="30%"><TextField value={price} type='number' fullWidth color='secondary' onChange={e => setPrice(e.target.value)} id="standard-basic" label="Cena w dolarach" style={{ paddingBottom: '3vh' }} /></Box>
                 <Box width="30%"><TextField color='secondary'
                     id="outlined-multiline-static"
                     label="Opis prezentu"
@@ -72,13 +64,10 @@ const Addgift = (props) => {
                     onChange={e => setDescription(e.target.value)}
                     value={description}
                 /></Box>
-                <Button variant="contained" color="secondary" onClick={addToList}>Dodaj!</Button>
-                {giftAddedText && <div className='giftAdded'>Prezent dodany pomyślnie! Znajdziesz go w zakładce Gifts</div>}
+                <Button variant="contained" disabled={!Boolean(name && category && photo && price && description)} color="secondary" onClick={addToList}>Dodaj!</Button>
+                {giftAddedText && <div className='giftAdded'>Prezent dodany pomyślnie! Znajdziesz go w zakładce Gifts </div>}
             </form>
-
-
         </Container>
-
     )
 }
 
