@@ -19,6 +19,8 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 
+import Grid from '@material-ui/core/Grid';
+
 
 const drawerWidth = 240;
 
@@ -52,7 +54,10 @@ const useStyles = makeStyles(theme => ({
     },
     content: {
         flexGrow: 1,
+        flexDirection: 'row',
+        flexWrap: "wrap",
         padding: theme.spacing(3),
+        backgroundColor: 'red',
     },
 }));
 
@@ -68,8 +73,8 @@ function ResponsiveDrawer(props) {
 
     const drawer = (
         <div>
-        <Hidden xsDown>
-            <div className={classes.toolbar} />
+            <Hidden xsDown>
+                <div className={classes.toolbar} />
             </Hidden>
             <Divider />
             <List>
@@ -86,24 +91,24 @@ function ResponsiveDrawer(props) {
                     <ListItemText primary="ADDGIFT" />
                 </ListItem>
                 <ListItem button component={Link} to={"/charts"}>
-                <ListItemIcon>
-                    <InboxIcon />
-                </ListItemIcon>
-                <ListItemText primary="CHARTS" />
-            </ListItem>
-            <ListItem button component={Link} to={"/favorites"}>
-                <ListItemIcon>
-                    <InboxIcon />
-                </ListItemIcon>
-                <ListItemText primary="FAVORITES" />
-            </ListItem>
-            <ListItem button component={Link} to={"/gifts"}>
-                <ListItemIcon>
-                    <InboxIcon />
-                </ListItemIcon>
-                <ListItemText primary="GIFTS" />
-            </ListItem>
-      </List>
+                    <ListItemIcon>
+                        <InboxIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="CHARTS" />
+                </ListItem>
+                <ListItem button component={Link} to={"/favorites"}>
+                    <ListItemIcon>
+                        <InboxIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="FAVORITES" />
+                </ListItem>
+                <ListItem button component={Link} to={"/gifts"}>
+                    <ListItemIcon>
+                        <InboxIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="GIFTS" />
+                </ListItem>
+            </List>
             <Divider />
             <List>
                 {['All mail', 'Trash', 'Spam'].map((text, index) => (
@@ -131,7 +136,7 @@ function ResponsiveDrawer(props) {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6" noWrap style={{color:'white'}}>
+                    <Typography variant="h6" noWrap style={{ color: 'white' }}>
                         GiftMatcher
           </Typography>
                 </Toolbar>
@@ -169,7 +174,16 @@ function ResponsiveDrawer(props) {
             </nav>
             <main className={classes.content}>
                 <div className={classes.toolbar} />
-                        {children}
+                <Grid
+                    container
+                    spacing={1}
+                    direction="row"
+                    justify="center"
+                    alignItems="center"
+                >
+                    {children}
+                </Grid>
+
             </main>
         </div>
 

@@ -8,37 +8,39 @@ import { red } from '@material-ui/core/colors';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import IconButton from '@material-ui/core/IconButton';
 import CardActions from '@material-ui/core/CardActions';
+import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles(theme => ({
-    root: {
-        maxWidth: 345,
-        height: 400,
-        margin: '2vh'
-    },
-    media: {
-        height: 0,
-        paddingTop: '56.25%', // 16:9
-    },
-    expand: {
-        transform: 'rotate(0deg)',
-        marginLeft: 'auto',
-        transition: theme.transitions.create('transform', {
-            duration: theme.transitions.duration.shortest,
-        }),
-    },
-    expandOpen: {
-        transform: 'rotate(180deg)',
-    },
-    avatar: {
-        backgroundColor: red[500],
-    },
+  root: {
+    maxWidth: 'auto',
+    height: 400,
+    margin: '2vh',
+  },
+  media: {
+    height: 0,
+    paddingTop: '56.25%', // 16:9
+  },
+  expand: {
+    transform: 'rotate(0deg)',
+    marginLeft: 'auto',
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.shortest,
+    }),
+  },
+  expandOpen: {
+    transform: 'rotate(180deg)',
+  },
+  avatar: {
+    backgroundColor: red[500],
+  },
 }));
 
 const Gift = props => {
-    const { toggleFavorite } = props;
-    const classes = useStyles();
-  
-    return (
+  const { toggleFavorite } = props;
+  const classes = useStyles();
+
+  return (
+    <Grid item xs={10} sm={10} md={6} lg={3} mr={0} justify-content='center'>
       <Card className={classes.root}>
         <CardHeader title={props.item.name} />
         <CardMedia className={classes.media} image="https://picsum.photos/200">
@@ -55,6 +57,7 @@ const Gift = props => {
           <div>{`${props.item.price}$`}</div>
         </CardMedia>
       </Card>
+      </Grid>
     );
   };
 
