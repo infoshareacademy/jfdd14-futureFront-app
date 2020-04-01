@@ -16,6 +16,8 @@ function App() {
 
   const [open, setOpen] = useState(false);
 
+
+   
   const addGift = (gift) => {
     setGift([...gifts, gift])
     console.log(gifts, gift, 'GIIFTS AfTER ADD')
