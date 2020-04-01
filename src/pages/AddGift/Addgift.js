@@ -26,7 +26,7 @@ const Addgift = (props) => {
     const addToList = () => {
         props.addGift({ name, category, photo, price, description })
         setName('');
-        setCategory('');
+        setCategory('Inne');
         setPhoto('');
         setPrice('');
         setDescription('')
@@ -34,7 +34,7 @@ const Addgift = (props) => {
     }
 
     return (
-        <Container fixed style={{ backgroundColor: 'rgb(227, 188, 190)', minHeight: '80vh', padding: '1vh', boxShadow: '3px 7px 35px -4px rgba(0,0,0,0.45)', borderRadius: '2vh' }}>
+        <Container fixed className="formContainer" >
             <form >
                 <h2>Dodaj swój prezent:</h2>
                 <Box width="30%"><TextField value={name} fullWidth color='secondary' onChange={e => handleChangeName(e)} id="standard-basic" label="Nazwa prezentu" style={{ paddingBottom: '3vh' }} /></Box>
@@ -51,7 +51,7 @@ const Addgift = (props) => {
                         <MenuItem value='Inne'>Inne</MenuItem>
                     </Select>
                 </FormControl></Box>
-                { <Box width="30%"><TextField value={photo} helperText="Adres URL, na przykład: 'https://picsum.photos/200'" fullWidth color='secondary' onChange={e => setPhoto(e.target.value)} id="standard-basic" label="Zdjęcie" style={{ paddingBottom: '3vh' }} /></Box> }
+                {<Box width="30%"><TextField value={photo} helperText="Adres URL, na przykład: 'https://picsum.photos/200'" fullWidth color='secondary' onChange={e => setPhoto(e.target.value)} id="standard-basic" label="Zdjęcie" style={{ paddingBottom: '3vh' }} /></Box>}
                 <Box width="30%"><TextField value={price} type='number' fullWidth color='secondary' onChange={e => setPrice(e.target.value)} id="standard-basic" label="Cena w dolarach" style={{ paddingBottom: '3vh' }} /></Box>
                 <Box width="30%"><TextField color='secondary'
                     id="outlined-multiline-static"
