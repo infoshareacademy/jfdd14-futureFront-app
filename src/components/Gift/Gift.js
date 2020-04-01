@@ -8,12 +8,14 @@ import { red } from '@material-ui/core/colors';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import IconButton from '@material-ui/core/IconButton';
 import CardActions from '@material-ui/core/CardActions';
+import Box from '@material-ui/core/Box'
 
 const useStyles = makeStyles(theme => ({
     root: {
         maxWidth: 345,
         height: 400,
-        margin: '2vh'
+        margin: '2vh',
+        textAlign: 'center'
     },
     media: {
         height: 0,
@@ -38,13 +40,14 @@ const Gift = (props) => {
     const classes = useStyles();
 
     return (
-        <Card className={classes.root}>
-            <CardHeader title={props.item.name} /><CardMedia className={classes.media} image="https://picsum.photos/200"><div>{props.item.description}</div>
-                <CardActions disableSpacing>
+        <Card className={classes.root} id={props.item.id}>
+            <CardHeader title={props.item.name} /><CardMedia className={classes.media} image="https://picsum.photos/200"><div>{props.item.category}</div><div>{props.item.description}</div>
+                <Box>
+                <div>{`${props.item.price}$`}</div><CardActions disableSpacing>
                     <IconButton aria-label="add to favorites">
                         <FavoriteIcon />
                     </IconButton>  </CardActions>
-                <div>{`${props.item.price}$`}</div>
+                </Box>
             </CardMedia></Card>
 
     )
