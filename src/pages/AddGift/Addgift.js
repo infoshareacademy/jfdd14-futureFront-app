@@ -3,6 +3,7 @@ import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import './AddGift.css'
+import Grid from '@material-ui/core/Grid';
 const Addgift = (props) => {
    
     const [name, setName] = useState('')
@@ -21,7 +22,7 @@ const Addgift = (props) => {
   
     
     return (
-        <Container fixed style={{backgroundColor: '#cfe8fc', height: '80vh'}}>
+        <Grid item xs={10} sm={10} md={6} lg={6} mr={0} style={{backgroundColor: '#cfe8fc', height: '80vh'}}>
             <form >
                 <h2>Dodaj swój prezent:</h2>
             <TextField onChange={e => setName(e.target.value)} id="standard-basic" label="Nazwa prezentu" style={{paddingBottom: '3vh'}}/>
@@ -41,7 +42,7 @@ const Addgift = (props) => {
             <Button variant="contained" color="primary" onClick={addToList}>Dodaj!</Button>
             </form>
     
-        </Container>
+        </Grid>
         
     )
 }
