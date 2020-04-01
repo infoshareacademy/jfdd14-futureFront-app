@@ -1,7 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react';
-import Container from '@material-ui/core/Container';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
+import React, { Fragment } from 'react';
 
 import Gift from '../../components/Gift/Gift'
 

@@ -50,25 +50,18 @@ const DialogActions = withStyles((theme) => ({
     },
 }))(MuiDialogActions);
 
-export default function CustomizedDialogs({ handleClose, open, children, gift }) {
-
-    console.log(children)
-
-    //   <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-    //     Open dialog
-    //   </Button>
+export default function CustomizedDialogs({ handleClose, open, gift }) {
 
     return (
         <div>
-
             <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
                 <DialogTitle id="customized-dialog-title" onClose={handleClose}>
                     {gift.name}
                 </DialogTitle>
                 <DialogContent dividers>
                     <Typography gutterBottom>
-                        PRICE: {gift.price}<br/>
-                         DESRIPTION: {gift.description}<br/>
+                        PRICE: {gift.price}<br />
+                         DESRIPTION: {gift.description}<br />
                         Add rice and stir very gently to distribute. Top with artichokes and peppers, and cook
                         without stirring, until most of the liquid is absorbed, 15 to 18 minutes. Reduce heat to
                         medium-low, add reserved shrimp and mussels, tucking them down into the rice, and cook
@@ -78,8 +71,8 @@ export default function CustomizedDialogs({ handleClose, open, children, gift })
                 </DialogContent>
                 <DialogActions>
                     <Button autoFocus onClick={handleClose} color="primary">
-                       Close
-          </Button>
+                        Close
+                    </Button>
                 </DialogActions>
             </Dialog>
         </div>

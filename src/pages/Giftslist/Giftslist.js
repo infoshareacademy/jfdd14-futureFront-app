@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import Container from '@material-ui/core/Container';
 import Gift from '../../components/Gift/Gift'
 
 const GiftList = function (props) {
