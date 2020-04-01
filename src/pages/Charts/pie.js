@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import {
-  PieChart, Pie, Sector, Cell, ResponsiveContainer,
-} from 'recharts';
-
+import { PieChart, Pie, Sector, Cell, ResponsiveContainer} from 'recharts';
 import styles from './pie.css'
 
 const data = [
