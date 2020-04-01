@@ -11,13 +11,11 @@ import Dialog from "./components/Dialog/Dialog";
 import Gift from './components/Gift/Gift'
 
 function App() {
-  const [gifts, setGift] = useState([{ name: 'bb', category: 'cc', photo: 'dd', price: 'ee', description: 'ff', isFavorite: false, id: '666' }])
+  const [gifts, setGift] = useState([{ name: 'EXAMPLE GIFT', category: 'Sport', photo: 'dd', price: '1000', description: 'Cool Gift', isFavorite: false, id: '666' }])
   const [favorites, setFavorites] = useState([])
-
+  const [giftToExpand, setGiftToExpand] = useState({})
   const [open, setOpen] = useState(false);
 
-
-   
   const addGift = (gift) => {
     setGift([...gifts, gift])
     console.log(gifts, gift, 'GIIFTS AfTER ADD')
@@ -29,16 +27,17 @@ function App() {
 
   const giftsWithFavs = gifts.map(gift => ({ ...gift, isFavorite: favorites.includes(gift.id) }))
 
-  const handleClickOpen = () => {
+  const handleClickOpen = (gift) => {
+    setGiftToExpand(gift)
     setOpen(true);
   };
+
   const handleClose = () => {
     setOpen(false);
   };
 
 
   return (
-
     <BrowserRouter>
       <Menu>
         <Switch>
@@ -49,16 +48,25 @@ function App() {
               gifts={giftsWithFavs}
               toggleFavorite={toggleFavorite}
               handleClickOpen={handleClickOpen}
-              />
+            />
           </Route>
           <Route path='/charts' component={Charts} />
-          <Route path='/favorites'><Favorites gifts={giftsWithFavs} toggleFavorite={toggleFavorite} /></Route>
+          <Route path='/favorites'>
+            <Favorites
+              gifts={giftsWithFavs}
+              toggleFavorite={toggleFavorite}
+              handleClickOpen={handleClickOpen} />
+          </Route>
         </Switch>
-        <Dialog handleClickOpen={handleClickOpen} handleClose={handleClose} open={open}>
-      
+        <Dialog
+          handleClickOpen={handleClickOpen}
+          handleClose={handleClose}
+          open={open}
+          gift={giftToExpand}
+        >
+          <Gift item={giftToExpand} />
         </Dialog>
       </Menu>
-
     </BrowserRouter>
 
   );

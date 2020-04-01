@@ -7,11 +7,12 @@ const GiftList = function (props) {
 
     return (
         <Fragment>
-
             {gifts?.map((gift, i) => (
-              <Gift key={i} toggleFavorite={toggleFavorite} item={gift} handleClickOpen={handleClickOpen}/>
+              <Gift key={i}
+              toggleFavorite={toggleFavorite}
+              item={gift}
+              handleClickOpen={()=>handleClickOpen(gift)}/>
             ))}
-
         </Fragment>
       );
     };

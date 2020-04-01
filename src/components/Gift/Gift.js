@@ -97,7 +97,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Gift(props) {
-  const { toggleFavorite, handleClickOpen } = props;
+  const { toggleFavorite, handleClickOpen, item } = props;
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
@@ -150,7 +150,7 @@ export default function Gift(props) {
               [classes.expandOpen]: expanded,
             })}
             // onClick={handleExpandClick}
-            onClick={handleClickOpen}
+            onClick={()=>handleClickOpen(item)}
             aria-expanded={expanded}
             aria-label="show more"
           >
