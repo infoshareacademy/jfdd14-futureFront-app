@@ -37,8 +37,17 @@ const Addgift = (props) => {
         <Container fixed className="formContainer" >
             <form >
                 <h2>Dodaj swój prezent:</h2>
-                <Box width="30%"><TextField value={name} fullWidth color='secondary' onChange={e => handleChangeName(e)} id="standard-basic" label="Nazwa prezentu" style={{ paddingBottom: '3vh' }} /></Box>
-                <Box width='30%'><FormControl fullWidth color='secondary' style={{ paddingBottom: '3vh' }}>
+                <Box className='inputBox' width="30%"><TextField
+                    value={name}
+                    fullWidth
+                    color='secondary'
+                    onChange={e => handleChangeName(e)}
+                    id="standard-basic"
+                    label="Nazwa prezentu" /></Box>
+                <Box className='inputBox' width='30%'><FormControl
+                    fullWidth
+                    color='secondary'
+                    id="standard-basic">
                     <InputLabel id="demo-simple-select-label">Kategoria</InputLabel>
                     <Select
                         labelId="demo-simple-select-label"
@@ -51,20 +60,39 @@ const Addgift = (props) => {
                         <MenuItem value='Inne'>Inne</MenuItem>
                     </Select>
                 </FormControl></Box>
-                {<Box width="30%"><TextField value={photo} helperText="Adres URL, na przykład: 'https://picsum.photos/200'" fullWidth color='secondary' onChange={e => setPhoto(e.target.value)} id="standard-basic" label="Zdjęcie" style={{ paddingBottom: '3vh' }} /></Box>}
-                <Box width="30%"><TextField value={price} type='number' fullWidth color='secondary' onChange={e => setPrice(e.target.value)} id="standard-basic" label="Cena w dolarach" style={{ paddingBottom: '3vh' }} /></Box>
-                <Box width="30%"><TextField color='secondary'
+                <Box className='inputBox' width="30%"><TextField
+                    value={photo}
+                    helperText="Adres URL"
+                    fullWidth
+                    color='secondary'
+                    onChange={e => setPhoto(e.target.value)}
+                    id="standard-basic"
+                    label="Zdjęcie" /></Box>
+                <Box className='inputBox' width="30%"><TextField
+                    color='secondary'
+                    value={price}
+                    type='number'
+                    fullWidth
+                    onChange={e => setPrice(e.target.value)}
+                    id="standard-basic"
+                    label="Cena w dolarach" /></Box>
+                <Box className='inputBox' width="30%"><TextField
+                    color='secondary'
                     id="outlined-multiline-static"
                     label="Opis prezentu"
                     multiline
                     rows="4"
-                    style={{ paddingBottom: '3vh' }}
                     variant='outlined'
                     fullWidth
                     onChange={e => setDescription(e.target.value)}
                     value={description}
                 /></Box>
-                <Button variant="contained" disabled={!Boolean(name && category && photo && price && description)} color="secondary" onClick={addToList}>Dodaj!</Button>
+                <Button
+                    variant="contained"
+                    disabled={!Boolean(name && category && photo && price && description)}
+                    color="secondary"
+                    onClick={addToList}>Dodaj!
+                </Button>
                 {giftAddedText && <div className='giftAdded'>Prezent dodany pomyślnie! Znajdziesz go w zakładce Gifts </div>}
             </form>
         </Container>

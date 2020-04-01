@@ -14,13 +14,6 @@ form {
     color: rgb(230, 54, 142);
     font-size: 1.3rem;
 }
-.counter {
-    color: white;
-    background-color: rgb(230, 54, 142); 
-    border-radius: 10px;
-    font-size: 1.3rem;
-    display: inline-block;   
-}
 
 .formContainer {
     background-color: rgb(227, 188, 190);
@@ -28,4 +21,27 @@ form {
     padding: 1vh;
     box-shadow: 3px 7px 35px -4px rgba(0,0,0,0.45);
     border-radius: 2vh;
+}
+
+.inputBox {
+    padding-bottom: 5vh;
+    height: 20%;
+    margin: 2vh;
+    width: 100% !important;
+}
+
+@media (min-width: 450px) {
+    .inputBox {
+    width: 80% !important;
+    }
+}
+@media (min-width: 960px) {
+    .inputBox {
+    width: 60% !important;
+    }
+}
+@media (min-width: 1280px) {
+    .inputBox {
+    width: 50% !important;
+    }
 }
