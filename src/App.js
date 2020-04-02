@@ -20,11 +20,68 @@ function App() {
       description: "Cool Gift",
       isFavorite: false,
       id: "666"
+    },
+    {
+      name: "EXAMPLE GIFT",
+      category: "Sport",
+      photo: "dd",
+      price: "1000",
+      description: "Cool Gift",
+      isFavorite: false,
+      id: "666"
+    },
+    {
+      name: "EXAMPLE GIFT",
+      category: "Sport",
+      photo: "dd",
+      price: "1000",
+      description: "Cool Gift",
+      isFavorite: false,
+      id: "666"
+    },
+    {
+      name: "EXAMPLE GIFT",
+      category: "Sport",
+      photo: "dd",
+      price: "1000",
+      description: "Cool Gift",
+      isFavorite: false,
+      id: "666"
+    },
+    {
+      name: "EXAMPLE GIFT",
+      category: "Sport",
+      photo: "dd",
+      price: "1000",
+      description: "Cool Gift",
+      isFavorite: false,
+      id: "666"
+    },
+    {
+      name: "EXAMPLE GIFT",
+      category: "Sport",
+      photo: "dd",
+      price: "1000",
+      description: "Cool Gift",
+      isFavorite: false,
+      id: "666"
+    },
+    {
+      name: "EXAMPLE GIFT",
+      category: "Sport",
+      photo: "dd",
+      price: "1000",
+      description: "Cool Gift",
+      isFavorite: false,
+      id: "666"
     }
   ]);
   const [favorites, setFavorites] = useState([]);
   const [giftToExpand, setGiftToExpand] = useState({});
   const [open, setOpen] = useState(false);
+
+  const [page, setPage] = useState(0);
+  const [giftsPerPage, setGiftsPerPage] = useState(5);
 
   const addGift = gift => {
     setGift([...gifts, gift]);
@@ -53,6 +110,18 @@ function App() {
     setOpen(false);
   };
 
+  //pagination
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeGiftsPerPage = (event) => {
+    setGiftsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+
   return (
     <BrowserRouter>
       <Menu>
@@ -66,6 +135,10 @@ function App() {
               gifts={giftsWithFavs}
               toggleFavorite={toggleFavorite}
               handleClickOpen={handleClickOpen}
+              giftsPerPage={giftsPerPage}
+              handleChangeGiftsPerPage={handleChangeGiftsPerPage}
+              handleChangePage={handleChangePage}
+              page={page}
             />
           </Route>
           <Route path="/charts" component={Charts} />
