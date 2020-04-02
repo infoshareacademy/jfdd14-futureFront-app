@@ -65,8 +65,6 @@ function App() {
     setOpen(false);
   };
 
-  //pagination
-
   return (
     <BrowserRouter>
       <Menu>
