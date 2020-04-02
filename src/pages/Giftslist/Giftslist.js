@@ -11,7 +11,7 @@ const GiftList = function (props) {
   const handleChange = (e) => {
     setSearchInput(e.target.value);
   };
-  let {
+  const {
     gifts,
     toggleFavorite,
     handleClickOpen,
@@ -28,8 +28,6 @@ const GiftList = function (props) {
         style={{
           display: "flex",
           flexBasis: "100%",
-          position: "relative",
-          top: 10,
         }}
       >
         <TablePagination

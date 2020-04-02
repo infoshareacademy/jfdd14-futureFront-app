@@ -21,60 +21,6 @@ function App() {
       isFavorite: false,
       id: "666",
     },
-    {
-      name: "EXAMPLE GIFT",
-      category: "Sport",
-      photo: "dd",
-      price: "1000",
-      description: "Cool Gift",
-      isFavorite: false,
-      id: "666",
-    },
-    {
-      name: "EXAMPLE GIFT",
-      category: "Sport",
-      photo: "dd",
-      price: "1000",
-      description: "Cool Gift",
-      isFavorite: false,
-      id: "666",
-    },
-    {
-      name: "EXAMPLE GIFT",
-      category: "Sport",
-      photo: "dd",
-      price: "1000",
-      description: "Cool Gift",
-      isFavorite: false,
-      id: "666",
-    },
-    {
-      name: "EXAMPLE GIFT",
-      category: "Sport",
-      photo: "dd",
-      price: "1000",
-      description: "Cool Gift",
-      isFavorite: false,
-      id: "666",
-    },
-    {
-      name: "EXAMPLE GIFT",
-      category: "Sport",
-      photo: "dd",
-      price: "1000",
-      description: "Cool Gift",
-      isFavorite: false,
-      id: "666",
-    },
-    {
-      name: "EXAMPLE GIFT",
-      category: "Sport",
-      photo: "dd",
-      price: "1000",
-      description: "Cool Gift",
-      isFavorite: false,
-      id: "666",
-    },
   ]);
   const [favorites, setFavorites] = useState([]);
   const [giftToExpand, setGiftToExpand] = useState({});
@@ -82,6 +28,10 @@ function App() {
 
   const [page, setPage] = useState(0);
   const [giftsPerPage, setGiftsPerPage] = useState(5);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
 
   const addGift = (gift) => {
     setGift([...gifts, gift]);
@@ -111,10 +61,6 @@ function App() {
   };
 
   //pagination
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
 
   const handleChangeGiftsPerPage = (event) => {
     setGiftsPerPage(parseInt(event.target.value, 10));

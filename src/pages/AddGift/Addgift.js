@@ -17,6 +17,8 @@ const Addgift = (props) => {
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const [giftAddedText, setGiftAddedText] = useState(false);
+  const id = Date.now();
+  const isFavorite = false;
 
   const handleChangeName = (e) => {
     setName(e.target.value);
@@ -24,7 +26,15 @@ const Addgift = (props) => {
   };
 
   const addToList = () => {
-    props.addGift({ name, category, photo, price, description });
+    props.addGift({
+      name,
+      category,
+      photo,
+      price,
+      description,
+      id,
+      isFavorite,
+    });
     setName("");
     setCategory("Inne");
     setPhoto("");
