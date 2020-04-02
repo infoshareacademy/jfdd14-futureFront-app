@@ -1,36 +1,52 @@
-import React, { Fragment, useState } from "react";
-import TextField from "@material-ui/core/TextField";
-
-import Container from "@material-ui/core/Container";
+import React, { Fragment } from "react";
 import Gift from "../../components/Gift/Gift";
-const Giftlist = function (props) {
-  const [searchInput, setSearchInput] = useState("");
-  let gifts = props.gifts;
-  const handleChange = (e) => {
-    setSearchInput(e.target.value);
-  };
+import TablePagination from "@material-ui/core/TablePagination";
+
+const GiftList = function (props) {
+  let {
+    gifts,
+    toggleFavorite,
+    handleClickOpen,
+    giftsPerPage,
+    handleChangeGiftsPerPage,
+    handleChangePage,
+    page,
+  } = props;
+
   return (
     <Fragment>
-      <h1>
-        <TextField onChange={handleChange}></TextField>
-      </h1>
-      <Container display="flex">
-        {gifts
-          ? gifts
-              .filter(
-                (gift) =>
-                  gift.name
-                    .toLowerCase()
-                    .includes(searchInput.toLocaleLowerCase()) ||
-                  gift.category
-                    .toLowerCase()
-                    .includes(searchInput.toLocaleLowerCase())
-              )
-              .map((e, i) => <Gift key={i} id={i} item={e} />)
-          : null}
-      </Container>
+      <div
+        style={{
+          display: "flex",
+          flexBasis: "100%",
+          position: "relative",
+          top: 10,
+        }}
+      >
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25]}
+          labelRowsPerPage="Gifts"
+          component="div"
+          count={gifts.length}
+          rowsPerPage={giftsPerPage}
+          page={page}
+          onChangePage={handleChangePage}
+          onChangeRowsPerPage={handleChangeGiftsPerPage}
+          align="left"
+        />
+      </div>
+      {gifts
+        ?.slice(page * giftsPerPage, page * giftsPerPage + giftsPerPage)
+        .map((gift, i) => (
+          <Gift
+            key={i}
+            toggleFavorite={toggleFavorite}
+            item={gift}
+            handleClickOpen={() => handleClickOpen(gift)}
+          />
+        ))}
     </Fragment>
   );
 };
 
-export default Giftlist;
+export default GiftList;
