@@ -1,8 +1,13 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import Gift from "../../components/Gift/Gift";
 import TablePagination from "@material-ui/core/TablePagination";
+import TextField from "@material-ui/core/TextField";
 
 const GiftList = function (props) {
+  const [searchInput, setSearchInput] = useState("");
+  const handleChange = (e) => {
+    setSearchInput(e.target.value);
+  };
   let {
     gifts,
     toggleFavorite,
@@ -23,6 +28,7 @@ const GiftList = function (props) {
           top: 10,
         }}
       >
+        <TextField onChange={handleChange}></TextField>
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           labelRowsPerPage="Gifts"
@@ -37,6 +43,13 @@ const GiftList = function (props) {
       </div>
       {gifts
         ?.slice(page * giftsPerPage, page * giftsPerPage + giftsPerPage)
+        .filter(
+          (gift) =>
+            gift.name.toLowerCase().includes(searchInput.toLocaleLowerCase()) ||
+            gift.category
+              .toLowerCase()
+              .includes(searchInput.toLocaleLowerCase())
+        )
         .map((gift, i) => (
           <Gift
             key={i}

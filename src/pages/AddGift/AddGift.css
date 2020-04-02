@@ -14,7 +14,7 @@ form {
 
 .giftAdded {
   display: inline-block;
-  padding: 2vh;
+  padding: 1vh;
   font-weight: bold;
   color: rgb(230, 54, 142);
   font-size: 1.3rem;
@@ -26,18 +26,15 @@ form {
   align-items: space-around;
   justify-content: space-around;
   background-color: rgb(227, 188, 190);
-  height: 75vh;
+  height: 85vh;
   padding: 1vh;
   box-shadow: 3px 7px 35px -4px rgba(0, 0, 0, 0.45);
   border-radius: 2vh;
 }
 
-/* .inputBox {
-    padding-bottom: 5vh;
-    height: 20%;
-    margin: 2vh;
-    width: 80% !important;
-} */
+#outlined-multiline-static {
+  padding-bottom: 5vh !important;
+}
 
 /* @media (min-width: 450px) {
     .inputBox {

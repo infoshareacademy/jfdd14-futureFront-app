@@ -65,7 +65,7 @@ const Addgift = (props) => {
 
           <TextField
             value={photo}
-            helperText="Adres URL"
+            placeholder="Adres URL"
             fullWidth
             color="secondary"
             onChange={(e) => setPhoto(e.target.value)}
@@ -81,6 +81,7 @@ const Addgift = (props) => {
             onChange={(e) => setPrice(e.target.value)}
             id="standard-basic"
             label="Cena w dolarach"
+            style={{ paddingBottom: "2vh" }}
           />
 
           <TextField
@@ -93,9 +94,11 @@ const Addgift = (props) => {
             fullWidth
             onChange={(e) => setDescription(e.target.value)}
             value={description}
+            style={{ paddingBottom: "2vh" }}
           />
 
           <Button
+            className="addGiftButton"
             variant="contained"
             disabled={
               !Boolean(name && category && photo && price && description)
