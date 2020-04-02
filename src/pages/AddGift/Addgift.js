@@ -9,21 +9,31 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import "./AddGift.css";
 
-const Addgift = props => {
+const Addgift = (props) => {
   const [name, setName] = useState("");
   const [category, setCategory] = useState("Inne");
   const [photo, setPhoto] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const [giftAddedText, setGiftAddedText] = useState(false);
+  const id = Date.now();
+  const isFavorite = false;
 
-  const handleChangeName = e => {
+  const handleChangeName = (e) => {
     setName(e.target.value);
     setGiftAddedText(false);
   };
 
   const addToList = () => {
-    props.addGift({ name, category, photo, price, description });
+    props.addGift({
+      name,
+      category,
+      photo,
+      price,
+      description,
+      id,
+      isFavorite,
+    });
     setName("");
     setCategory("Inne");
     setPhoto("");
@@ -41,7 +51,7 @@ const Addgift = props => {
             value={name}
             fullWidth
             color="secondary"
-            onChange={e => handleChangeName(e)}
+            onChange={(e) => handleChangeName(e)}
             id="standard-basic"
             label="Nazwa prezentu"
           />
@@ -53,7 +63,7 @@ const Addgift = props => {
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               value={category}
-              onChange={e => setCategory(e.target.value)}
+              onChange={(e) => setCategory(e.target.value)}
             >
               <MenuItem value="Sport">Sport</MenuItem>
               <MenuItem value="Muzyka">Muzyka</MenuItem>
@@ -67,7 +77,7 @@ const Addgift = props => {
             helperText="Adres URL"
             fullWidth
             color="secondary"
-            onChange={e => setPhoto(e.target.value)}
+            onChange={(e) => setPhoto(e.target.value)}
             id="standard-basic"
             label="Zdjęcie"
           />
@@ -78,7 +88,7 @@ const Addgift = props => {
             value={price}
             type="number"
             fullWidth
-            onChange={e => setPrice(e.target.value)}
+            onChange={(e) => setPrice(e.target.value)}
             id="standard-basic"
             label="Cena w dolarach"
           />
@@ -92,7 +102,7 @@ const Addgift = props => {
             rows="4"
             variant="outlined"
             fullWidth
-            onChange={e => setDescription(e.target.value)}
+            onChange={(e) => setDescription(e.target.value)}
             value={description}
           />
         </Box>
