@@ -3,7 +3,7 @@ import Gift from "../../components/Gift/Gift";
 import TablePagination from "@material-ui/core/TablePagination";
 
 const GiftList = function (props) {
-  let {
+  const {
     gifts,
     toggleFavorite,
     handleClickOpen,
@@ -19,8 +19,6 @@ const GiftList = function (props) {
         style={{
           display: "flex",
           flexBasis: "100%",
-          position: "relative",
-          top: 10,
         }}
       >
         <TablePagination
