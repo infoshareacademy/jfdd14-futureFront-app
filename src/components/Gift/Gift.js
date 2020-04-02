@@ -15,29 +15,30 @@ import Typography from "@material-ui/core/Typography";
 import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
+import Button from "@material-ui/core/Button";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: "auto"
+    maxWidth: "auto",
     // height: 400,
   },
   media: {
     height: 0,
-    paddingTop: "56.25%" // 16:9
+    paddingTop: "56.25%", // 16:9
   },
   expand: {
     transform: "rotate(0deg)",
     marginLeft: "auto",
     transition: theme.transitions.create("transform", {
-      duration: theme.transitions.duration.shortest
-    })
+      duration: theme.transitions.duration.shortest,
+    }),
   },
   expandOpen: {
-    transform: "rotate(180deg)"
+    transform: "rotate(180deg)",
   },
   avatar: {
-    backgroundColor: red[500]
-  }
+    backgroundColor: red[500],
+  },
 }));
 
 export default function Gift(props) {
@@ -82,12 +83,15 @@ export default function Gift(props) {
           <IconButton aria-label="share">
             <ShareIcon />
           </IconButton>
-          <IconButton
+
+          <Button
             className={clsx(classes.expand, {})}
             onClick={() => handleClickOpen(item)}
           >
-            <ExpandMoreIcon />
-          </IconButton>
+            <Button size="small" variant="contained" color="secondary">
+              Description
+            </Button>
+          </Button>
         </CardActions>
       </Card>
     </Grid>
