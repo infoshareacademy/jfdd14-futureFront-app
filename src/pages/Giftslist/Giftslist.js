@@ -2,9 +2,12 @@ import React, { Fragment, useState } from "react";
 import Gift from "../../components/Gift/Gift";
 import TablePagination from "@material-ui/core/TablePagination";
 import TextField from "@material-ui/core/TextField";
+import Searchbar from "../../components/Searchbar/Searchbar";
+import { NoResults } from "../../components/NoResults/NoResults";
 
 const GiftList = function (props) {
   const [searchInput, setSearchInput] = useState("");
+  const [isEmpty, setIsEmtpy] = useState(false);
   const handleChange = (e) => {
     setSearchInput(e.target.value);
   };
@@ -20,6 +23,7 @@ const GiftList = function (props) {
 
   return (
     <Fragment>
+      <Searchbar handleChange={handleChange} />
       <div
         style={{
           display: "flex",
@@ -28,7 +32,6 @@ const GiftList = function (props) {
           top: 10,
         }}
       >
-        <TextField onChange={handleChange}></TextField>
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           labelRowsPerPage="Gifts"
