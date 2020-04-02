@@ -7,6 +7,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
+import Grid from "@material-ui/core/Grid";
 import "./AddGift.css";
 
 const Addgift = (props) => {
@@ -43,20 +44,21 @@ const Addgift = (props) => {
   };
 
   return (
-    <Container fixed className="formContainer">
-      <form>
-        <h2>Dodaj swój prezent:</h2>
-        <Box className="inputBox" width="30%">
-          <TextField
-            value={name}
-            fullWidth
-            color="secondary"
-            onChange={(e) => handleChangeName(e)}
-            id="standard-basic"
-            label="Nazwa prezentu"
-          />
-        </Box>
-        <Box className="inputBox" width="30%">
+    <Grid item xs={10} sm={10} md={8} lg={6} justify-content="center">
+      <Container fixed className="formContainer">
+        <form>
+          <h2>Dodaj swój prezent:</h2>
+          <Box color="text.primary" clone>
+            <TextField
+              value={name}
+              fullWidth
+              color="secondary"
+              onChange={(e) => handleChangeName(e)}
+              id="standard-basic"
+              label="Nazwa prezentu"
+            />
+          </Box>
+
           <FormControl fullWidth color="secondary" id="standard-basic">
             <InputLabel id="demo-simple-select-label">Kategoria</InputLabel>
             <Select
@@ -70,19 +72,17 @@ const Addgift = (props) => {
               <MenuItem value="Inne">Inne</MenuItem>
             </Select>
           </FormControl>
-        </Box>
-        <Box className="inputBox" width="30%">
+
           <TextField
             value={photo}
-            helperText="Adres URL"
+            placeholder="Adres URL"
             fullWidth
             color="secondary"
             onChange={(e) => setPhoto(e.target.value)}
             id="standard-basic"
             label="Zdjęcie"
           />
-        </Box>
-        <Box className="inputBox" width="30%">
+
           <TextField
             color="secondary"
             value={price}
@@ -91,9 +91,9 @@ const Addgift = (props) => {
             onChange={(e) => setPrice(e.target.value)}
             id="standard-basic"
             label="Cena w dolarach"
+            style={{ paddingBottom: "2vh" }}
           />
-        </Box>
-        <Box className="inputBox" width="30%">
+
           <TextField
             color="secondary"
             id="outlined-multiline-static"
@@ -104,23 +104,28 @@ const Addgift = (props) => {
             fullWidth
             onChange={(e) => setDescription(e.target.value)}
             value={description}
+            style={{ paddingBottom: "2vh" }}
           />
-        </Box>
-        <Button
-          variant="contained"
-          disabled={!Boolean(name && category && photo && price && description)}
-          color="secondary"
-          onClick={addToList}
-        >
-          Dodaj!
-        </Button>
-        {giftAddedText && (
-          <div className="giftAdded">
-            Prezent dodany pomyślnie! Znajdziesz go w zakładce Gifts{" "}
-          </div>
-        )}
-      </form>
-    </Container>
+
+          <Button
+            className="addGiftButton"
+            variant="contained"
+            disabled={
+              !Boolean(name && category && photo && price && description)
+            }
+            color="secondary"
+            onClick={addToList}
+          >
+            Dodaj!
+          </Button>
+          {giftAddedText && (
+            <div className="giftAdded">
+              Prezent dodany pomyślnie! Znajdziesz go w zakładce Gifts{" "}
+            </div>
+          )}
+        </form>
+      </Container>
+    </Grid>
   );
 };
 

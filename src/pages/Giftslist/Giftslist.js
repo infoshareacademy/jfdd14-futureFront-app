@@ -1,8 +1,16 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import Gift from "../../components/Gift/Gift";
 import TablePagination from "@material-ui/core/TablePagination";
+import TextField from "@material-ui/core/TextField";
+import Searchbar from "../../components/Searchbar/Searchbar";
+import { NoResults } from "../../components/NoResults/NoResults";
 
 const GiftList = function (props) {
+  const [searchInput, setSearchInput] = useState("");
+  const [isEmpty, setIsEmtpy] = useState(false);
+  const handleChange = (e) => {
+    setSearchInput(e.target.value);
+  };
   const {
     gifts,
     toggleFavorite,
@@ -15,6 +23,7 @@ const GiftList = function (props) {
 
   return (
     <Fragment>
+      <Searchbar handleChange={handleChange} />
       <div
         style={{
           display: "flex",
@@ -35,6 +44,13 @@ const GiftList = function (props) {
       </div>
       {gifts
         ?.slice(page * giftsPerPage, page * giftsPerPage + giftsPerPage)
+        .filter(
+          (gift) =>
+            gift.name.toLowerCase().includes(searchInput.toLocaleLowerCase()) ||
+            gift.category
+              .toLowerCase()
+              .includes(searchInput.toLocaleLowerCase())
+        )
         .map((gift, i) => (
           <Gift
             key={i}
