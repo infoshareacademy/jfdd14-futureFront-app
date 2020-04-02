@@ -19,32 +19,44 @@ function App() {
       price: "1000",
       description: "Cool Gift",
       isFavorite: false,
-      id: "666"
-    }
+      id: "666",
+    },
   ]);
   const [favorites, setFavorites] = useState([]);
   const [giftToExpand, setGiftToExpand] = useState({});
   const [open, setOpen] = useState(false);
 
-  const addGift = gift => {
+  const [page, setPage] = useState(0);
+  const [giftsPerPage, setGiftsPerPage] = useState(5);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeGiftsPerPage = (event) => {
+    setGiftsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  const addGift = (gift) => {
     setGift([...gifts, gift]);
     console.log(gifts, gift, "GIIFTS AfTER ADD");
   };
 
-  const toggleFavorite = giftId => {
-    setFavorites(favorites =>
+  const toggleFavorite = (giftId) => {
+    setFavorites((favorites) =>
       favorites.includes(giftId)
-        ? favorites.filter(id => id !== giftId)
+        ? favorites.filter((id) => id !== giftId)
         : [...favorites, giftId]
     );
   };
 
-  const giftsWithFavs = gifts.map(gift => ({
+  const giftsWithFavs = gifts.map((gift) => ({
     ...gift,
-    isFavorite: favorites.includes(gift.id)
+    isFavorite: favorites.includes(gift.id),
   }));
 
-  const handleClickOpen = gift => {
+  const handleClickOpen = (gift) => {
     setGiftToExpand(gift);
     setOpen(true);
   };
@@ -52,6 +64,8 @@ function App() {
   const handleClose = () => {
     setOpen(false);
   };
+
+  //pagination
 
   return (
     <BrowserRouter>
@@ -66,6 +80,10 @@ function App() {
               gifts={giftsWithFavs}
               toggleFavorite={toggleFavorite}
               handleClickOpen={handleClickOpen}
+              giftsPerPage={giftsPerPage}
+              handleChangeGiftsPerPage={handleChangeGiftsPerPage}
+              handleChangePage={handleChangePage}
+              page={page}
             />
           </Route>
           <Route path="/charts" component={Charts} />
