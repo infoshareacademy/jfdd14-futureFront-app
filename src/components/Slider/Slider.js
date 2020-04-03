@@ -19,13 +19,6 @@ export default function CustomizedSlider() {
 
   return (
     <div className={classes.root}>
-      <Typography gutterBottom>iOS</Typography>
-      <IOSSlider
-        aria-label="ios slider"
-        defaultValue={60}
-        marks={marks}
-        valueLabelDisplay="on"
-      />
       <div className={classes.margin} />
       <Typography gutterBottom>pretto.fr</Typography>
       <PrettoSlider
@@ -34,21 +27,7 @@ export default function CustomizedSlider() {
         defaultValue={20}
       />
       <div className={classes.margin} />
-      <Typography gutterBottom>Tooltip value label</Typography>
-      <Slider
-        ValueLabelComponent={ValueLabelComponent}
-        aria-label="custom thumb label"
-        defaultValue={20}
-      />
       <div className={classes.margin} />
-      <Typography gutterBottom>Airbnb</Typography>
-      <AirbnbSlider
-        ThumbComponent={AirbnbThumbComponent}
-        getAriaLabel={(index) =>
-          index === 0 ? "Minimum price" : "Maximum price"
-        }
-        defaultValue={[20, 40]}
-      />
     </div>
   );
 }

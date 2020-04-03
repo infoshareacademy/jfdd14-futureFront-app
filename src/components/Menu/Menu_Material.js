@@ -48,6 +48,8 @@ const useStyles = makeStyles((theme) => ({
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
     width: drawerWidth,
+    // background:  '#FE6B8B',
+    background: "linear-gradient(180deg, #FE6B8B 40%, #f73378 90%)",
   },
   content: {
     flexGrow: 1,

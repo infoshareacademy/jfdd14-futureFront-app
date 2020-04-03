@@ -46,7 +46,7 @@ export default function Gift(props) {
   const classes = useStyles();
 
   return (
-    <Grid item xs={10} sm={6} md={4} lg={3} mr={0} justify-content="center">
+    <Grid item xs={10} sm={8} md={4} lg={3} mr={0} justify-content="center">
       <Card className={classes.root}>
         <CardHeader
           avatar={

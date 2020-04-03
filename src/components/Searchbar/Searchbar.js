@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    width: 400,
+    minWidth: 320,
     height: "auto",
   },
   input: {
