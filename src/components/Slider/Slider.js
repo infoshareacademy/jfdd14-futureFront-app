@@ -1,9 +1,7 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Slider from "@material-ui/core/Slider";
 import Typography from "@material-ui/core/Typography";
-import Tooltip from "@material-ui/core/Tooltip";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,7 +32,7 @@ export default function CustomizedSlider() {
 
 const PrettoSlider = withStyles({
   root: {
-    color: "#52af77",
+    color: "rgb(227, 188, 190)",
     height: 8,
   },
   thumb: {
