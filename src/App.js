@@ -59,7 +59,10 @@ function App() {
   const handleClose = () => {
     setOpen(false);
   };
-
+  const handleChangeGiftsPerPage = (event) => {
+    setGiftsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
   return (
     <BrowserRouter>
       <Menu>
