@@ -4,6 +4,7 @@ import TablePagination from "@material-ui/core/TablePagination";
 import TextField from "@material-ui/core/TextField";
 import Searchbar from "../../components/Searchbar/Searchbar";
 import { NoResults } from "../../components/NoResults/NoResults";
+import CustomizedSlider from "../../components/Slider/Slider";
 
 const GiftList = function (props) {
   const [searchInput, setSearchInput] = useState("");
@@ -24,6 +25,8 @@ const GiftList = function (props) {
   return (
     <Fragment>
       <Searchbar handleChange={handleChange} />
+      <CustomizedSlider />
+
       <div
         style={{
           display: "flex",
