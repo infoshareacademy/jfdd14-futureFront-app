@@ -10,7 +10,7 @@ import Grid from "@material-ui/core/Grid";
 const GiftList = function (props) {
   const [searchInput, setSearchInput] = useState("");
   const [isEmpty, setIsEmtpy] = useState(false);
-  const [sliderInput, setSliderInput] = useState(0);
+  const [sliderInput, setSliderInput] = useState([0, 200]);
   const handleChange = (e) => {
     setSearchInput(e.target.value);
   };
@@ -68,12 +68,12 @@ const GiftList = function (props) {
               .toLowerCase()
               .includes(searchInput.toLocaleLowerCase())
         )
-        .filter((gift) =>
-          gift
-            ? Number(gift.price) >= Number(sliderInput[0]) &&
-              Number(gift.price) < Number(sliderInput[1])
-            : null
+        .filter(
+          (gift) =>
+            Number(gift.price) >= Number(sliderInput[0]) &&
+            Number(gift.price) < Number(sliderInput[1])
         )
+
         .map((gift, i) => (
           <Gift
             key={i}

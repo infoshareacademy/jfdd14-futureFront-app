@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function CustomizedSlider(props) {
-  const [value, setValue] = useState([0, 199]);
+  const [value, setValue] = useState([0, 200]);
   const classes = useStyles();
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -28,6 +28,7 @@ export default function CustomizedSlider(props) {
         aria-label="pretto slider"
         value={value}
         onChange={handleChange}
+        max="200"
       />
       <div className={classes.margin} />
       <div className={classes.margin} />
