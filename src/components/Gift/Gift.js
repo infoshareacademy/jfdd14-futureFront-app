@@ -15,6 +15,7 @@ import Typography from "@material-ui/core/Typography";
 import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -82,12 +83,15 @@ export default function Gift(props) {
           <IconButton aria-label="share">
             <ShareIcon />
           </IconButton>
-          <IconButton
+
+          <Button
             className={clsx(classes.expand, {})}
             onClick={() => handleClickOpen(item)}
           >
-            <ExpandMoreIcon />
-          </IconButton>
+            <Button size="small" variant="contained" color="secondary">
+              Description
+            </Button>
+          </Button>
         </CardActions>
       </Card>
     </Grid>
