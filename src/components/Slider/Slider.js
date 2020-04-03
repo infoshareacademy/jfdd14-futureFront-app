@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Slider from "@material-ui/core/Slider";
 import Typography from "@material-ui/core/Typography";
@@ -12,17 +12,22 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CustomizedSlider() {
+export default function CustomizedSlider(props) {
+  const [value, setValue] = useState([0, 199]);
   const classes = useStyles();
-
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+    props.handleSlider(newValue);
+  };
   return (
     <div className={classes.root}>
       <div className={classes.margin} />
-      <Typography gutterBottom>pretto.fr</Typography>
+      <Typography gutterBottom>Zakres ceny:</Typography>
       <PrettoSlider
         valueLabelDisplay="auto"
         aria-label="pretto slider"
-        defaultValue={20}
+        value={value}
+        onChange={handleChange}
       />
       <div className={classes.margin} />
       <div className={classes.margin} />

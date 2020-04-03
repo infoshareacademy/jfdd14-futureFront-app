@@ -10,8 +10,13 @@ import Grid from "@material-ui/core/Grid";
 const GiftList = function (props) {
   const [searchInput, setSearchInput] = useState("");
   const [isEmpty, setIsEmtpy] = useState(false);
+  const [sliderInput, setSliderInput] = useState(0);
   const handleChange = (e) => {
     setSearchInput(e.target.value);
+  };
+  const handleSlider = (value) => {
+    setSliderInput(value);
+    console.log(sliderInput);
   };
   const {
     gifts,
@@ -37,7 +42,7 @@ const GiftList = function (props) {
           <Searchbar handleChange={handleChange} />
         </Grid>
         <Grid item xs={10} sm={10} md={4} lg={3} justify-content="center">
-          <CustomizedSlider />
+          <CustomizedSlider handleSlider={handleSlider} />
         </Grid>
         <Grid item xs={10} sm={10} md={4} lg={3} justify-content="center">
           <TablePagination
@@ -62,6 +67,12 @@ const GiftList = function (props) {
             gift.category
               .toLowerCase()
               .includes(searchInput.toLocaleLowerCase())
+        )
+        .filter((gift) =>
+          gift
+            ? Number(gift.price) >= Number(sliderInput[0]) &&
+              Number(gift.price) < Number(sliderInput[1])
+            : null
         )
         .map((gift, i) => (
           <Gift

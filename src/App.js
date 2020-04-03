@@ -16,7 +16,7 @@ function App() {
       name: "EXAMPLE GIFT",
       category: "Sport",
       photo: "dd",
-      price: "1000",
+      price: "30",
       description: "Cool Gift",
       isFavorite: false,
       id: "666",
