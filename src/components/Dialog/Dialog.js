@@ -8,6 +8,7 @@ import MuiDialogActions from "@material-ui/core/DialogActions";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import Typography from "@material-ui/core/Typography";
+import FavoriteIcon from "@material-ui/icons/Favorite";
 
 const styles = (theme) => ({
   root: {
@@ -80,6 +81,9 @@ export default function CustomizedDialogs({ handleClose, open, gift }) {
           </Typography>
         </DialogContent>
         <DialogActions>
+          <IconButton aria-label="add to favorites">
+            <FavoriteIcon />
+          </IconButton>
           <Button autoFocus onClick={handleClose} color="primary">
             Close
           </Button>
