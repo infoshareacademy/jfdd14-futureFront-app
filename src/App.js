@@ -33,6 +33,11 @@ function App() {
     setPage(newPage);
   };
 
+  const handleChangeGiftsPerPage = (event) => {
+    setGiftsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
   const addGift = (gift) => {
     setGift([...gifts, gift]);
     console.log(gifts, gift, "GIIFTS AfTER ADD");
