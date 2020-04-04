@@ -15,24 +15,7 @@ const GiftList = function (props) {
   const handleSlider = (value) => {
     setSliderInput(value);
   };
-  /* const searchBarFilter = (inputValue) => {
-    gifts2
-      .slice(page * giftsPerPage, page * giftsPerPage + giftsPerPage)
-      .filter(
-        (gift) =>
-          gift.name.toLowerCase().includes(inputValue.toLocaleLowerCase()) ||
-          gift.category.toLowerCase().includes(inputValue.toLocaleLowerCase())
-      );
-  }; */
-  /* const sliderFilter = (inputValue) => {
-    filteredArr = gifts
-      .slice(page * giftsPerPage, page * giftsPerPage + giftsPerPage)
-      .filter(
-        (gift) =>
-          Number(gift.price) >= Number(inputValue[0]) &&
-          Number(gift.price) < Number(inputValue[1])
-      );
-  }; */
+
   const {
     gifts,
     toggleFavorite,
