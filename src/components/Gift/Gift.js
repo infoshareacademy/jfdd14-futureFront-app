@@ -68,7 +68,7 @@ export default function Gift(props) {
         />
         <CardContent>
           <Typography variant="body2" color="textSecondary" component="p">
-            Short Description
+            Kategoria: {props.item.category}
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
