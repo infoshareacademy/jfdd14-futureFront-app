@@ -1,22 +1,36 @@
 import React, { Fragment, useState } from "react";
 import Gift from "../../components/Gift/Gift";
 import TablePagination from "@material-ui/core/TablePagination";
-import TextField from "@material-ui/core/TextField";
 import Searchbar from "../../components/Searchbar/Searchbar";
 import { NoResults } from "../../components/NoResults/NoResults";
 import CustomizedSlider from "../../components/Slider/Slider";
 import Grid from "@material-ui/core/Grid";
-
+let filteredArr = ["dummy"];
 const GiftList = function (props) {
   const [searchInput, setSearchInput] = useState("");
-  const [isEmpty, setIsEmtpy] = useState(false);
   const [sliderInput, setSliderInput] = useState([0, 200]);
   const handleChange = (e) => {
     setSearchInput(e.target.value);
+    giftsFilter();
   };
   const handleSlider = (value) => {
     setSliderInput(value);
-    console.log(sliderInput);
+    giftsFilter();
+  };
+
+  const giftsFilter = () => {
+    filteredArr = gifts
+      .slice(page * giftsPerPage, page * giftsPerPage + giftsPerPage)
+      .filter(
+        (gift) =>
+          gift.name.toLowerCase().includes(searchInput.toLocaleLowerCase()) ||
+          gift.category.toLowerCase().includes(searchInput.toLocaleLowerCase())
+      )
+      .filter(
+        (gift) =>
+          Number(gift.price) >= Number(sliderInput[0]) &&
+          Number(gift.price) < Number(sliderInput[1])
+      );
   };
   const {
     gifts,
@@ -59,29 +73,19 @@ const GiftList = function (props) {
           />
         </Grid>
       </div>
-      {gifts
-        ?.slice(page * giftsPerPage, page * giftsPerPage + giftsPerPage)
-        .filter(
-          (gift) =>
-            gift.name.toLowerCase().includes(searchInput.toLocaleLowerCase()) ||
-            gift.category
-              .toLowerCase()
-              .includes(searchInput.toLocaleLowerCase())
-        )
-        .filter(
-          (gift) =>
-            Number(gift.price) >= Number(sliderInput[0]) &&
-            Number(gift.price) < Number(sliderInput[1])
-        )
 
-        .map((gift, i) => (
+      {filteredArr.length > 0 ? (
+        gifts.map((gift, i) => (
           <Gift
             key={i}
             toggleFavorite={toggleFavorite}
             item={gift}
             handleClickOpen={() => handleClickOpen(gift)}
           />
-        ))}
+        ))
+      ) : (
+        <NoResults />
+      )}
     </Fragment>
   );
 };

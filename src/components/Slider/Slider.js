@@ -25,10 +25,10 @@ export default function CustomizedSlider(props) {
       <Typography gutterBottom>Zakres ceny:</Typography>
       <PrettoSlider
         valueLabelDisplay="auto"
-        aria-label="pretto slider"
+        getAriaLabel={() => "slider"}
         value={value}
         onChange={handleChange}
-        max="200"
+        max={200}
       />
       <div className={classes.margin} />
       <div className={classes.margin} />
