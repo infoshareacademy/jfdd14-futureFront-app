@@ -5,33 +5,34 @@ import Searchbar from "../../components/Searchbar/Searchbar";
 import { NoResults } from "../../components/NoResults/NoResults";
 import CustomizedSlider from "../../components/Slider/Slider";
 import Grid from "@material-ui/core/Grid";
-let filteredArr = ["dummy"];
+
 const GiftList = function (props) {
   const [searchInput, setSearchInput] = useState("");
   const [sliderInput, setSliderInput] = useState([0, 200]);
   const handleChange = (e) => {
     setSearchInput(e.target.value);
-    giftsFilter();
   };
   const handleSlider = (value) => {
     setSliderInput(value);
-    giftsFilter();
   };
-
-  const giftsFilter = () => {
+  /* const searchBarFilter = (inputValue) => {
+    gifts2
+      .slice(page * giftsPerPage, page * giftsPerPage + giftsPerPage)
+      .filter(
+        (gift) =>
+          gift.name.toLowerCase().includes(inputValue.toLocaleLowerCase()) ||
+          gift.category.toLowerCase().includes(inputValue.toLocaleLowerCase())
+      );
+  }; */
+  /* const sliderFilter = (inputValue) => {
     filteredArr = gifts
       .slice(page * giftsPerPage, page * giftsPerPage + giftsPerPage)
       .filter(
         (gift) =>
-          gift.name.toLowerCase().includes(searchInput.toLocaleLowerCase()) ||
-          gift.category.toLowerCase().includes(searchInput.toLocaleLowerCase())
-      )
-      .filter(
-        (gift) =>
-          Number(gift.price) >= Number(sliderInput[0]) &&
-          Number(gift.price) < Number(sliderInput[1])
+          Number(gift.price) >= Number(inputValue[0]) &&
+          Number(gift.price) < Number(inputValue[1])
       );
-  };
+  }; */
   const {
     gifts,
     toggleFavorite,
@@ -74,15 +75,43 @@ const GiftList = function (props) {
         </Grid>
       </div>
 
-      {filteredArr.length > 0 ? (
-        gifts.map((gift, i) => (
-          <Gift
-            key={i}
-            toggleFavorite={toggleFavorite}
-            item={gift}
-            handleClickOpen={() => handleClickOpen(gift)}
-          />
-        ))
+      {gifts.filter(
+        (gift) =>
+          gift.name.toLowerCase().includes(searchInput.toLocaleLowerCase()) ||
+          gift.category.toLowerCase().includes(searchInput.toLocaleLowerCase())
+      ).length > 0 &&
+      gifts
+        .slice(page * giftsPerPage, page * giftsPerPage + giftsPerPage)
+        .filter(
+          (gift) =>
+            Number(gift.price) >= Number(sliderInput[0]) &&
+            Number(gift.price) < Number(sliderInput[1])
+        ).length > 0 ? (
+        gifts
+          .slice(page * giftsPerPage, page * giftsPerPage + giftsPerPage)
+          .filter(
+            (gift) =>
+              gift.name
+                .toLowerCase()
+                .includes(searchInput.toLocaleLowerCase()) ||
+              gift.category
+                .toLowerCase()
+                .includes(searchInput.toLocaleLowerCase())
+          )
+          .slice(page * giftsPerPage, page * giftsPerPage + giftsPerPage)
+          .filter(
+            (gift) =>
+              Number(gift.price) >= Number(sliderInput[0]) &&
+              Number(gift.price) < Number(sliderInput[1])
+          )
+          .map((gift, i) => (
+            <Gift
+              key={i}
+              toggleFavorite={toggleFavorite}
+              item={gift}
+              handleClickOpen={() => handleClickOpen(gift)}
+            />
+          ))
       ) : (
         <NoResults />
       )}

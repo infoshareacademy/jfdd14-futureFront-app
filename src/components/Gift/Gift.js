@@ -63,8 +63,8 @@ export default function Gift(props) {
         />
         <CardMedia
           className={classes.media}
-          image="https://picsum.photos/200"
-          title="Paella dish"
+          image={props.item.photo}
+          title="Gift photo"
         />
         <CardContent>
           <Typography variant="body2" color="textSecondary" component="p">
