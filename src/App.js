@@ -15,11 +15,20 @@ function App() {
     {
       name: "EXAMPLE GIFT",
       category: "Sport",
-      photo: "dd",
-      price: "1000",
+      photo: "https://picsum.photos/200",
+      price: "30",
       description: "Cool Gift",
       isFavorite: false,
       id: "666",
+    },
+    {
+      name: "EXAMPLE GIFT",
+      category: "Sport",
+      photo: "https://picsum.photos/200",
+      price: "30",
+      description: "Cool Gift",
+      isFavorite: false,
+      id: "667",
     },
   ]);
   const [favorites, setFavorites] = useState([]);
@@ -31,6 +40,11 @@ function App() {
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
+  };
+
+  const handleChangeGiftsPerPage = (event) => {
+    setGiftsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
   };
 
   const addGift = (gift) => {
@@ -59,10 +73,7 @@ function App() {
   const handleClose = () => {
     setOpen(false);
   };
-  const handleChangeGiftsPerPage = (event) => {
-    setGiftsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
+
   return (
     <BrowserRouter>
       <Menu>
