@@ -36,13 +36,13 @@ const GiftList = function (props) {
           flexBasis: "100%",
         }}
       >
-        <Grid item xs={10} sm={10} md={4} lg={3} justify-content="center">
+        <Grid item xs={10} sm={10} md={4} lg={4} justify-content="center">
           <Searchbar handleChange={handleChange} />
         </Grid>
-        <Grid item xs={10} sm={10} md={4} lg={3} justify-content="center">
+        <Grid item xs={10} sm={10} md={3} lg={3} justify-content="center">
           <CustomizedSlider handleSlider={handleSlider} />
         </Grid>
-        <Grid item xs={10} sm={10} md={4} lg={3} justify-content="center">
+        <Grid item xs={10} sm={10} md={4} lg={4} justify-content="center">
           <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
             labelRowsPerPage="Gifts"
@@ -52,8 +52,6 @@ const GiftList = function (props) {
             page={page}
             onChangePage={handleChangePage}
             onChangeRowsPerPage={handleChangeGiftsPerPage}
-            align="left"
-            style={{ minWidth: 320 }}
           />
         </Grid>
       </div>
