@@ -12,12 +12,17 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import MailIcon from "@material-ui/icons/Mail";
+import HomeOutlinedIcon from "@material-ui/icons/HomeOutlined";
+import RedeemOutlinedIcon from "@material-ui/icons/RedeemOutlined";
+import EqualizerOutlinedIcon from "@material-ui/icons/EqualizerOutlined";
+import FavoriteOutlinedIcon from "@material-ui/icons/FavoriteOutlined";
+import QueueOutlinedIcon from "@material-ui/icons/QueueOutlined";
 import MenuIcon from "@material-ui/icons/Menu";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 
 const drawerWidth = 240;
 
@@ -48,8 +53,8 @@ const useStyles = makeStyles((theme) => ({
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
     width: drawerWidth,
-    // background:  '#FE6B8B',
-    background: "linear-gradient(180deg, #FE6B8B 40%, #f73378 90%)",
+    // background:  '#66ACAC',
+    // background: "linear-gradient(180deg, #FE6B8B 40%, #f73378 90%)",
   },
   content: {
     flexGrow: 1,
@@ -63,12 +68,29 @@ const useStyles = makeStyles((theme) => ({
 function ResponsiveDrawer(props) {
   const { container, children } = props;
   const classes = useStyles();
-  const theme = useTheme();
+  // const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
+  const theme = createMuiTheme({
+    palette: {
+      secondary: {
+        light: "#bfdcdc",
+        main: "#66ACAC",
+        dark: "#7fbaba",
+        contrastText: "#fff",
+      },
+      primary: {
+        light: "#ffb9c8",
+        main: "#FE6B8B",
+        dark: "#f73378",
+        contrastText: "#000",
+      },
+    },
+  });
 
   const drawer = (
     <div>
@@ -79,112 +101,103 @@ function ResponsiveDrawer(props) {
       <List>
         <ListItem button component={Link} to={"/"}>
           <ListItemIcon>
-            <InboxIcon />
+            <HomeOutlinedIcon fontSize={"large"} color={"secondary"} />
           </ListItemIcon>
           <ListItemText primary="HOME" />
         </ListItem>
         <ListItem button component={Link} to={"/addgift"}>
           <ListItemIcon>
-            <InboxIcon />
+            <QueueOutlinedIcon fontSize={"large"} color={"secondary"} />
           </ListItemIcon>
           <ListItemText primary="ADDGIFT" />
         </ListItem>
         <ListItem button component={Link} to={"/charts"}>
           <ListItemIcon>
-            <InboxIcon />
+            <EqualizerOutlinedIcon fontSize={"large"} color={"secondary"} />
           </ListItemIcon>
           <ListItemText primary="CHARTS" />
         </ListItem>
         <ListItem button component={Link} to={"/favorites"}>
           <ListItemIcon>
-            <InboxIcon />
+            <FavoriteOutlinedIcon fontSize={"large"} color={"secondary"} />
           </ListItemIcon>
           <ListItemText primary="FAVORITES" />
         </ListItem>
         <ListItem button component={Link} to={"/gifts"}>
           <ListItemIcon>
-            <InboxIcon />
+            <RedeemOutlinedIcon fontSize={"large"} color={"secondary"} />
           </ListItemIcon>
           <ListItemText primary="GIFTS" />
         </ListItem>
-      </List>
-      <Divider />
-      <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
       </List>
     </div>
   );
 
   return (
-    <div className={classes.root}>
-      <CssBaseline />
-      <AppBar position="fixed" className={classes.appBar}>
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            className={classes.menuButton}
+    <ThemeProvider theme={theme}>
+      <div className={classes.root}>
+        <CssBaseline />
+        <AppBar position="fixed" className={classes.appBar}>
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={handleDrawerToggle}
+              className={classes.menuButton}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" noWrap style={{ color: "white" }}>
+              GiftMatcher
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <nav className={classes.drawer} aria-label="mailbox folders">
+          {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+          <Hidden smUp implementation="css">
+            <Drawer
+              container={container}
+              variant="temporary"
+              anchor={theme.direction === "rtl" ? "right" : "left"}
+              open={mobileOpen}
+              onClose={handleDrawerToggle}
+              classes={{
+                paper: classes.drawerPaper,
+              }}
+              ModalProps={{
+                keepMounted: true, // Better open performance on mobile.
+              }}
+            >
+              {drawer}
+            </Drawer>
+          </Hidden>
+          <Hidden xsDown implementation="css">
+            <Drawer
+              classes={{
+                paper: classes.drawerPaper,
+              }}
+              variant="permanent"
+              open
+            >
+              {drawer}
+            </Drawer>
+          </Hidden>
+        </nav>
+        <main className={classes.content}>
+          <div className={classes.toolbar} />
+          <Grid
+            container
+            spacing={3}
+            direction="row"
+            justify="center"
+            alignItems="center"
           >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap style={{ color: "white" }}>
-            GiftMatcher
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <nav className={classes.drawer} aria-label="mailbox folders">
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-        <Hidden smUp implementation="css">
-          <Drawer
-            container={container}
-            variant="temporary"
-            anchor={theme.direction === "rtl" ? "right" : "left"}
-            open={mobileOpen}
-            onClose={handleDrawerToggle}
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-            ModalProps={{
-              keepMounted: true, // Better open performance on mobile.
-            }}
-          >
-            {drawer}
-          </Drawer>
-        </Hidden>
-        <Hidden xsDown implementation="css">
-          <Drawer
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-            variant="permanent"
-            open
-          >
-            {drawer}
-          </Drawer>
-        </Hidden>
-      </nav>
-      <main className={classes.content}>
-        <div className={classes.toolbar} />
-        <Grid
-          container
-          spacing={3}
-          direction="row"
-          justify="center"
-          alignItems="center"
-        >
-          {children}
-        </Grid>
-      </main>
-    </div>
+            {children}
+          </Grid>
+        </main>
+      </div>
+    </ThemeProvider>
   );
 }
 

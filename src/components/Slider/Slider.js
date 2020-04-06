@@ -5,10 +5,13 @@ import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: 300 + theme.spacing(3) * 2,
+    paddingLeft: 30,
+    paddingRight: 30,
+    // width: 300 + theme.spacing(3) * 2,
+    // maxWidth: '30%',
   },
   margin: {
-    height: theme.spacing(3),
+    height: theme.spacing(1),
   },
 }));
 
@@ -21,8 +24,7 @@ export default function CustomizedSlider(props) {
   };
   return (
     <div className={classes.root}>
-      <div className={classes.margin} />
-      <Typography gutterBottom>Zakres ceny:</Typography>
+      <Typography variant="caption">Zakres ceny:</Typography>
       <PrettoSlider
         valueLabelDisplay="auto"
         getAriaLabel={() => "slider"}

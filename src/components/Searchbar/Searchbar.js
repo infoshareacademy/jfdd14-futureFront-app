@@ -11,8 +11,9 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    minWidth: 320,
-    height: "auto",
+    // minWidth: 320,
+    height: 58,
+    marginBottom: 10,
   },
   input: {
     marginLeft: theme.spacing(1),
