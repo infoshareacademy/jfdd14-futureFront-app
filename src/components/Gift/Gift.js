@@ -13,7 +13,6 @@ import CardContent from "@material-ui/core/CardContent";
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 import ShareIcon from "@material-ui/icons/Share";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Button from "@material-ui/core/Button";
 
@@ -64,20 +63,22 @@ export default function Gift(props) {
         />
         <CardMedia
           className={classes.media}
-          image="https://picsum.photos/200"
-          title="Paella dish"
+          image={props.item.photo}
+          title="Gift photo"
         />
         <CardContent>
           <Typography variant="body2" color="textSecondary" component="p">
-            Short Description
+            Kategoria: {props.item.category}
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites">
+          <IconButton
+            aria-label="add to favorites"
+            onClick={() => toggleFavorite(props.item.id)}
+          >
             <FavoriteIcon
               style={{ color: props.item.isFavorite ? "red" : undefined }}
               aria-label="add to favorites"
-              onClick={() => toggleFavorite(props.item.id)}
             />
           </IconButton>
           <IconButton aria-label="share">
@@ -87,10 +88,11 @@ export default function Gift(props) {
           <Button
             className={clsx(classes.expand, {})}
             onClick={() => handleClickOpen(item)}
+            size="small"
+            variant="contained"
+            color="secondary"
           >
-            <Button size="small" variant="contained" color="secondary">
-              Description
-            </Button>
+            Description
           </Button>
         </CardActions>
       </Card>

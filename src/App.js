@@ -15,11 +15,20 @@ function App() {
     {
       name: "EXAMPLE GIFT",
       category: "Sport",
-      photo: "dd",
-      price: "1000",
+      photo: "https://picsum.photos/200",
+      price: "30",
       description: "Cool Gift",
       isFavorite: false,
       id: "666",
+    },
+    {
+      name: "EXAMPLE GIFT",
+      category: "Sport",
+      photo: "https://picsum.photos/200",
+      price: "30",
+      description: "Cool Gift",
+      isFavorite: false,
+      id: "667",
     },
   ]);
   const [favorites, setFavorites] = useState([]);

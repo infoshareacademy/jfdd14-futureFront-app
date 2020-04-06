@@ -1,17 +1,21 @@
 import React, { Fragment, useState } from "react";
 import Gift from "../../components/Gift/Gift";
 import TablePagination from "@material-ui/core/TablePagination";
-import TextField from "@material-ui/core/TextField";
 import Searchbar from "../../components/Searchbar/Searchbar";
 import { NoResults } from "../../components/NoResults/NoResults";
+import CustomizedSlider from "../../components/Slider/Slider";
 import Grid from "@material-ui/core/Grid";
 
 const GiftList = function (props) {
   const [searchInput, setSearchInput] = useState("");
-  const [isEmpty, setIsEmtpy] = useState(false);
+  const [sliderInput, setSliderInput] = useState([0, 200]);
   const handleChange = (e) => {
     setSearchInput(e.target.value);
   };
+  const handleSlider = (value) => {
+    setSliderInput(value);
+  };
+
   const {
     gifts,
     toggleFavorite,
@@ -36,6 +40,9 @@ const GiftList = function (props) {
           <Searchbar handleChange={handleChange} />
         </Grid>
         <Grid item xs={10} sm={10} md={4} lg={3} justify-content="center">
+          <CustomizedSlider handleSlider={handleSlider} />
+        </Grid>
+        <Grid item xs={10} sm={10} md={4} lg={3} justify-content="center">
           <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
             labelRowsPerPage="Gifts"
@@ -50,23 +57,47 @@ const GiftList = function (props) {
           />
         </Grid>
       </div>
-      {gifts
-        ?.slice(page * giftsPerPage, page * giftsPerPage + giftsPerPage)
+
+      {gifts.filter(
+        (gift) =>
+          gift.name.toLowerCase().includes(searchInput.toLocaleLowerCase()) ||
+          gift.category.toLowerCase().includes(searchInput.toLocaleLowerCase())
+      ).length > 0 &&
+      gifts
+        .slice(page * giftsPerPage, page * giftsPerPage + giftsPerPage)
         .filter(
           (gift) =>
-            gift.name.toLowerCase().includes(searchInput.toLocaleLowerCase()) ||
-            gift.category
-              .toLowerCase()
-              .includes(searchInput.toLocaleLowerCase())
-        )
-        .map((gift, i) => (
-          <Gift
-            key={i}
-            toggleFavorite={toggleFavorite}
-            item={gift}
-            handleClickOpen={() => handleClickOpen(gift)}
-          />
-        ))}
+            Number(gift.price) >= Number(sliderInput[0]) &&
+            Number(gift.price) < Number(sliderInput[1])
+        ).length > 0 ? (
+        gifts
+          .slice(page * giftsPerPage, page * giftsPerPage + giftsPerPage)
+          .filter(
+            (gift) =>
+              gift.name
+                .toLowerCase()
+                .includes(searchInput.toLocaleLowerCase()) ||
+              gift.category
+                .toLowerCase()
+                .includes(searchInput.toLocaleLowerCase())
+          )
+          .slice(page * giftsPerPage, page * giftsPerPage + giftsPerPage)
+          .filter(
+            (gift) =>
+              Number(gift.price) >= Number(sliderInput[0]) &&
+              Number(gift.price) < Number(sliderInput[1])
+          )
+          .map((gift, i) => (
+            <Gift
+              key={i}
+              toggleFavorite={toggleFavorite}
+              item={gift}
+              handleClickOpen={() => handleClickOpen(gift)}
+            />
+          ))
+      ) : (
+        <NoResults />
+      )}
     </Fragment>
   );
 };
