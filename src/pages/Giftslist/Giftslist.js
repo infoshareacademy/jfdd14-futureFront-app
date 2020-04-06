@@ -34,6 +34,7 @@ const GiftList = function (props) {
           flexWrap: "wrap",
           justifyContent: "space-around",
           flexBasis: "100%",
+          paddingTop: 15,
         }}
       >
         <Grid item xs={10} sm={10} md={4} lg={4} justify-content="center">
