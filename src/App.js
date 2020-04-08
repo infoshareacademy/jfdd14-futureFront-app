@@ -30,6 +30,42 @@ function App() {
       isFavorite: false,
       id: "667",
     },
+    {
+      name: "EXAMPLE GIFT",
+      category: "Sport",
+      photo: "https://picsum.photos/200",
+      price: "30",
+      description: "Cool Gift",
+      isFavorite: false,
+      id: "667",
+    },
+    {
+      name: "EXAMPLE GIFT",
+      category: "Sport",
+      photo: "https://picsum.photos/200",
+      price: "30",
+      description: "Cool Gift",
+      isFavorite: false,
+      id: "667",
+    },
+    {
+      name: "EXAMPLE GIFT",
+      category: "Sport",
+      photo: "https://picsum.photos/200",
+      price: "30",
+      description: "Cool Gift",
+      isFavorite: false,
+      id: "667",
+    },
+    {
+      name: "EXAMPLE GIFT",
+      category: "Sport",
+      photo: "https://picsum.photos/200",
+      price: "30",
+      description: "Cool Gift",
+      isFavorite: false,
+      id: "667",
+    },
   ]);
   const [favorites, setFavorites] = useState([]);
   const [giftToExpand, setGiftToExpand] = useState({});
@@ -39,6 +75,7 @@ function App() {
   const [giftsPerPage, setGiftsPerPage] = useState(5);
 
   const handleChangePage = (event, newPage) => {
+    console.log(newPage);
     setPage(newPage);
   };
 
