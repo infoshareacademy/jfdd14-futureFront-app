@@ -57,20 +57,24 @@ const GiftList = function (props) {
         </Grid>
       </div>
 
-      {gifts.filter(
-        (gift) =>
-          gift.name.toLowerCase().includes(searchInput.toLocaleLowerCase()) ||
-          gift.category.toLowerCase().includes(searchInput.toLocaleLowerCase())
-      ).length > 0 &&
+      {gifts
+        ?.slice(page * giftsPerPage, page * giftsPerPage + giftsPerPage)
+        .filter(
+          (gift) =>
+            gift.name.toLowerCase().includes(searchInput.toLocaleLowerCase()) ||
+            gift.category
+              .toLowerCase()
+              .includes(searchInput.toLocaleLowerCase())
+        ).length > 0 &&
       gifts
-        .slice(page * giftsPerPage, page * giftsPerPage + giftsPerPage)
+        ?.slice(page * giftsPerPage, page * giftsPerPage + giftsPerPage)
         .filter(
           (gift) =>
             Number(gift.price) >= Number(sliderInput[0]) &&
             Number(gift.price) < Number(sliderInput[1])
         ).length > 0 ? (
         gifts
-          .slice(page * giftsPerPage, page * giftsPerPage + giftsPerPage)
+          ?.slice(page * giftsPerPage, page * giftsPerPage + giftsPerPage)
           .filter(
             (gift) =>
               gift.name
@@ -80,7 +84,7 @@ const GiftList = function (props) {
                 .toLowerCase()
                 .includes(searchInput.toLocaleLowerCase())
           )
-          .slice(page * giftsPerPage, page * giftsPerPage + giftsPerPage)
+          ?.slice(page * giftsPerPage, page * giftsPerPage + giftsPerPage)
           .filter(
             (gift) =>
               Number(gift.price) >= Number(sliderInput[0]) &&
