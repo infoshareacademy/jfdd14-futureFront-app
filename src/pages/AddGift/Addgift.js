@@ -41,6 +41,10 @@ const Addgift = (props) => {
     setPrice("");
     setDescription("");
     setGiftAddedText(true);
+    fetch("https://jfdd14-futurefront.firebaseio.com/.json", {
+      method: "POST",
+      body: JSON.stringify(name),
+    });
   };
 
   return (
