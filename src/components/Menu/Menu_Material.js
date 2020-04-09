@@ -23,9 +23,11 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import Brightness6Icon from "@material-ui/icons/Brightness6";
+import AccountBoxIcon from "@material-ui/icons/AccountBox";
+import Button from "@material-ui/core/Button";
 
 // const drawerWidth = 240;
-const drawerWidth = 180;
+const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -73,7 +75,7 @@ function ResponsiveDrawer(props) {
   const { container, children } = props;
   const classes = useStyles();
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [selected, setSelected] = React.useState(false);
+  const [selected, setSelected] = React.useState(true);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -117,7 +119,7 @@ function ResponsiveDrawer(props) {
               style={{ color: "#BEE3D9" }}
             />
           </ListItemIcon>
-          <ListItemText primary="Add Gift" />
+          <ListItemText primary="Dodaj prezent" />
         </ListItem>
         <ListItem button component={Link} to={"/charts"}>
           <ListItemIcon>
@@ -126,7 +128,7 @@ function ResponsiveDrawer(props) {
               style={{ color: "#BEE3D9" }}
             />
           </ListItemIcon>
-          <ListItemText primary="Charts" />
+          <ListItemText primary="Statystyki" />
         </ListItem>
         <ListItem button component={Link} to={"/favorites"}>
           <ListItemIcon>
@@ -135,7 +137,7 @@ function ResponsiveDrawer(props) {
               style={{ color: "#BEE3D9" }}
             />
           </ListItemIcon>
-          <ListItemText primary="Favorites" />
+          <ListItemText primary="Ulubione" />
         </ListItem>
         <ListItem button component={Link} to={"/gifts"}>
           <ListItemIcon>
@@ -144,7 +146,7 @@ function ResponsiveDrawer(props) {
               style={{ color: "#BEE3D9" }}
             />
           </ListItemIcon>
-          <ListItemText primary="Gifts" />
+          <ListItemText primary="Lista prezentów" />
         </ListItem>
       </List>
     </div>
@@ -177,6 +179,15 @@ function ResponsiveDrawer(props) {
               >
                 <Brightness6Icon />
               </IconButton>
+              <Button
+                variant="contained"
+                color="secondary"
+                className={classes.button}
+                startIcon={<AccountBoxIcon />}
+              >
+                Sign In
+              </Button>
+              <IconButton></IconButton>
             </div>
           </Toolbar>
         </AppBar>
