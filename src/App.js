@@ -178,8 +178,10 @@ function App() {
         <Dialog
           handleClickOpen={handleClickOpen}
           handleClose={handleClose}
+          toggleFavorite={toggleFavorite}
           open={open}
           gift={giftToExpand}
+          gifts={giftsWithFavs}
         >
           <Gift item={giftToExpand} />
         </Dialog>
