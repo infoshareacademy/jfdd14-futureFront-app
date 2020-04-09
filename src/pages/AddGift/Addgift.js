@@ -41,10 +41,10 @@ const Addgift = (props) => {
     setPrice("");
     setDescription("");
     setGiftAddedText(true);
-    fetch("https://jfdd14-futurefrontapp.firebaseio.com/.json", {
+    fetch("https://jfdd14-futurefrontapp.firebaseio.com/gifts.json", {
       method: "POST",
       body: JSON.stringify({
-        name: body,
+        name: name,
         category: category,
         photo: photo,
         price: price,

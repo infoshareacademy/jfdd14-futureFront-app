@@ -12,7 +12,7 @@ import Gift from "./components/Gift/Gift";
 
 function App() {
   const [gifts, setGift] = useState([
-    {
+    /* {
       name: "EXAMPLE GIFT 1",
       category: "Sport",
       photo: "https://picsum.photos/200",
@@ -65,8 +65,20 @@ function App() {
       description: "Cool Gift",
       isFavorite: false,
       id: "681",
-    },
+    }, */
   ]);
+  fetch("https://jfdd14-futurefrontapp.firebaseio.com/gifts.json", {
+    method: "POST",
+    body: JSON.stringify({
+      name: name,
+      category: category,
+      photo: photo,
+      price: price,
+      description: description,
+      isFavorite: isFavorite,
+      id: id,
+    }),
+  });
   const [favorites, setFavorites] = useState([]);
   const [giftToExpand, setGiftToExpand] = useState({});
   const [open, setOpen] = useState(false);
