@@ -155,7 +155,7 @@ function ResponsiveDrawer(props) {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" noWrap style={{ color: "white" }}>
+            <Typography variant="h5" noWrap style={{ color: "white" }}>
               GiftMatcher
             </Typography>
 
