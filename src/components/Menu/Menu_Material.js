@@ -108,43 +108,31 @@ function ResponsiveDrawer(props) {
       <List>
         <ListItem button component={Link} to={"/"}>
           <ListItemIcon>
-            <HomeOutlinedIcon fontSize={"large"} style={{ color: "#BEE3D9" }} />
+            <HomeOutlinedIcon fontSize={"large"} />
           </ListItemIcon>
           <ListItemText primary="Home" />
         </ListItem>
         <ListItem button component={Link} to={"/addgift"}>
           <ListItemIcon>
-            <QueueOutlinedIcon
-              fontSize={"large"}
-              style={{ color: "#BEE3D9" }}
-            />
+            <QueueOutlinedIcon fontSize={"large"} />
           </ListItemIcon>
           <ListItemText primary="Dodaj prezent" />
         </ListItem>
         <ListItem button component={Link} to={"/charts"}>
           <ListItemIcon>
-            <EqualizerOutlinedIcon
-              fontSize={"large"}
-              style={{ color: "#BEE3D9" }}
-            />
+            <EqualizerOutlinedIcon fontSize={"large"} />
           </ListItemIcon>
           <ListItemText primary="Statystyki" />
         </ListItem>
         <ListItem button component={Link} to={"/favorites"}>
           <ListItemIcon>
-            <FavoriteOutlinedIcon
-              fontSize={"large"}
-              style={{ color: "#BEE3D9" }}
-            />
+            <FavoriteOutlinedIcon fontSize={"large"} />
           </ListItemIcon>
           <ListItemText primary="Ulubione" />
         </ListItem>
         <ListItem button component={Link} to={"/gifts"}>
           <ListItemIcon>
-            <RedeemOutlinedIcon
-              fontSize={"large"}
-              style={{ color: "#BEE3D9" }}
-            />
+            <RedeemOutlinedIcon fontSize={"large"} />
           </ListItemIcon>
           <ListItemText primary="Lista prezentów" />
         </ListItem>
