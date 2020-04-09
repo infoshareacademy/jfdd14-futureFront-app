@@ -96,7 +96,6 @@ function App() {
   };
 
   const addGift = (gift) => {
-    setGift([...gifts, gift]);
     console.log(gifts, gift, "GIIFTS AfTER ADD");
   };
 
