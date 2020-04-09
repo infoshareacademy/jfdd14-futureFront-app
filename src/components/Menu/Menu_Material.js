@@ -7,7 +7,6 @@ import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
 import Hidden from "@material-ui/core/Hidden";
 import IconButton from "@material-ui/core/IconButton";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -23,7 +22,11 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import Brightness6Icon from "@material-ui/icons/Brightness6";
+import AccountBoxIcon from "@material-ui/icons/AccountBox";
+import Button from "@material-ui/core/Button";
 
+// const drawerWidth = 240;
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -54,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
   drawerPaper: {
     width: drawerWidth,
     // background:  '#66ACAC',
-    // background: "linear-gradient(180deg, #FE6B8B 40%, #f73378 90%)",
+    background: "#FE6B8B",
   },
   content: {
     flexGrow: 1,
@@ -63,13 +66,16 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3),
     // backgroundColor: 'red',
   },
+  toolbarButtons: {
+    marginLeft: "auto",
+  },
 }));
 
 function ResponsiveDrawer(props) {
   const { container, children } = props;
   const classes = useStyles();
-  // const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [selected, setSelected] = React.useState(true);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -77,10 +83,11 @@ function ResponsiveDrawer(props) {
 
   const theme = createMuiTheme({
     palette: {
+      type: `${selected ? "dark" : "light"}`,
       secondary: {
         light: "#bfdcdc",
-        main: "#66ACAC",
-        dark: "#7fbaba",
+        main: "#7fbaba",
+        dark: "#72a7a7",
         contrastText: "#fff",
       },
       primary: {
@@ -101,33 +108,45 @@ function ResponsiveDrawer(props) {
       <List>
         <ListItem button component={Link} to={"/"}>
           <ListItemIcon>
-            <HomeOutlinedIcon fontSize={"large"} color={"secondary"} />
+            <HomeOutlinedIcon fontSize={"large"} style={{ color: "#BEE3D9" }} />
           </ListItemIcon>
-          <ListItemText primary="HOME" />
+          <ListItemText primary="Home" />
         </ListItem>
         <ListItem button component={Link} to={"/addgift"}>
           <ListItemIcon>
-            <QueueOutlinedIcon fontSize={"large"} color={"secondary"} />
+            <QueueOutlinedIcon
+              fontSize={"large"}
+              style={{ color: "#BEE3D9" }}
+            />
           </ListItemIcon>
-          <ListItemText primary="ADDGIFT" />
+          <ListItemText primary="Dodaj prezent" />
         </ListItem>
         <ListItem button component={Link} to={"/charts"}>
           <ListItemIcon>
-            <EqualizerOutlinedIcon fontSize={"large"} color={"secondary"} />
+            <EqualizerOutlinedIcon
+              fontSize={"large"}
+              style={{ color: "#BEE3D9" }}
+            />
           </ListItemIcon>
-          <ListItemText primary="CHARTS" />
+          <ListItemText primary="Statystyki" />
         </ListItem>
         <ListItem button component={Link} to={"/favorites"}>
           <ListItemIcon>
-            <FavoriteOutlinedIcon fontSize={"large"} color={"secondary"} />
+            <FavoriteOutlinedIcon
+              fontSize={"large"}
+              style={{ color: "#BEE3D9" }}
+            />
           </ListItemIcon>
-          <ListItemText primary="FAVORITES" />
+          <ListItemText primary="Ulubione" />
         </ListItem>
         <ListItem button component={Link} to={"/gifts"}>
           <ListItemIcon>
-            <RedeemOutlinedIcon fontSize={"large"} color={"secondary"} />
+            <RedeemOutlinedIcon
+              fontSize={"large"}
+              style={{ color: "#BEE3D9" }}
+            />
           </ListItemIcon>
-          <ListItemText primary="GIFTS" />
+          <ListItemText primary="Lista prezentów" />
         </ListItem>
       </List>
     </div>
@@ -151,6 +170,32 @@ function ResponsiveDrawer(props) {
             <Typography variant="h6" noWrap style={{ color: "white" }}>
               GiftMatcher
             </Typography>
+
+            <div className={classes.toolbarButtons}>
+              <Hidden xsDown>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  className={classes.button}
+                  startIcon={<AccountBoxIcon />}
+                  style={{ marginRight: 20 }}
+                >
+                  Sign In
+                </Button>
+              </Hidden>
+              <Hidden smUp>
+                <IconButton>
+                  <AccountBoxIcon />
+                </IconButton>
+              </Hidden>
+              <IconButton
+                onClick={() => {
+                  setSelected(!selected);
+                }}
+              >
+                <Brightness6Icon />
+              </IconButton>
+            </div>
           </Toolbar>
         </AppBar>
         <nav className={classes.drawer} aria-label="mailbox folders">
