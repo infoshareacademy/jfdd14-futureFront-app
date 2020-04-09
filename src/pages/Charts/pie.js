@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
+import "./pie.css";
 
 const data = [
   { name: "Group A", value: 555 },
