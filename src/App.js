@@ -12,72 +12,16 @@ import Gift from "./components/Gift/Gift";
 import mapObjectToArray from "./mapObjectToArray";
 
 function App() {
-  const [gifts, setGift] = useState([
-    /* {
-      name: "EXAMPLE GIFT 1",
-      category: "Sport",
-      photo: "https://picsum.photos/200",
-      price: "30",
-      description: "Cool Gift",
-      isFavorite: false,
-      id: "666",
-    },
-    {
-      name: "EXAMPLE GIFT 2",
-      category: "Muzyka",
-      photo: "https://picsum.photos/200",
-      price: "15",
-      description: "Cool Gift",
-      isFavorite: false,
-      id: "668",
-    },
-    {
-      name: "EXAMPLE GIFT 3",
-      category: "Inne",
-      photo: "https://picsum.photos/200",
-      price: "45",
-      description: "Cool Gift",
-      isFavorite: false,
-      id: "669",
-    },
-    {
-      name: "EXAMPLE GIFT 4",
-      category: "Sport",
-      photo: "https://picsum.photos/200",
-      price: "55",
-      description: "Cool Gift",
-      isFavorite: false,
-      id: "670",
-    },
-    {
-      name: "EXAMPLE GIFT 5",
-      category: "Muzyka",
-      photo: "https://picsum.photos/200",
-      price: "100",
-      description: "Cool Gift",
-      isFavorite: false,
-      id: "671",
-    },
-    {
-      name: "EXAMPLE GIFT 5",
-      category: "Inne",
-      photo: "https://picsum.photos/200",
-      price: "80",
-      description: "Cool Gift",
-      isFavorite: false,
-      id: "681",
-    }, */
-  ]);
+  const [gifts, setGift] = useState([]);
   useEffect(() => {
     fetch("https://jfdd14-futurefrontapp.firebaseio.com/gifts.json").then(
       (response) =>
         response.json().then((response) => {
           const giftsList = mapObjectToArray(response);
           setGift(giftsList);
-          console.log(giftsList);
         })
     );
-  }, []);
+  }, [gifts]);
 
   const [favorites, setFavorites] = useState([]);
   const [giftToExpand, setGiftToExpand] = useState({});
