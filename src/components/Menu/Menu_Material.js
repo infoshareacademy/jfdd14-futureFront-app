@@ -87,7 +87,7 @@ function ResponsiveDrawer(props) {
       secondary: {
         light: "#bfdcdc",
         main: "#7fbaba",
-        dark: "#009688",
+        dark: "#72a7a7",
         contrastText: "#fff",
       },
       primary: {
@@ -172,6 +172,22 @@ function ResponsiveDrawer(props) {
             </Typography>
 
             <div className={classes.toolbarButtons}>
+              <Hidden xsDown>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  className={classes.button}
+                  startIcon={<AccountBoxIcon />}
+                  style={{ marginRight: 20 }}
+                >
+                  Sign In
+                </Button>
+              </Hidden>
+              <Hidden smUp>
+                <IconButton>
+                  <AccountBoxIcon />
+                </IconButton>
+              </Hidden>
               <IconButton
                 onClick={() => {
                   setSelected(!selected);
@@ -179,15 +195,6 @@ function ResponsiveDrawer(props) {
               >
                 <Brightness6Icon />
               </IconButton>
-              <Button
-                variant="contained"
-                color="secondary"
-                className={classes.button}
-                startIcon={<AccountBoxIcon />}
-              >
-                Sign In
-              </Button>
-              <IconButton></IconButton>
             </div>
           </Toolbar>
         </AppBar>

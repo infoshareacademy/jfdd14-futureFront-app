@@ -19,15 +19,21 @@ const Home = function () {
           <Container fixedWidth className="homeContainer1">
             <Typography component="div" />
             <div style={{ display: "flex" }}>
-              Podziel się swoimi pomysłami na prezenty i korzystaj z pomysłów
+              Dodawaj swoje pomysłamy na prezenty i korzystaj z pomysłów
               innych...
             </div>
             <div style={{ marginTop: 50 }}>
               <ListItemIcon>
-                <QueueOutlinedIcon style={{ fontSize: 50 }} color="primary" />
+                <QueueOutlinedIcon
+                  style={{ fontSize: 50, margin: 10 }}
+                  color="primary"
+                />
               </ListItemIcon>
               <ListItemIcon>
-                <RedeemOutlinedIcon color="primary" style={{ fontSize: 50 }} />
+                <RedeemOutlinedIcon
+                  color="primary"
+                  style={{ fontSize: 50, margin: 10 }}
+                />
               </ListItemIcon>
             </div>
           </Container>
@@ -37,6 +43,10 @@ const Home = function () {
         <Grid item xs={12} sm={10} md={10} lg={4} justify-content="center">
           <Container fixedWidth className="homeContainer">
             <Typography component="div" />
+            <div className="subHeaderLine1">GIFTmatcher</div>
+            <div className="subHeaderLine2">
+              Obdarowywanie nigdy nie było takie proste.
+            </div>
           </Container>
         </Grid>
       </Box>

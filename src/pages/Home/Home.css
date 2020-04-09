@@ -20,4 +20,18 @@
   background-image: url("../../media/235.jpg");
   background-size: cover;
   background-position: bottom;
+  justify-content: flex-start;
+  padding-top: 100px;
+  color: #303030;
+}
+
+.subHeaderLine1 {
+  font-size: 4vh;
+  font-weight: 500;
+  padding-bottom: 30px;
+}
+
+.subHeaderLine2 {
+  font-size: 2.5vh;
+  letter-spacing: 3px;
 }
