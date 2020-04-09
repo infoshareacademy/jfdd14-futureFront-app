@@ -1,13 +1,14 @@
-import React, { useState } from "react";
-import Container from "@material-ui/core/Container";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
+import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
-import MenuItem from "@material-ui/core/MenuItem";
-import InputLabel from "@material-ui/core/InputLabel";
+import Button from "@material-ui/core/Button";
+import Container from "@material-ui/core/Container";
 import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
 import Grid from "@material-ui/core/Grid";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import Select from "@material-ui/core/Select";
+import TextField from "@material-ui/core/TextField";
+import React, { useState } from "react";
 import "./AddGift.css";
 
 const Addgift = (props) => {
@@ -45,27 +46,32 @@ const Addgift = (props) => {
 
   return (
     <Grid item xs={10} sm={10} md={8} lg={6} justify-content="center">
-      <Container fixed className="formContainer">
-        <form>
-          <h2>Dodaj swój prezent:</h2>
+      <Container maxWidth="sm" className="formContainer">
+        <form className="addGiftForm">
+          <h2>DODAJ PREZENT</h2>
           <Box color="text.primary" clone>
             <TextField
               value={name}
               fullWidth
-              color="secondary"
+              color="primary"
               onChange={(e) => handleChangeName(e)}
               id="standard-basic"
               label="Nazwa prezentu"
+              variant="outlined"
+              style={{ paddingBottom: "2vh" }}
             />
           </Box>
 
-          <FormControl fullWidth color="secondary" id="standard-basic">
-            <InputLabel id="demo-simple-select-label">Kategoria</InputLabel>
+          <FormControl variant="outlined" fullWidth color="primary">
+            <InputLabel id="demo-simple-select-outlined-label">
+              Kategoria
+            </InputLabel>
             <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
+              labelId="demo-simple-select-outlined-label"
+              id="demo-simple-select-outlined"
               value={category}
               onChange={(e) => setCategory(e.target.value)}
+              variant="outlined"
             >
               <MenuItem value="Sport">Sport</MenuItem>
               <MenuItem value="Muzyka">Muzyka</MenuItem>
@@ -77,14 +83,16 @@ const Addgift = (props) => {
             value={photo}
             placeholder="Adres URL"
             fullWidth
-            color="secondary"
+            color="primary"
             onChange={(e) => setPhoto(e.target.value)}
             id="standard-basic"
             label="Zdjęcie"
+            variant="outlined"
+            style={{ marginBottom: "2vh", marginTop: "2vh" }}
           />
 
           <TextField
-            color="secondary"
+            color="primary"
             value={price}
             type="number"
             fullWidth
@@ -92,10 +100,11 @@ const Addgift = (props) => {
             id="standard-basic"
             label="Cena w dolarach"
             style={{ paddingBottom: "2vh" }}
+            variant="outlined"
           />
 
           <TextField
-            color="secondary"
+            color="primary"
             id="outlined-multiline-static"
             label="Opis prezentu"
             multiline
@@ -113,7 +122,7 @@ const Addgift = (props) => {
             disabled={
               !Boolean(name && category && photo && price && description)
             }
-            color="secondary"
+            color="primary"
             onClick={addToList}
           >
             Dodaj!

@@ -23,8 +23,10 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import Switch from "@material-ui/core/Switch";
 
-const drawerWidth = 240;
+// const drawerWidth = 240;
+const drawerWidth = 180;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -54,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
   drawerPaper: {
     width: drawerWidth,
     // background:  '#66ACAC',
-    // background: "linear-gradient(180deg, #FE6B8B 40%, #f73378 90%)",
+    background: "#FE6B8B",
   },
   content: {
     flexGrow: 1,
@@ -68,8 +70,15 @@ const useStyles = makeStyles((theme) => ({
 function ResponsiveDrawer(props) {
   const { container, children } = props;
   const classes = useStyles();
-  // const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [state, setState] = React.useState({
+    checkedB: false,
+  });
+
+  const handleChange = (event) => {
+    setState({ ...state, [event.target.name]: event.target.checked });
+    console.log(state);
+  };
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -77,10 +86,11 @@ function ResponsiveDrawer(props) {
 
   const theme = createMuiTheme({
     palette: {
+      type: `${state.checkedB ? "dark" : "light"}`,
       secondary: {
         light: "#bfdcdc",
-        main: "#66ACAC",
-        dark: "#7fbaba",
+        main: "#7fbaba",
+        dark: "#009688",
         contrastText: "#fff",
       },
       primary: {
@@ -101,33 +111,45 @@ function ResponsiveDrawer(props) {
       <List>
         <ListItem button component={Link} to={"/"}>
           <ListItemIcon>
-            <HomeOutlinedIcon fontSize={"large"} color={"secondary"} />
+            <HomeOutlinedIcon fontSize={"large"} style={{ color: "#BEE3D9" }} />
           </ListItemIcon>
-          <ListItemText primary="HOME" />
+          <ListItemText primary="Home" />
         </ListItem>
         <ListItem button component={Link} to={"/addgift"}>
           <ListItemIcon>
-            <QueueOutlinedIcon fontSize={"large"} color={"secondary"} />
+            <QueueOutlinedIcon
+              fontSize={"large"}
+              style={{ color: "#BEE3D9" }}
+            />
           </ListItemIcon>
-          <ListItemText primary="ADDGIFT" />
+          <ListItemText primary="Add Gift" />
         </ListItem>
         <ListItem button component={Link} to={"/charts"}>
           <ListItemIcon>
-            <EqualizerOutlinedIcon fontSize={"large"} color={"secondary"} />
+            <EqualizerOutlinedIcon
+              fontSize={"large"}
+              style={{ color: "#BEE3D9" }}
+            />
           </ListItemIcon>
-          <ListItemText primary="CHARTS" />
+          <ListItemText primary="Charts" />
         </ListItem>
         <ListItem button component={Link} to={"/favorites"}>
           <ListItemIcon>
-            <FavoriteOutlinedIcon fontSize={"large"} color={"secondary"} />
+            <FavoriteOutlinedIcon
+              fontSize={"large"}
+              style={{ color: "#BEE3D9" }}
+            />
           </ListItemIcon>
-          <ListItemText primary="FAVORITES" />
+          <ListItemText primary="Favorites" />
         </ListItem>
         <ListItem button component={Link} to={"/gifts"}>
           <ListItemIcon>
-            <RedeemOutlinedIcon fontSize={"large"} color={"secondary"} />
+            <RedeemOutlinedIcon
+              fontSize={"large"}
+              style={{ color: "#BEE3D9" }}
+            />
           </ListItemIcon>
-          <ListItemText primary="GIFTS" />
+          <ListItemText primary="Gifts" />
         </ListItem>
       </List>
     </div>
@@ -151,6 +173,12 @@ function ResponsiveDrawer(props) {
             <Typography variant="h6" noWrap style={{ color: "white" }}>
               GiftMatcher
             </Typography>
+            <Switch
+              checked={state.checkedB}
+              onChange={handleChange}
+              name="checkedB"
+              inputProps={{ "aria-label": "primary checkbox" }}
+            />
           </Toolbar>
         </AppBar>
         <nav className={classes.drawer} aria-label="mailbox folders">
