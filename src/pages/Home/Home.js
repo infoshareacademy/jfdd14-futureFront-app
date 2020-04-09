@@ -16,7 +16,7 @@ const Home = function () {
       <CssBaseline />
       <Box clone order={{ xs: 2, sm: 2 }}>
         <Grid item xs={12} sm={10} md={10} lg={4} justify-content="center">
-          <Container fixedWidth className="homeContainer1">
+          <Container className="homeContainer1">
             <Typography component="div" />
             <div style={{ display: "flex" }}>
               Dodawaj swoje pomysłamy na prezenty i korzystaj z pomysłów
@@ -41,7 +41,7 @@ const Home = function () {
       </Box>
       <Box clone order={{ md: 1, lg: 2 }}>
         <Grid item xs={12} sm={10} md={10} lg={4} justify-content="center">
-          <Container fixedWidth className="homeContainer">
+          <Container className="homeContainer">
             <Typography component="div" />
             <div className="subHeaderLine1">GIFTmatcher</div>
             <div className="subHeaderLine2">
@@ -52,7 +52,7 @@ const Home = function () {
       </Box>
       <Box clone order={{ xs: 3, sm: 3 }}>
         <Grid item xs={12} sm={10} md={10} lg={4} justify-content="center">
-          <Container fixedWidth className="homeContainer1">
+          <Container className="homeContainer1">
             <Typography component="div" />
             <div style={{ display: "flex" }}>
               Twórz spersonalizowane listy prezentów, dostępne tylko dla Ciebie

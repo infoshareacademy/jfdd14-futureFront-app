@@ -6,13 +6,11 @@
   justify-content: center;
   text-align: center;
   font-size: 1rem;
-
   height: 85vh;
   padding: 1vh;
   margin: 1vw;
   box-shadow: 3px 7px 35px -4px rgba(0, 0, 0, 0.45);
-  /* border: solid 2px #BEE3D9; */
-  border: solid 2px #fe6b8b;
+  border: solid 1px #b06d78;
   border-radius: 2vh;
 }
 

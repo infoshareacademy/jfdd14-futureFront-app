@@ -43,8 +43,10 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up("sm")]: {
       zIndex: theme.zIndex.drawer + 1,
     },
-    background: "linear-gradient(45deg, #FE6B8B 30%, #f73378 90%)",
-    boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
+
+    // background: '#424242',
+    // background: "linear-gradient(45deg, #FE6B8B 30%, #f73378 90%)",
+    // boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -56,8 +58,9 @@ const useStyles = makeStyles((theme) => ({
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
     width: drawerWidth,
-    // background:  '#66ACAC',
-    background: "#FE6B8B",
+    background: "#424242",
+    // background:  '#303030',
+    color: "white",
   },
   content: {
     flexGrow: 1,
@@ -86,14 +89,14 @@ function ResponsiveDrawer(props) {
       type: `${selected ? "dark" : "light"}`,
       secondary: {
         light: "#bfdcdc",
-        main: "#7fbaba",
-        dark: "#72a7a7",
+        main: "#72a7a7",
+        dark: "#286F6F",
         contrastText: "#fff",
       },
       primary: {
-        light: "#ffb9c8",
-        main: "#FE6B8B",
-        dark: "#f73378",
+        light: "#F1D1D6",
+        main: "#B06D78",
+        dark: "#772B37",
         contrastText: "#000",
       },
     },
@@ -108,31 +111,43 @@ function ResponsiveDrawer(props) {
       <List>
         <ListItem button component={Link} to={"/"}>
           <ListItemIcon>
-            <HomeOutlinedIcon fontSize={"large"} />
+            <HomeOutlinedIcon fontSize={"large"} style={{ color: "#F1D1D6" }} />
           </ListItemIcon>
           <ListItemText primary="Home" />
         </ListItem>
         <ListItem button component={Link} to={"/addgift"}>
           <ListItemIcon>
-            <QueueOutlinedIcon fontSize={"large"} />
+            <QueueOutlinedIcon
+              fontSize={"large"}
+              style={{ color: "#F1D1D6" }}
+            />
           </ListItemIcon>
           <ListItemText primary="Dodaj prezent" />
         </ListItem>
         <ListItem button component={Link} to={"/charts"}>
           <ListItemIcon>
-            <EqualizerOutlinedIcon fontSize={"large"} />
+            <EqualizerOutlinedIcon
+              fontSize={"large"}
+              style={{ color: "#F1D1D6" }}
+            />
           </ListItemIcon>
           <ListItemText primary="Statystyki" />
         </ListItem>
         <ListItem button component={Link} to={"/favorites"}>
           <ListItemIcon>
-            <FavoriteOutlinedIcon fontSize={"large"} />
+            <FavoriteOutlinedIcon
+              fontSize={"large"}
+              style={{ color: "#F1D1D6" }}
+            />
           </ListItemIcon>
           <ListItemText primary="Ulubione" />
         </ListItem>
         <ListItem button component={Link} to={"/gifts"}>
           <ListItemIcon>
-            <RedeemOutlinedIcon fontSize={"large"} />
+            <RedeemOutlinedIcon
+              fontSize={"large"}
+              style={{ color: "#F1D1D6" }}
+            />
           </ListItemIcon>
           <ListItemText primary="Lista prezentów" />
         </ListItem>
@@ -155,7 +170,7 @@ function ResponsiveDrawer(props) {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h5" noWrap style={{ color: "white" }}>
+            <Typography variant="h5" noWrap color="primary">
               GiftMatcher
             </Typography>
 
@@ -166,7 +181,7 @@ function ResponsiveDrawer(props) {
                   color="secondary"
                   className={classes.button}
                   startIcon={<AccountBoxIcon />}
-                  style={{ marginRight: 20 }}
+                  style={{ marginRight: 20, color: "white" }}
                 >
                   Sign In
                 </Button>

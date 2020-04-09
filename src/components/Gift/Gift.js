@@ -92,7 +92,7 @@ export default function Gift(props) {
             variant="contained"
             color="secondary"
           >
-            Description
+            WIĘCEJ
           </Button>
         </CardActions>
       </Card>
