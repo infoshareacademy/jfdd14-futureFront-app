@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import Addgift from "./pages/AddGift/Addgift";
 import Giftslist from "./pages/Giftslist/Giftslist";
@@ -9,6 +9,7 @@ import Menu from "./components/Menu/Menu_Material";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Dialog from "./components/Dialog/Dialog";
 import Gift from "./components/Gift/Gift";
+import mapObjectToArray from "./mapObjectToArray";
 
 function App() {
   const [gifts, setGift] = useState([
@@ -67,18 +68,17 @@ function App() {
       id: "681",
     }, */
   ]);
-  fetch("https://jfdd14-futurefrontapp.firebaseio.com/gifts.json", {
-    method: "POST",
-    body: JSON.stringify({
-      name: name,
-      category: category,
-      photo: photo,
-      price: price,
-      description: description,
-      isFavorite: isFavorite,
-      id: id,
-    }),
-  });
+  useEffect(() => {
+    fetch("https://jfdd14-futurefrontapp.firebaseio.com/gifts.json").then(
+      (response) =>
+        response.json().then((response) => {
+          const giftsList = mapObjectToArray(response);
+          setGift(giftsList);
+          console.log(giftsList);
+        })
+    );
+  }, []);
+
   const [favorites, setFavorites] = useState([]);
   const [giftToExpand, setGiftToExpand] = useState({});
   const [open, setOpen] = useState(false);
