@@ -7,7 +7,6 @@ import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
 import Hidden from "@material-ui/core/Hidden";
 import IconButton from "@material-ui/core/IconButton";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -23,7 +22,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
-import Switch from "@material-ui/core/Switch";
+import Brightness6Icon from "@material-ui/icons/Brightness6";
 
 // const drawerWidth = 240;
 const drawerWidth = 180;
@@ -65,20 +64,16 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3),
     // backgroundColor: 'red',
   },
+  toolbarButtons: {
+    marginLeft: "auto",
+  },
 }));
 
 function ResponsiveDrawer(props) {
   const { container, children } = props;
   const classes = useStyles();
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [state, setState] = React.useState({
-    checkedB: false,
-  });
-
-  const handleChange = (event) => {
-    setState({ ...state, [event.target.name]: event.target.checked });
-    console.log(state);
-  };
+  const [selected, setSelected] = React.useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -86,7 +81,7 @@ function ResponsiveDrawer(props) {
 
   const theme = createMuiTheme({
     palette: {
-      type: `${state.checkedB ? "dark" : "light"}`,
+      type: `${selected ? "dark" : "light"}`,
       secondary: {
         light: "#bfdcdc",
         main: "#7fbaba",
@@ -173,12 +168,16 @@ function ResponsiveDrawer(props) {
             <Typography variant="h6" noWrap style={{ color: "white" }}>
               GiftMatcher
             </Typography>
-            <Switch
-              checked={state.checkedB}
-              onChange={handleChange}
-              name="checkedB"
-              inputProps={{ "aria-label": "primary checkbox" }}
-            />
+
+            <div className={classes.toolbarButtons}>
+              <IconButton
+                onClick={() => {
+                  setSelected(!selected);
+                }}
+              >
+                <Brightness6Icon />
+              </IconButton>
+            </div>
           </Toolbar>
         </AppBar>
         <nav className={classes.drawer} aria-label="mailbox folders">
