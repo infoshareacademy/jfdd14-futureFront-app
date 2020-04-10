@@ -54,7 +54,7 @@ export default function Gift(props) {
             </Avatar>
           }
           title={props.item.name}
-          subheader={`${props.item.price}$`}
+          subheader={`${props.item.price} PLN`}
         />
         <CardMedia
           className={classes.media}

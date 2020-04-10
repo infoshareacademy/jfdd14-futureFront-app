@@ -58,7 +58,7 @@ const Addgift = (props) => {
 
   return (
     <Grid item xs={10} sm={10} md={8} lg={6} justify-content="center">
-      <Paper elevation="3" className="formPaper">
+      <Paper elevation={3} className="formPaper">
         <Container maxWidth="sm" className="formContainer">
           <form className="addGiftForm">
             <h2>DODAJ PREZENT</h2>
@@ -90,7 +90,8 @@ const Addgift = (props) => {
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
                 variant="outlined"
-                label="Age"
+                label="Kategoria"
+                labelWidth={5}
               >
                 <MenuItem value="Sport">Sport</MenuItem>
                 <MenuItem value="Muzyka">Muzyka</MenuItem>
@@ -117,7 +118,7 @@ const Addgift = (props) => {
               fullWidth
               onChange={(e) => setPrice(e.target.value)}
               id="standard-basic"
-              label="Cena w dolarach"
+              label="Cena"
               style={{ paddingBottom: "2vh" }}
               variant="outlined"
             />
