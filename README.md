@@ -1,4 +1,6 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Giftmatcher
+
+Giftmatcher is an web application that can be used to find most suitable gift idea for our loved ones, or our own gift to existing database that will be searchable by every user. You can check how it looks like [here](https://www.google.com).
 
 ## Available Scripts
 
