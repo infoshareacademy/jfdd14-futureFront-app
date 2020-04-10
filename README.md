@@ -1,6 +1,13 @@
-# Giftmatcher
+# GiftMatcher
 
-Giftmatcher is an web application that can be used to find most suitable gift idea for our loved ones, or our own gift to existing database that will be searchable by every user. You can check how it looks like [here](https://www.google.com).
+GiftMatcher is an web application that can be used to find most suitable gift idea for our loved ones, or our own gift to existing database that will be searchable by every user. You can check how it looks like [here](http://app.futurefront.jfdd14.is-academy.pl/).
+
+## Creators
+
+- Bartek Ciesielski [Github](https://github.com/bartek-ciesielski) [Linkedin](https://www.linkedin.com/in/bartek-ciesielski/)
+- Dominik Piławski [Github](https://github.com/DominikPilawski) [Linkedin](www.linkedin.com/in/dominik-pilawski)
+- Dawid Domański [Github](https://github.com/Davioli91) [Linkedin](https://www.linkedin.com/in/dawid-doma%C5%84ski-6235b4132/)
+- Borys Maciuch [Github](https://github.com/BorysMaciuch) [Linkedin](https://www.linkedin.com/in/borys-maciuch/)
 
 ## Available Scripts
 
