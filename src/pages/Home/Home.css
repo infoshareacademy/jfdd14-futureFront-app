@@ -1,0 +1,35 @@
+.homeContainer1,
+.homeContainer {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 1.2rem;
+  height: 85vh;
+  padding: 1vh;
+  margin: 1vw;
+  /* box-shadow: 3px 7px 35px -4px rgba(0, 0, 0, 0.45); */
+  /* border: solid 1px #b06d78; */
+  border-radius: 3px;
+}
+
+.homeContainer {
+  background-image: url("../../media/235.jpg");
+  background-size: cover;
+  background-position: bottom;
+  justify-content: flex-start;
+  padding-top: 80px;
+  color: #303030;
+}
+
+.subHeaderLine1 {
+  font-size: 4vh;
+  font-weight: 500;
+  padding-bottom: 30px;
+}
+
+.subHeaderLine2 {
+  font-size: 2.5vh;
+  letter-spacing: 3px;
+}
