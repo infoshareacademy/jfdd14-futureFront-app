@@ -22,9 +22,11 @@ Current features include:
 ## Start
 
 To start application you need to run npm install command first:
+
 `npm install`
 
 And then run npm start:
+
 `npm start`
 
 ## Available Scripts
