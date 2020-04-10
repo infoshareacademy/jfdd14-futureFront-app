@@ -108,7 +108,7 @@ function App() {
   const [open, setOpen] = useState(false);
 
   const [page, setPage] = useState(0);
-  const [giftsPerPage, setGiftsPerPage] = useState(5);
+  const [giftsPerPage, setGiftsPerPage] = useState(10);
 
   const handleChangePage = (event, newPage) => {
     console.log(newPage);

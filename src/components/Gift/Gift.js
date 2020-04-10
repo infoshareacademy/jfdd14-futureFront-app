@@ -18,7 +18,7 @@ import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: "auto",
+    maxWidth: 3000,
     // height: 400,
   },
   media: {
@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     transform: "rotate(180deg)",
   },
   avatar: {
-    backgroundColor: red[500],
+    backgroundColor: "#72a7a7",
   },
 }));
 
@@ -45,18 +45,13 @@ export default function Gift(props) {
   const classes = useStyles();
 
   return (
-    <Grid item xs={10} sm={8} md={4} lg={3} mr={0} justify-content="center">
-      <Card className={classes.root}>
+    <Grid item xs={10} sm={8} md={4} lg={3} mr={0}>
+      <Card className={classes.root} style={{ margin: "0 auto" }}>
         <CardHeader
           avatar={
             <Avatar aria-label="recipe" className={classes.avatar}>
               R
             </Avatar>
-          }
-          action={
-            <IconButton aria-label="settings">
-              <MoreVertIcon />
-            </IconButton>
           }
           title={props.item.name}
           subheader={`${props.item.price}$`}

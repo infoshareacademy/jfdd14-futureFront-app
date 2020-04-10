@@ -17,23 +17,23 @@ const Home = function () {
       <CssBaseline />
       <Box clone order={{ xs: 2, sm: 2 }}>
         <Grid item xs={12} sm={10} md={10} lg={4} justify-content="center">
-          <Paper elevation="3">
+          <Paper elevation={3}>
             <Container className="homeContainer1">
               <Typography component="div" />
               <div style={{ display: "flex" }}>
-                Dodawaj swoje pomysłamy na prezenty i korzystaj z pomysłów
+                Dodawaj swoje pomysły na prezenty i korzystaj z pomysłów
                 innych...
               </div>
               <div style={{ marginTop: 50 }}>
                 <ListItemIcon>
                   <QueueOutlinedIcon
                     style={{ fontSize: 50, margin: 10 }}
-                    color="primary"
+                    color="secondary"
                   />
                 </ListItemIcon>
                 <ListItemIcon>
                   <RedeemOutlinedIcon
-                    color="primary"
+                    color="secondary"
                     style={{ fontSize: 50, margin: 10 }}
                   />
                 </ListItemIcon>
@@ -44,7 +44,7 @@ const Home = function () {
       </Box>
       <Box clone order={{ md: 1, lg: 2 }}>
         <Grid item xs={12} sm={10} md={10} lg={4} justify-content="center">
-          <Paper elevation="3">
+          <Paper elevation={3}>
             <Container className="homeContainer">
               <Typography component="div" />
               <div className="subHeaderLine1">GIFTmatcher</div>
@@ -57,17 +57,17 @@ const Home = function () {
       </Box>
       <Box clone order={{ xs: 3, sm: 3 }}>
         <Grid item xs={12} sm={10} md={10} lg={4} justify-content="center">
-          <Paper elevation="3">
+          <Paper elevation={3}>
             <Container className="homeContainer1">
               <Typography component="div" />
               <div style={{ display: "flex" }}>
-                Twórz spersonalizowane listy prezentów, dostępne tylko dla
-                Ciebie po zalogowaniu...
+                Twórz spersonalizowane listy prezentów dostępne tylko dla
+                Ciebie, po zalogowaniu...
               </div>
               <div style={{ marginTop: 50 }}>
                 <ListItemIcon>
                   <FavoriteOutlinedIcon
-                    color="primary"
+                    color="secondary"
                     style={{ fontSize: 50 }}
                   />
                 </ListItemIcon>

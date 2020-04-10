@@ -27,7 +27,6 @@ import AccountBoxIcon from "@material-ui/icons/AccountBox";
 import Button from "@material-ui/core/Button";
 import Brightness4Icon from "@material-ui/icons/Brightness4";
 
-// const drawerWidth = 240;
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -44,12 +43,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up("sm")]: {
       zIndex: theme.zIndex.drawer + 1,
     },
-
-    // background: '#424242',
-    // background: "linear-gradient(45deg, #FE6B8B 30%, #f73378 90%)",
-    // background: "linear-gradient(45deg, #772B37 40%, #9e626c 90%)",
     background: "linear-gradient(45deg, #84404B 30%, #772B37  90%)",
-    // boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -57,20 +51,17 @@ const useStyles = makeStyles((theme) => ({
       display: "none",
     },
   },
-  // necessary for content to be below app bar
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
     width: drawerWidth,
     background: "#424242",
-    // background:  '#303030',
     color: "white",
   },
   content: {
     flexGrow: 1,
     flexDirection: "row",
     flexWrap: "wrap",
-    padding: theme.spacing(3),
-    // backgroundColor: '#72a7a7',
+    padding: theme.spacing(6),
   },
   toolbarButtons: {
     marginLeft: "auto",
@@ -90,6 +81,10 @@ function ResponsiveDrawer(props) {
   const theme = createMuiTheme({
     palette: {
       type: `${selected ? "dark" : "light"}`,
+      background: {
+        default: `${selected ? "#56232C" : "#FDF0F1"}`,
+        paper: `${selected ? "#632832" : "#FAEAEC"}`,
+      },
       secondary: {
         light: "#bfdcdc",
         main: "#72a7a7",
@@ -212,7 +207,6 @@ function ResponsiveDrawer(props) {
           </Toolbar>
         </AppBar>
         <nav className={classes.drawer} aria-label="mailbox folders">
-          {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
           <Hidden smUp implementation="css">
             <Drawer
               container={container}
@@ -224,7 +218,7 @@ function ResponsiveDrawer(props) {
                 paper: classes.drawerPaper,
               }}
               ModalProps={{
-                keepMounted: true, // Better open performance on mobile.
+                keepMounted: true,
               }}
             >
               {drawer}
@@ -246,7 +240,7 @@ function ResponsiveDrawer(props) {
           <div className={classes.toolbar} />
           <Grid
             container
-            spacing={3}
+            spacing={6}
             direction="row"
             justify="center"
             alignItems="center"
@@ -260,10 +254,6 @@ function ResponsiveDrawer(props) {
 }
 
 ResponsiveDrawer.propTypes = {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
   container: PropTypes.any,
 };
 

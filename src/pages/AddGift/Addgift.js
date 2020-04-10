@@ -14,7 +14,7 @@ import Paper from "@material-ui/core/Paper";
 
 const Addgift = (props) => {
   const [name, setName] = useState("");
-  const [category, setCategory] = useState("Inne");
+  const [category, setCategory] = useState("");
   const [photo, setPhoto] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
@@ -22,6 +22,17 @@ const Addgift = (props) => {
   const id = Date.now();
   const isFavorite = false;
 
+  const useStyles = makeStyles((theme) => ({
+    formControl: {
+      margin: theme.spacing(1),
+      minWidth: 120,
+    },
+    selectEmpty: {
+      marginTop: theme.spacing(2),
+    },
+  }));
+
+  const classes = useStyles();
   const handleChangeName = (e) => {
     setName(e.target.value);
     setGiftAddedText(false);
@@ -38,7 +49,7 @@ const Addgift = (props) => {
       isFavorite,
     });
     setName("");
-    setCategory("Inne");
+    setCategory("");
     setPhoto("");
     setPrice("");
     setDescription("");
@@ -64,7 +75,12 @@ const Addgift = (props) => {
               />
             </Box>
 
-            <FormControl variant="outlined" fullWidth color="primary">
+            <FormControl
+              variant="outlined"
+              fullWidth
+              color="primary"
+              className={classes.formControl}
+            >
               <InputLabel id="demo-simple-select-outlined-label">
                 Kategoria
               </InputLabel>
@@ -74,6 +90,7 @@ const Addgift = (props) => {
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
                 variant="outlined"
+                label="Age"
               >
                 <MenuItem value="Sport">Sport</MenuItem>
                 <MenuItem value="Muzyka">Muzyka</MenuItem>
@@ -131,7 +148,8 @@ const Addgift = (props) => {
             </Button>
             {giftAddedText && (
               <div className="giftAdded">
-                Prezent dodany pomyślnie! Znajdziesz go w zakładce Gifts{" "}
+                Prezent dodany pomyślnie! Znajdziesz go w zakładce "Lista
+                prezentów"{" "}
               </div>
             )}
           </form>
