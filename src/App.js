@@ -9,6 +9,7 @@ import Menu from "./components/Menu/Menu_Material";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Dialog from "./components/Dialog/Dialog";
 import Gift from "./components/Gift/Gift";
+import Auth from "./components/Auth/Auth";
 
 function App() {
   const [gifts, setGift] = useState([
@@ -151,29 +152,31 @@ function App() {
     <BrowserRouter>
       <Menu>
         <Switch>
-          <Route exact path="/" component={Home} />
-          <Route path="/addgift">
-            <Addgift addGift={addGift} />
-          </Route>
-          <Route path="/gifts">
-            <Giftslist
-              gifts={giftsWithFavs}
-              toggleFavorite={toggleFavorite}
-              handleClickOpen={handleClickOpen}
-              giftsPerPage={giftsPerPage}
-              handleChangeGiftsPerPage={handleChangeGiftsPerPage}
-              handleChangePage={handleChangePage}
-              page={page}
-            />
-          </Route>
-          <Route path="/charts" component={Charts} />
-          <Route path="/favorites">
-            <Favorites
-              gifts={giftsWithFavs}
-              toggleFavorite={toggleFavorite}
-              handleClickOpen={handleClickOpen}
-            />
-          </Route>
+          <Auth>
+            <Route exact path="/" component={Home} />
+            <Route path="/addgift">
+              <Addgift addGift={addGift} />
+            </Route>
+            <Route path="/gifts">
+              <Giftslist
+                gifts={giftsWithFavs}
+                toggleFavorite={toggleFavorite}
+                handleClickOpen={handleClickOpen}
+                giftsPerPage={giftsPerPage}
+                handleChangeGiftsPerPage={handleChangeGiftsPerPage}
+                handleChangePage={handleChangePage}
+                page={page}
+              />
+            </Route>
+            <Route path="/charts" component={Charts} />
+            <Route path="/favorites">
+              <Favorites
+                gifts={giftsWithFavs}
+                toggleFavorite={toggleFavorite}
+                handleClickOpen={handleClickOpen}
+              />
+            </Route>
+          </Auth>
         </Switch>
         <Dialog
           handleClickOpen={handleClickOpen}
