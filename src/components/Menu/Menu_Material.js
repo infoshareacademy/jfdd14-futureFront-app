@@ -22,9 +22,10 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
-import Brightness6Icon from "@material-ui/icons/Brightness6";
+import Brightness7Icon from "@material-ui/icons/Brightness7";
 import AccountBoxIcon from "@material-ui/icons/AccountBox";
 import Button from "@material-ui/core/Button";
+import Brightness4Icon from "@material-ui/icons/Brightness4";
 
 // const drawerWidth = 240;
 const drawerWidth = 240;
@@ -157,6 +158,12 @@ function ResponsiveDrawer(props) {
     </div>
   );
 
+  const brightnessIcon = selected ? (
+    <Brightness7Icon style={{ color: "white" }} />
+  ) : (
+    <Brightness4Icon style={{ color: "white" }} />
+  );
+
   return (
     <ThemeProvider theme={theme}>
       <div className={classes.root}>
@@ -199,7 +206,7 @@ function ResponsiveDrawer(props) {
                   setSelected(!selected);
                 }}
               >
-                <Brightness6Icon style={{ color: "white" }} />
+                {brightnessIcon}
               </IconButton>
             </div>
           </Toolbar>
