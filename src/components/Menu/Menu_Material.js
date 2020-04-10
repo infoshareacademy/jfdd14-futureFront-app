@@ -25,6 +25,7 @@ import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import Brightness6Icon from "@material-ui/icons/Brightness6";
 import AccountBoxIcon from "@material-ui/icons/AccountBox";
 import Button from "@material-ui/core/Button";
+import ModalLogin from "../ModalLogin/ModalLogin";
 
 // const drawerWidth = 240;
 const drawerWidth = 240;
@@ -173,15 +174,7 @@ function ResponsiveDrawer(props) {
 
             <div className={classes.toolbarButtons}>
               <Hidden xsDown>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  className={classes.button}
-                  startIcon={<AccountBoxIcon />}
-                  style={{ marginRight: 20 }}
-                >
-                  Sign In
-                </Button>
+                <ModalLogin />
               </Hidden>
               <Hidden smUp>
                 <IconButton>
