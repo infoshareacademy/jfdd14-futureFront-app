@@ -35,11 +35,10 @@ export default function ModalLogin() {
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+        <DialogTitle id="form-dialog-title">SIGN IN</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            To subscribe to this website, please enter your email address here.
-            We will send updates occasionally.
+            Podaj swój adres e-mail oraz hasło aby się zalogować.
           </DialogContentText>
           <TextField
             autoFocus
