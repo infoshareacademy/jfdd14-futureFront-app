@@ -40,7 +40,7 @@ export default function CustomizedSlider(props) {
 
 const PrettoSlider = withStyles({
   root: {
-    color: "#FE6B8B",
+    // color: "#FE6B8B",
     height: 8,
   },
   thumb: {

@@ -34,8 +34,8 @@ const GiftList = function (props) {
           flexWrap: "wrap",
           justifyContent: "space-around",
           flexBasis: "100%",
-          paddingTop: 15,
-          marginBottom: 20,
+          marginTop: 15,
+          // marginBottom: 10,
         }}
       >
         <Grid item xs={10} sm={10} md={4} lg={4} justify-content="center">
@@ -46,7 +46,7 @@ const GiftList = function (props) {
         </Grid>
         <Grid item xs={10} sm={10} md={4} lg={4} justify-content="center">
           <TablePagination
-            rowsPerPageOptions={[5, 10, 25]}
+            rowsPerPageOptions={[10, 15, 20]}
             labelRowsPerPage="Gifts"
             component="div"
             count={gifts.length}

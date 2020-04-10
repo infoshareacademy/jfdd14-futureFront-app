@@ -22,11 +22,11 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
-import Brightness6Icon from "@material-ui/icons/Brightness6";
+import Brightness7Icon from "@material-ui/icons/Brightness7";
 import AccountBoxIcon from "@material-ui/icons/AccountBox";
 import Button from "@material-ui/core/Button";
+import Brightness4Icon from "@material-ui/icons/Brightness4";
 
-// const drawerWidth = 240;
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -43,8 +43,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up("sm")]: {
       zIndex: theme.zIndex.drawer + 1,
     },
-    background: "linear-gradient(45deg, #FE6B8B 30%, #f73378 90%)",
-    boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
+    background: "linear-gradient(45deg, #84404B 30%, #772B37  90%)",
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -52,19 +51,17 @@ const useStyles = makeStyles((theme) => ({
       display: "none",
     },
   },
-  // necessary for content to be below app bar
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
     width: drawerWidth,
-    // background:  '#66ACAC',
-    background: "#FE6B8B",
+    background: "#424242",
+    color: "white",
   },
   content: {
     flexGrow: 1,
     flexDirection: "row",
     flexWrap: "wrap",
-    padding: theme.spacing(3),
-    // backgroundColor: 'red',
+    padding: theme.spacing(6),
   },
   toolbarButtons: {
     marginLeft: "auto",
@@ -84,16 +81,20 @@ function ResponsiveDrawer(props) {
   const theme = createMuiTheme({
     palette: {
       type: `${selected ? "dark" : "light"}`,
+      background: {
+        default: `${selected ? "#56232C" : "#FDF0F1"}`,
+        paper: `${selected ? "#632832" : "#FAEAEC"}`,
+      },
       secondary: {
         light: "#bfdcdc",
-        main: "#7fbaba",
-        dark: "#72a7a7",
+        main: "#72a7a7",
+        dark: "#286F6F",
         contrastText: "#fff",
       },
       primary: {
-        light: "#ffb9c8",
-        main: "#FE6B8B",
-        dark: "#f73378",
+        light: "#F1D1D6",
+        main: "#B06D78",
+        dark: "#772B37",
         contrastText: "#000",
       },
     },
@@ -108,36 +109,54 @@ function ResponsiveDrawer(props) {
       <List>
         <ListItem button component={Link} to={"/"}>
           <ListItemIcon>
-            <HomeOutlinedIcon fontSize={"large"} />
+            <HomeOutlinedIcon fontSize={"large"} style={{ color: "#F1D1D6" }} />
           </ListItemIcon>
           <ListItemText primary="Home" />
         </ListItem>
         <ListItem button component={Link} to={"/addgift"}>
           <ListItemIcon>
-            <QueueOutlinedIcon fontSize={"large"} />
+            <QueueOutlinedIcon
+              fontSize={"large"}
+              style={{ color: "#F1D1D6" }}
+            />
           </ListItemIcon>
           <ListItemText primary="Dodaj prezent" />
         </ListItem>
         <ListItem button component={Link} to={"/charts"}>
           <ListItemIcon>
-            <EqualizerOutlinedIcon fontSize={"large"} />
+            <EqualizerOutlinedIcon
+              fontSize={"large"}
+              style={{ color: "#F1D1D6" }}
+            />
           </ListItemIcon>
           <ListItemText primary="Statystyki" />
         </ListItem>
         <ListItem button component={Link} to={"/favorites"}>
           <ListItemIcon>
-            <FavoriteOutlinedIcon fontSize={"large"} />
+            <FavoriteOutlinedIcon
+              fontSize={"large"}
+              style={{ color: "#F1D1D6" }}
+            />
           </ListItemIcon>
           <ListItemText primary="Ulubione" />
         </ListItem>
         <ListItem button component={Link} to={"/gifts"}>
           <ListItemIcon>
-            <RedeemOutlinedIcon fontSize={"large"} />
+            <RedeemOutlinedIcon
+              fontSize={"large"}
+              style={{ color: "#F1D1D6" }}
+            />
           </ListItemIcon>
           <ListItemText primary="Lista prezentów" />
         </ListItem>
       </List>
     </div>
+  );
+
+  const brightnessIcon = selected ? (
+    <Brightness7Icon style={{ color: "white" }} />
+  ) : (
+    <Brightness4Icon style={{ color: "white" }} />
   );
 
   return (
@@ -152,10 +171,11 @@ function ResponsiveDrawer(props) {
               edge="start"
               onClick={handleDrawerToggle}
               className={classes.menuButton}
+              style={{ color: "white" }}
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" noWrap style={{ color: "white" }}>
+            <Typography variant="h5" noWrap style={{ color: "white" }}>
               GiftMatcher
             </Typography>
 
@@ -166,14 +186,14 @@ function ResponsiveDrawer(props) {
                   color="secondary"
                   className={classes.button}
                   startIcon={<AccountBoxIcon />}
-                  style={{ marginRight: 20 }}
+                  style={{ marginRight: 20, color: "white" }}
                 >
                   Sign In
                 </Button>
               </Hidden>
               <Hidden smUp>
                 <IconButton>
-                  <AccountBoxIcon />
+                  <AccountBoxIcon style={{ color: "white" }} />
                 </IconButton>
               </Hidden>
               <IconButton
@@ -181,25 +201,24 @@ function ResponsiveDrawer(props) {
                   setSelected(!selected);
                 }}
               >
-                <Brightness6Icon />
+                {brightnessIcon}
               </IconButton>
             </div>
           </Toolbar>
         </AppBar>
         <nav className={classes.drawer} aria-label="mailbox folders">
-          {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
           <Hidden smUp implementation="css">
             <Drawer
               container={container}
               variant="temporary"
               anchor={theme.direction === "rtl" ? "right" : "left"}
               open={mobileOpen}
-              onClose={handleDrawerToggle}
+              onClick={handleDrawerToggle}
               classes={{
                 paper: classes.drawerPaper,
               }}
               ModalProps={{
-                keepMounted: true, // Better open performance on mobile.
+                keepMounted: true,
               }}
             >
               {drawer}
@@ -221,7 +240,7 @@ function ResponsiveDrawer(props) {
           <div className={classes.toolbar} />
           <Grid
             container
-            spacing={3}
+            spacing={6}
             direction="row"
             justify="center"
             alignItems="center"
@@ -235,10 +254,6 @@ function ResponsiveDrawer(props) {
 }
 
 ResponsiveDrawer.propTypes = {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
   container: PropTypes.any,
 };
 
