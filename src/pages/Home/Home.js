@@ -9,6 +9,7 @@ import QueueOutlinedIcon from "@material-ui/icons/QueueOutlined";
 import RedeemOutlinedIcon from "@material-ui/icons/RedeemOutlined";
 import FavoriteOutlinedIcon from "@material-ui/icons/FavoriteOutlined";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
+import Paper from "@material-ui/core/Paper";
 
 const Home = function () {
   return (
@@ -16,57 +17,63 @@ const Home = function () {
       <CssBaseline />
       <Box clone order={{ xs: 2, sm: 2 }}>
         <Grid item xs={12} sm={10} md={10} lg={4} justify-content="center">
-          <Container className="homeContainer1">
-            <Typography component="div" />
-            <div style={{ display: "flex" }}>
-              Dodawaj swoje pomysłamy na prezenty i korzystaj z pomysłów
-              innych...
-            </div>
-            <div style={{ marginTop: 50 }}>
-              <ListItemIcon>
-                <QueueOutlinedIcon
-                  style={{ fontSize: 50, margin: 10 }}
-                  color="primary"
-                />
-              </ListItemIcon>
-              <ListItemIcon>
-                <RedeemOutlinedIcon
-                  color="primary"
-                  style={{ fontSize: 50, margin: 10 }}
-                />
-              </ListItemIcon>
-            </div>
-          </Container>
+          <Paper elevation="3">
+            <Container className="homeContainer1">
+              <Typography component="div" />
+              <div style={{ display: "flex" }}>
+                Dodawaj swoje pomysłamy na prezenty i korzystaj z pomysłów
+                innych...
+              </div>
+              <div style={{ marginTop: 50 }}>
+                <ListItemIcon>
+                  <QueueOutlinedIcon
+                    style={{ fontSize: 50, margin: 10 }}
+                    color="primary"
+                  />
+                </ListItemIcon>
+                <ListItemIcon>
+                  <RedeemOutlinedIcon
+                    color="primary"
+                    style={{ fontSize: 50, margin: 10 }}
+                  />
+                </ListItemIcon>
+              </div>
+            </Container>
+          </Paper>
         </Grid>
       </Box>
       <Box clone order={{ md: 1, lg: 2 }}>
         <Grid item xs={12} sm={10} md={10} lg={4} justify-content="center">
-          <Container className="homeContainer">
-            <Typography component="div" />
-            <div className="subHeaderLine1">GIFTmatcher</div>
-            <div className="subHeaderLine2">
-              Obdarowywanie nigdy nie było takie proste.
-            </div>
-          </Container>
+          <Paper elevation="3">
+            <Container className="homeContainer">
+              <Typography component="div" />
+              <div className="subHeaderLine1">GIFTmatcher</div>
+              <div className="subHeaderLine2">
+                Obdarowywanie nigdy nie było takie proste.
+              </div>
+            </Container>
+          </Paper>
         </Grid>
       </Box>
       <Box clone order={{ xs: 3, sm: 3 }}>
         <Grid item xs={12} sm={10} md={10} lg={4} justify-content="center">
-          <Container className="homeContainer1">
-            <Typography component="div" />
-            <div style={{ display: "flex" }}>
-              Twórz spersonalizowane listy prezentów, dostępne tylko dla Ciebie
-              po zalogowaniu...
-            </div>
-            <div style={{ marginTop: 50 }}>
-              <ListItemIcon>
-                <FavoriteOutlinedIcon
-                  color="primary"
-                  style={{ fontSize: 50 }}
-                />
-              </ListItemIcon>
-            </div>
-          </Container>
+          <Paper elevation="3">
+            <Container className="homeContainer1">
+              <Typography component="div" />
+              <div style={{ display: "flex" }}>
+                Twórz spersonalizowane listy prezentów, dostępne tylko dla
+                Ciebie po zalogowaniu...
+              </div>
+              <div style={{ marginTop: 50 }}>
+                <ListItemIcon>
+                  <FavoriteOutlinedIcon
+                    color="primary"
+                    style={{ fontSize: 50 }}
+                  />
+                </ListItemIcon>
+              </div>
+            </Container>
+          </Paper>
         </Grid>
       </Box>
     </React.Fragment>

@@ -10,6 +10,7 @@ import Select from "@material-ui/core/Select";
 import TextField from "@material-ui/core/TextField";
 import React, { useState } from "react";
 import "./AddGift.css";
+import Paper from "@material-ui/core/Paper";
 
 const Addgift = (props) => {
   const [name, setName] = useState("");
@@ -46,94 +47,96 @@ const Addgift = (props) => {
 
   return (
     <Grid item xs={10} sm={10} md={8} lg={6} justify-content="center">
-      <Container maxWidth="sm" className="formContainer">
-        <form className="addGiftForm">
-          <h2>DODAJ PREZENT</h2>
-          <Box color="text.primary" clone>
+      <Paper elevation="3" className="formPaper">
+        <Container maxWidth="sm" className="formContainer">
+          <form className="addGiftForm">
+            <h2>DODAJ PREZENT</h2>
+            <Box color="text.primary" clone>
+              <TextField
+                value={name}
+                fullWidth
+                color="primary"
+                onChange={(e) => handleChangeName(e)}
+                id="standard-basic"
+                label="Nazwa prezentu"
+                variant="outlined"
+                style={{ paddingBottom: "2vh" }}
+              />
+            </Box>
+
+            <FormControl variant="outlined" fullWidth color="primary">
+              <InputLabel id="demo-simple-select-outlined-label">
+                Kategoria
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-outlined-label"
+                id="demo-simple-select-outlined"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+                variant="outlined"
+              >
+                <MenuItem value="Sport">Sport</MenuItem>
+                <MenuItem value="Muzyka">Muzyka</MenuItem>
+                <MenuItem value="Inne">Inne</MenuItem>
+              </Select>
+            </FormControl>
+
             <TextField
-              value={name}
+              value={photo}
+              placeholder="Adres URL"
               fullWidth
               color="primary"
-              onChange={(e) => handleChangeName(e)}
+              onChange={(e) => setPhoto(e.target.value)}
               id="standard-basic"
-              label="Nazwa prezentu"
+              label="Zdjęcie"
               variant="outlined"
+              style={{ marginBottom: "2vh", marginTop: "2vh" }}
+            />
+
+            <TextField
+              color="primary"
+              value={price}
+              type="number"
+              fullWidth
+              onChange={(e) => setPrice(e.target.value)}
+              id="standard-basic"
+              label="Cena w dolarach"
+              style={{ paddingBottom: "2vh" }}
+              variant="outlined"
+            />
+
+            <TextField
+              color="primary"
+              id="outlined-multiline-static"
+              label="Opis prezentu"
+              multiline
+              rows="4"
+              variant="outlined"
+              fullWidth
+              onChange={(e) => setDescription(e.target.value)}
+              value={description}
               style={{ paddingBottom: "2vh" }}
             />
-          </Box>
 
-          <FormControl variant="outlined" fullWidth color="primary">
-            <InputLabel id="demo-simple-select-outlined-label">
-              Kategoria
-            </InputLabel>
-            <Select
-              labelId="demo-simple-select-outlined-label"
-              id="demo-simple-select-outlined"
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-              variant="outlined"
+            <Button
+              className="addGiftButton"
+              variant="contained"
+              disabled={
+                !Boolean(name && category && photo && price && description)
+              }
+              color="primary"
+              onClick={addToList}
             >
-              <MenuItem value="Sport">Sport</MenuItem>
-              <MenuItem value="Muzyka">Muzyka</MenuItem>
-              <MenuItem value="Inne">Inne</MenuItem>
-            </Select>
-          </FormControl>
-
-          <TextField
-            value={photo}
-            placeholder="Adres URL"
-            fullWidth
-            color="primary"
-            onChange={(e) => setPhoto(e.target.value)}
-            id="standard-basic"
-            label="Zdjęcie"
-            variant="outlined"
-            style={{ marginBottom: "2vh", marginTop: "2vh" }}
-          />
-
-          <TextField
-            color="primary"
-            value={price}
-            type="number"
-            fullWidth
-            onChange={(e) => setPrice(e.target.value)}
-            id="standard-basic"
-            label="Cena w dolarach"
-            style={{ paddingBottom: "2vh" }}
-            variant="outlined"
-          />
-
-          <TextField
-            color="primary"
-            id="outlined-multiline-static"
-            label="Opis prezentu"
-            multiline
-            rows="4"
-            variant="outlined"
-            fullWidth
-            onChange={(e) => setDescription(e.target.value)}
-            value={description}
-            style={{ paddingBottom: "2vh" }}
-          />
-
-          <Button
-            className="addGiftButton"
-            variant="contained"
-            disabled={
-              !Boolean(name && category && photo && price && description)
-            }
-            color="primary"
-            onClick={addToList}
-          >
-            Dodaj!
-          </Button>
-          {giftAddedText && (
-            <div className="giftAdded">
-              Prezent dodany pomyślnie! Znajdziesz go w zakładce Gifts{" "}
-            </div>
-          )}
-        </form>
-      </Container>
+              Dodaj!
+            </Button>
+            {giftAddedText && (
+              <div className="giftAdded">
+                Prezent dodany pomyślnie! Znajdziesz go w zakładce Gifts{" "}
+              </div>
+            )}
+          </form>
+        </Container>
+      </Paper>
     </Grid>
   );
 };

@@ -30,14 +30,17 @@
   align-items: space-around;
   justify-content: space-around;
   /* background-color: #BEE3D9; */
-  border: solid 1px #b06d78;
+  /* border: solid 1px #b06d78; */
   min-height: 80vh;
   padding: 1vh;
   padding-bottom: 2vh;
-  box-shadow: 3px 7px 35px -4px rgba(0, 0, 0, 0.45);
-  border-radius: 2vh;
+  /* box-shadow: 3px 7px 35px -4px rgba(0, 0, 0, 0.45);
+  border-radius: 2vh; */
   overflow: hidden;
   margin-top: 1vw;
+}
+.formPaper {
+  border: solid 1px #b06d78;
 }
 
 #outlined-multiline-static {

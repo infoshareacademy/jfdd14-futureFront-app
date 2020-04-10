@@ -46,6 +46,8 @@ const useStyles = makeStyles((theme) => ({
 
     // background: '#424242',
     // background: "linear-gradient(45deg, #FE6B8B 30%, #f73378 90%)",
+    // background: "linear-gradient(45deg, #772B37 40%, #9e626c 90%)",
+    background: "linear-gradient(45deg, #84404B 30%, #772B37  90%)",
     // boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
   },
   menuButton: {
@@ -67,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "row",
     flexWrap: "wrap",
     padding: theme.spacing(3),
-    // backgroundColor: 'red',
+    // backgroundColor: '#72a7a7',
   },
   toolbarButtons: {
     marginLeft: "auto",
@@ -167,10 +169,11 @@ function ResponsiveDrawer(props) {
               edge="start"
               onClick={handleDrawerToggle}
               className={classes.menuButton}
+              style={{ color: "white" }}
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h5" noWrap color="primary">
+            <Typography variant="h5" noWrap style={{ color: "white" }}>
               GiftMatcher
             </Typography>
 
@@ -188,7 +191,7 @@ function ResponsiveDrawer(props) {
               </Hidden>
               <Hidden smUp>
                 <IconButton>
-                  <AccountBoxIcon />
+                  <AccountBoxIcon style={{ color: "white" }} />
                 </IconButton>
               </Hidden>
               <IconButton
@@ -196,7 +199,7 @@ function ResponsiveDrawer(props) {
                   setSelected(!selected);
                 }}
               >
-                <Brightness6Icon />
+                <Brightness6Icon style={{ color: "white" }} />
               </IconButton>
             </div>
           </Toolbar>
