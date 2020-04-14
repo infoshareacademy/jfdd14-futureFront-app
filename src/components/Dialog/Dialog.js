@@ -68,7 +68,7 @@ export default function CustomizedDialogs({
       isFavorite = el.isFavorite;
     }
   });
-  console.log(isFavorite);
+
   return (
     <div>
       <Dialog
