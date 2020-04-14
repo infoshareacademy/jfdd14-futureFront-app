@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
@@ -7,9 +7,13 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import AccountBoxIcon from "@material-ui/icons/AccountBox";
+import { logIn, isTokenInStorage } from "../FirebaseAuth/FirebaseAuth";
 
-export default function ModalLogin() {
+const ModalLogin = () => {
   const [open, setOpen] = React.useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoggedIn, setLoggedIn] = useState(isTokenInStorage());
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -19,6 +23,17 @@ export default function ModalLogin() {
     setOpen(false);
   };
 
+  const onLogInClick = (email, password) => {
+    return logIn(email, password)
+      .then(() => {
+        setLoggedIn(true);
+      })
+      .catch((err) => {
+        alert("Error logging in!");
+        console.log(err);
+        setLoggedIn(false);
+      });
+  };
   return (
     <div>
       <Button
@@ -46,6 +61,7 @@ export default function ModalLogin() {
             id="name"
             label="Email Address"
             type="email"
+            onChange={(e) => setEmail(e.target.value)}
             fullWidth
           />
           <TextField
@@ -54,6 +70,7 @@ export default function ModalLogin() {
             id="name"
             label="Password"
             type="password"
+            onChange={(e) => setPassword(e.target.value)}
             fullWidth
           />
         </DialogContent>
@@ -61,11 +78,13 @@ export default function ModalLogin() {
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={() => onLogInClick(email, password)} color="primary">
             Login
           </Button>
         </DialogActions>
       </Dialog>
     </div>
   );
-}
+};
+
+export default ModalLogin;

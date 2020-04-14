@@ -26,6 +26,7 @@ import Brightness6Icon from "@material-ui/icons/Brightness6";
 import AccountBoxIcon from "@material-ui/icons/AccountBox";
 import Button from "@material-ui/core/Button";
 import ModalLogin from "../ModalLogin/ModalLogin";
+import Auth from "../Auth/Auth";
 
 // const drawerWidth = 240;
 const drawerWidth = 240;
@@ -174,7 +175,9 @@ function ResponsiveDrawer(props) {
 
             <div className={classes.toolbarButtons}>
               <Hidden xsDown>
-                <ModalLogin />
+                <Auth>
+                  <ModalLogin />
+                </Auth>
               </Hidden>
               <Hidden smUp>
                 <IconButton>
