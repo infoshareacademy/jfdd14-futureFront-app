@@ -15,7 +15,6 @@ function App() {
   const [gifts, setGift] = useState([]);
   useEffect(() => {
     fetchGifts();
-    console.log("bb");
   }, []);
 
   const [favorites, setFavorites] = useState([]);
