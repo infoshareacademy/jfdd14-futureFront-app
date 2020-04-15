@@ -268,7 +268,7 @@ function ResponsiveDrawer(props) {
               </Hidden>
               <Hidden smUp>
                 <IconButton onClick={handleClickOpen}>
-                  <AccountBoxIcon style={{ color: "red" }} />
+                  <AccountBoxIcon style={{ color: "white" }} />
                   <Dialog
                     open={open}
                     onClose={handleClose}
