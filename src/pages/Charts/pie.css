@@ -1,6 +1,6 @@
 .recharts-wrapper,
 .recharts-surface,
 .recharts-responsive-container {
-    width: 100%!important;
-    height: 100%!important;
+  width: 100% !important;
+  height: "800" !important;
 }

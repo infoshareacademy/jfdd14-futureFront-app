@@ -44,7 +44,7 @@ const DialogTitle = withStyles(styles)((props) => {
 const DialogContent = withStyles((theme) => ({
   root: {
     padding: theme.spacing(2),
-    minWidth: "auto",
+    minWidth: 300,
   },
 }))(MuiDialogContent);
 
@@ -55,7 +55,20 @@ const DialogActions = withStyles((theme) => ({
   },
 }))(MuiDialogActions);
 
-export default function CustomizedDialogs({ handleClose, open, gift }) {
+export default function CustomizedDialogs({
+  handleClose,
+  open,
+  gift,
+  toggleFavorite,
+  gifts,
+}) {
+  let isFavorite = false;
+  gifts.forEach((el) => {
+    if (el.id === gift.id) {
+      isFavorite = el.isFavorite;
+    }
+  });
+  console.log(isFavorite);
   return (
     <div>
       <Dialog
@@ -70,23 +83,18 @@ export default function CustomizedDialogs({ handleClose, open, gift }) {
           <Typography gutterBottom>
             PRICE: {gift.price}
             <br />
-            DESRIPTION: {gift.description}
+            DESRIPTION:
             <br />
-            Add rice and stir very gently to distribute. Top with artichokes and
-            peppers, and cook without stirring, until most of the liquid is
-            absorbed, 15 to 18 minutes. Reduce heat to medium-low, add reserved
-            shrimp and mussels, tucking them down into the rice, and cook again
-            without stirring, until mussels have opened and rice is just tender,
-            5 to 7 minutes more. (Discard any mussels that don’t open.)
+            {gift.description}
           </Typography>
         </DialogContent>
         <DialogActions>
-          <IconButton aria-label="add to favorites">
-            <FavoriteIcon />
+          <IconButton
+            aria-label="add to favorites"
+            onClick={() => toggleFavorite(gift.id)}
+          >
+            <FavoriteIcon style={{ color: isFavorite ? "red" : undefined }} />
           </IconButton>
-          <Button autoFocus onClick={handleClose} color="primary">
-            Close
-          </Button>
         </DialogActions>
       </Dialog>
     </div>

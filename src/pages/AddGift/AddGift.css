@@ -10,7 +10,7 @@
   min-height: 560px;
   /* padding: 50px; */
   /* padding-bottom: 100px; */
-  height: 75vh;
+  min-height: 80vh;
   justify-content: space-around;
 }
 
@@ -19,7 +19,7 @@
   margin-top: 30px;
   padding: 1vh;
   font-weight: bold;
-  color: rgb(230, 54, 142);
+  color: #b06d78;
   font-size: 1.3rem;
   text-align: center;
 }
@@ -30,14 +30,17 @@
   align-items: space-around;
   justify-content: space-around;
   /* background-color: #BEE3D9; */
-  border: solid 2px #fe6b8b;
-  min-height: 85vh;
+  /* border: solid 1px #b06d78; */
+  min-height: 80vh;
   padding: 1vh;
   padding-bottom: 2vh;
-  box-shadow: 3px 7px 35px -4px rgba(0, 0, 0, 0.45);
-  border-radius: 2vh;
-  overflow: scroll;
+  /* box-shadow: 3px 7px 35px -4px rgba(0, 0, 0, 0.45);
+  border-radius: 2vh; */
+  overflow: hidden;
   margin-top: 1vw;
+}
+.formPaper {
+  border: solid 1px #b06d78;
 }
 
 #outlined-multiline-static {

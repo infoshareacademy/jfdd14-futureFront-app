@@ -9,45 +9,39 @@ export const logIn = (email, password) => {
     returnSecureToken: true,
   };
 
-  // @TODO you can use fetchWithToken here to not check response.ok below
-  return (
-    fetch(SIGN_IN_URL, {
-      method: "POST",
-      body: JSON.stringify(credentials),
+  return fetch(SIGN_IN_URL, {
+    method: "POST",
+    body: JSON.stringify(credentials),
+  })
+    .then((response) => {
+      if (response.ok) {
+        return response;
+      }
+
+      return Promise.reject(response);
     })
-      // @TODO if you will use fetchWithToken this then is not necessary
-      .then((response) => {
-        if (response.ok) {
-          return response;
-        }
+    .then((response) => response.json())
+    .then((data) => {
+      const { localId, idToken, email } = data;
 
-        return Promise.reject(response);
-      })
-      .then((response) => response.json())
-      .then((data) => {
-        const { localId, idToken, email } = data;
+      localStorage.setItem("localId", localId);
+      localStorage.setItem("idToken", idToken);
+      localStorage.setItem("email", email);
 
-        localStorage.setItem("localId", localId);
-        localStorage.setItem("idToken", idToken);
-        localStorage.setItem("email", email);
-
-        return data;
-      })
-  );
+      return data;
+    });
 };
 
 export const fetchWithToken = (url, options) => {
-  return fetch(
-    // @TODO this will not work when url param will have query string
-    url + "?auth=" + localStorage.getItem("idToken"),
-    options
-  ).then((response) => {
-    if (response.ok) {
-      return response;
-    }
+  return fetch(url + "?auth=" + localStorage.getItem("idToken"), options).then(
+    (response) => {
+      if (response.ok) {
+        return response;
+      }
 
-    return Promise.reject(response);
-  });
+      return Promise.reject(response);
+    }
+  );
 };
 
 export const isTokenInStorage = () => {

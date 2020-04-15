@@ -21,7 +21,7 @@ const Auth = (props) => {
         setLoggedIn(true);
       })
       .catch((err) => {
-        alert("Error logging in!");
+        alert("Złe hasło!");
         console.log(err);
         setLoggedIn(false);
       });
