@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import Addgift from "./pages/AddGift/Addgift";
 import Giftslist from "./pages/Giftslist/Giftslist";
@@ -9,100 +9,14 @@ import Menu from "./components/Menu/Menu_Material";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Dialog from "./components/Dialog/Dialog";
 import Gift from "./components/Gift/Gift";
+import mapObjectToArray from "./mapObjectToArray";
 
 function App() {
-  const [gifts, setGift] = useState([
-    {
-      name: "EXAMPLE GIFT 1",
-      category: "Sport",
-      photo: "https://picsum.photos/200",
-      price: "30",
-      description: "Cool Gift",
-      isFavorite: false,
-      id: "666",
-    },
-    {
-      name: "EXAMPLE GIFT 2",
-      category: "Muzyka",
-      photo: "https://picsum.photos/200",
-      price: "15",
-      description: "Cool Gift",
-      isFavorite: false,
-      id: "668",
-    },
-    {
-      name: "EXAMPLE GIFT 3",
-      category: "Inne",
-      photo: "https://picsum.photos/200",
-      price: "45",
-      description: "Cool Gift",
-      isFavorite: false,
-      id: "669",
-    },
-    {
-      name: "EXAMPLE GIFT 4",
-      category: "Sport",
-      photo: "https://picsum.photos/200",
-      price: "55",
-      description: "Cool Gift",
-      isFavorite: false,
-      id: "670",
-    },
-    {
-      name: "EXAMPLE GIFT 5",
-      category: "Muzyka",
-      photo: "https://picsum.photos/200",
-      price: "100",
-      description: "Cool Gift",
-      isFavorite: false,
-      id: "671",
-    },
-    {
-      name: "EXAMPLE GIFT 5",
-      category: "Inne",
-      photo: "https://picsum.photos/200",
-      price: "80",
-      description: "Cool Gift",
-      isFavorite: false,
-      id: "681",
-    },
-    {
-      name: "EXAMPLE GIFT",
-      category: "Sport",
-      photo: "https://picsum.photos/200",
-      price: "30",
-      description: "Cool Gift",
-      isFavorite: false,
-      id: "667",
-    },
-    {
-      name: "EXAMPLE GIFT",
-      category: "Sport",
-      photo: "https://picsum.photos/200",
-      price: "30",
-      description: "Cool Gift",
-      isFavorite: false,
-      id: "667",
-    },
-    {
-      name: "EXAMPLE GIFT",
-      category: "Sport",
-      photo: "https://picsum.photos/200",
-      price: "30",
-      description: "Cool Gift",
-      isFavorite: false,
-      id: "667",
-    },
-    {
-      name: "EXAMPLE GIFT",
-      category: "Sport",
-      photo: "https://picsum.photos/200",
-      price: "30",
-      description: "Cool Gift",
-      isFavorite: false,
-      id: "667",
-    },
-  ]);
+  const [gifts, setGift] = useState([]);
+  useEffect(() => {
+    fetchGifts();
+  }, []);
+
   const [favorites, setFavorites] = useState([]);
   const [giftToExpand, setGiftToExpand] = useState({});
   const [open, setOpen] = useState(false);
@@ -111,7 +25,6 @@ function App() {
   const [giftsPerPage, setGiftsPerPage] = useState(10);
 
   const handleChangePage = (event, newPage) => {
-    console.log(newPage);
     setPage(newPage);
   };
 
@@ -119,10 +32,17 @@ function App() {
     setGiftsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-
-  const addGift = (gift) => {
-    setGift([...gifts, gift]);
-    console.log(gifts, gift, "GIIFTS AfTER ADD");
+  const fetchGifts = () => {
+    fetch("https://jfdd14-futurefrontapp.firebaseio.com/gifts.json").then(
+      (response) =>
+        response.json().then((response) => {
+          const giftsList = mapObjectToArray(response);
+          setGift(giftsList);
+        })
+    );
+  };
+  const addGift = () => {
+    fetchGifts();
   };
 
   const toggleFavorite = (giftId) => {

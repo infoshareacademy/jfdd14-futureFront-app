@@ -41,21 +41,25 @@ const Addgift = (props) => {
   };
 
   const addToList = () => {
-    props.addGift({
-      name,
-      category,
-      photo,
-      price,
-      description,
-      id,
-      isFavorite,
-    });
+    props.addGift();
     setName("");
     setCategory("");
     setPhoto("");
     setPrice("");
     setDescription("");
     setGiftAddedText(true);
+    fetch("https://jfdd14-futurefrontapp.firebaseio.com/gifts.json", {
+      method: "POST",
+      body: JSON.stringify({
+        name: name,
+        category: category,
+        photo: photo,
+        price: price,
+        description: description,
+        isFavorite: isFavorite,
+        id: id,
+      }),
+    });
   };
 
   return (
