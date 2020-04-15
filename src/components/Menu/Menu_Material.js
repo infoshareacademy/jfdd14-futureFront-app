@@ -267,8 +267,49 @@ function ResponsiveDrawer(props) {
                 </Auth>
               </Hidden>
               <Hidden smUp>
-                <IconButton>
-                  <AccountBoxIcon style={{ color: "white" }} />
+                <IconButton onClick={handleClickOpen}>
+                  <AccountBoxIcon style={{ color: "red" }} />
+                  <Dialog
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="form-dialog-title"
+                  >
+                    <DialogTitle id="form-dialog-title">SIGN IN</DialogTitle>
+                    <DialogContent>
+                      <DialogContentText>
+                        Podaj swój adres e-mail oraz hasło aby się zalogować.
+                      </DialogContentText>
+                      <TextField
+                        autoFocus
+                        margin="dense"
+                        id="name"
+                        label="Email Address"
+                        type="email"
+                        onChange={(e) => setEmail(e.target.value)}
+                        fullWidth
+                      />
+                      <TextField
+                        autoFocus
+                        margin="dense"
+                        id="name"
+                        label="Password"
+                        type="password"
+                        onChange={(e) => setPassword(e.target.value)}
+                        fullWidth
+                      />
+                    </DialogContent>
+                    <DialogActions>
+                      <Button onClick={handleClose} color="primary">
+                        Cancel
+                      </Button>
+                      <Button
+                        onClick={() => onLogInClick(email, password)}
+                        color="primary"
+                      >
+                        Login
+                      </Button>
+                    </DialogActions>
+                  </Dialog>
                 </IconButton>
               </Hidden>
               <IconButton
