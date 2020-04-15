@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import AppBar from "@material-ui/core/AppBar";
@@ -27,6 +27,13 @@ import AccountBoxIcon from "@material-ui/icons/AccountBox";
 import Button from "@material-ui/core/Button";
 import ModalLogin from "../ModalLogin/ModalLogin";
 import Auth from "../Auth/Auth";
+import TextField from "@material-ui/core/TextField";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import { logIn, isTokenInStorage } from "../FirebaseAuth/FirebaseAuth";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
 
 // const drawerWidth = 240;
 const drawerWidth = 240;
@@ -78,11 +85,14 @@ function ResponsiveDrawer(props) {
   const classes = useStyles();
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [selected, setSelected] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoggedIn, setLoggedIn] = useState(isTokenInStorage());
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-
   const theme = createMuiTheme({
     palette: {
       type: `${selected ? "dark" : "light"}`,
@@ -100,6 +110,26 @@ function ResponsiveDrawer(props) {
       },
     },
   });
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const onLogInClick = (email, password) => {
+    return logIn(email, password)
+      .then(() => {
+        setLoggedIn(true);
+      })
+      .catch((err) => {
+        alert("Error logging in!");
+        console.log(err);
+        setLoggedIn(false);
+      });
+  };
 
   const drawer = (
     <div>
@@ -176,7 +206,57 @@ function ResponsiveDrawer(props) {
             <div className={classes.toolbarButtons}>
               <Hidden xsDown>
                 <Auth>
-                  <ModalLogin />
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    onClick={handleClickOpen}
+                    startIcon={<AccountBoxIcon />}
+                    style={{ marginRight: 20 }}
+                    className={classes.button}
+                  >
+                    Sign In
+                  </Button>
+                  <Dialog
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="form-dialog-title"
+                  >
+                    <DialogTitle id="form-dialog-title">SIGN IN</DialogTitle>
+                    <DialogContent>
+                      <DialogContentText>
+                        Podaj swój adres e-mail oraz hasło aby się zalogować.
+                      </DialogContentText>
+                      <TextField
+                        autoFocus
+                        margin="dense"
+                        id="name"
+                        label="Email Address"
+                        type="email"
+                        onChange={(e) => setEmail(e.target.value)}
+                        fullWidth
+                      />
+                      <TextField
+                        autoFocus
+                        margin="dense"
+                        id="name"
+                        label="Password"
+                        type="password"
+                        onChange={(e) => setPassword(e.target.value)}
+                        fullWidth
+                      />
+                    </DialogContent>
+                    <DialogActions>
+                      <Button onClick={handleClose} color="primary">
+                        Cancel
+                      </Button>
+                      <Button
+                        onClick={() => onLogInClick(email, password)}
+                        color="primary"
+                      >
+                        Login
+                      </Button>
+                    </DialogActions>
+                  </Dialog>
                 </Auth>
               </Hidden>
               <Hidden smUp>

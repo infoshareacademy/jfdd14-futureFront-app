@@ -1,20 +1,14 @@
 import React, { useState, useEffect } from "react";
 
-import ModalLogin from "../ModalLogin/ModalLogin";
+import MenuMaterial from "../Menu/Menu_Material";
 
 import { logIn, isTokenInStorage } from "../FirebaseAuth/FirebaseAuth";
 
-const REFRESH_INTERVAL = 100;
-
 const Auth = (props) => {
   const [isLoggedIn, setLoggedIn] = useState(isTokenInStorage());
-  // @TODO - loading indicator when logging in
 
   useEffect(() => {
-    const id = setInterval(
-      () => setLoggedIn(isTokenInStorage()),
-      REFRESH_INTERVAL
-    );
+    const id = setInterval(() => setLoggedIn(isTokenInStorage()));
 
     return () => {
       clearInterval(id);
@@ -34,7 +28,7 @@ const Auth = (props) => {
   };
 
   return !isLoggedIn ? (
-    <ModalLogin onLogInClick={onLogInClick} />
+    <MenuMaterial onLogInClick={onLogInClick} />
   ) : (
     props.children
   );
