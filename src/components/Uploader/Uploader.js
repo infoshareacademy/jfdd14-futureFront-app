@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Inputs() {
+export default function Uploader({ setPhoto }) {
   const classes = useStyles();
 
   const [image, setImage] = useState(null);
@@ -56,6 +56,7 @@ export default function Inputs() {
             .then((url) => {
               setUrl(url);
               setProgress(0);
+              setPhoto(url);
               console.log(url);
             });
         }

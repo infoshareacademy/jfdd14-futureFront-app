@@ -76,7 +76,6 @@ const Addgift = (props) => {
                 style={{ paddingBottom: "2vh" }}
               />
             </Box>
-            <Uploader />
             <FormControl
               variant="outlined"
               fullWidth
@@ -112,6 +111,8 @@ const Addgift = (props) => {
               variant="outlined"
               style={{ marginBottom: "2vh", marginTop: "2vh" }}
             />
+
+            <Uploader setPhoto={setPhoto} />
 
             <TextField
               color="primary"
