@@ -14,14 +14,8 @@ import mapObjectToArray from "./mapObjectToArray";
 function App() {
   const [gifts, setGift] = useState([]);
   useEffect(() => {
-    fetch("https://jfdd14-futurefrontapp.firebaseio.com/gifts.json").then(
-      (response) =>
-        response.json().then((response) => {
-          const giftsList = mapObjectToArray(response);
-          setGift(giftsList);
-        })
-    );
-  }, [gifts]);
+    fetchGifts();
+  }, []);
 
   const [favorites, setFavorites] = useState([]);
   const [giftToExpand, setGiftToExpand] = useState({});
@@ -31,7 +25,6 @@ function App() {
   const [giftsPerPage, setGiftsPerPage] = useState(10);
 
   const handleChangePage = (event, newPage) => {
-    console.log(newPage);
     setPage(newPage);
   };
 
@@ -39,9 +32,17 @@ function App() {
     setGiftsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-
-  const addGift = (gift) => {
-    console.log(gifts, gift, "GIIFTS AfTER ADD");
+  const fetchGifts = () => {
+    fetch("https://jfdd14-futurefrontapp.firebaseio.com/gifts.json").then(
+      (response) =>
+        response.json().then((response) => {
+          const giftsList = mapObjectToArray(response);
+          setGift(giftsList);
+        })
+    );
+  };
+  const addGift = () => {
+    fetchGifts();
   };
 
   const toggleFavorite = (giftId) => {
