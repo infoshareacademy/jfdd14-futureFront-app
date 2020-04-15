@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
   progress: {
     width: "100%",
     height: 5,
+    marginBottom: 2,
   },
   form: {
     width: "100%",
@@ -73,30 +74,32 @@ export default function Uploader({ setPhoto }) {
           ""
         )}
       </div>
-      <Input
-        accept="image/*"
-        className={classes.input}
-        style={{ display: "none" }}
-        id="raised-button-file"
-        multiple
-        type="file"
-        onChange={handleChange}
-      />
-      <label htmlFor="raised-button-file">
-        <Button variant="raised" component="span" className={classes.button}>
-          CHOOSE FILE
-        </Button>
-      </label>
-      <label htmlFor="uplad-button-file">
-        <Button
-          variant="raised"
-          component="span"
-          className={classes.button}
-          onClick={handleUpload}
-        >
-          Upload
-        </Button>
-      </label>
+      <div style={{ dispaly: "flex", textAlign: "center" }}>
+        <Input
+          accept="image/*"
+          className={classes.input}
+          style={{ display: "none" }}
+          id="raised-button-file"
+          multiple
+          type="file"
+          onChange={handleChange}
+        />
+        <label htmlFor="raised-button-file">
+          <Button variant="raised" component="span" className={classes.button}>
+            Wybierz Plik
+          </Button>
+        </label>
+        <label htmlFor="uplad-button-file">
+          <Button
+            variant="raised"
+            component="span"
+            className={classes.button}
+            onClick={handleUpload}
+          >
+            Upload
+          </Button>
+        </label>
+      </div>
     </div>
   );
 }
