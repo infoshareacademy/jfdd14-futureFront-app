@@ -10,17 +10,20 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Dialog from "./components/Dialog/Dialog";
 import Gift from "./components/Gift/Gift";
 import mapObjectToArray from "./mapObjectToArray";
+import firebase from "firebase";
+import { database } from "./components/fireBase.config";
 
 function App() {
-  const [gifts, setGift] = useState([]);
   useEffect(() => {
     fetchGifts();
+    // fetchFavorites();
+    getFavorites();
   }, []);
 
+  const [gifts, setGift] = useState([]);
   const [favorites, setFavorites] = useState([]);
   const [giftToExpand, setGiftToExpand] = useState({});
   const [open, setOpen] = useState(false);
-
   const [page, setPage] = useState(0);
   const [giftsPerPage, setGiftsPerPage] = useState(10);
 
@@ -45,12 +48,52 @@ function App() {
     fetchGifts();
   };
 
+  // const fetchFavorites = () => {
+  //   fetch(`https://jfdd14-futurefront.firebaseio.com/items.json?auth=${idToken}`).then(
+  //     (response) =>
+  //       response.json().then((response) => {
+  //         const favoriteList = mapObjectToArray(response);
+  //         setFavorites(favoriteList);
+  //       })
+  //   );
+  // };
+
+  const idToken = "BxyhrMXaURNoIjtx7lTBnQGJtVy2";
+  // const postFavorites = () => fetch(`https://jfdd14-futurefrontapp.firebaseio.com/users.json`, {
+  //   method: "PUT",
+  //   body: JSON.stringify({
+  //     favorites,
+  //   }),
+  // });
+
+  const setUserFavorites = () => {
+    console.log(favorites);
+    database.ref("users/" + idToken).set({
+      favorites: favorites,
+    });
+  };
+
+  //Get the current userID
+  // var userId = firebase.auth().currentUser.uid;
+
+  const getFavorites = () => {
+    database
+      .ref("/users/" + idToken)
+      .once("value")
+      .then(function (snapshot) {
+        const userFavorites = snapshot.child("favorites").val();
+        return userFavorites ? setFavorites((favorites) => userFavorites) : [];
+      });
+  };
+
   const toggleFavorite = (giftId) => {
     setFavorites((favorites) =>
       favorites.includes(giftId)
         ? favorites.filter((id) => id !== giftId)
         : [...favorites, giftId]
     );
+    // postFavorites()
+    setUserFavorites();
   };
 
   const giftsWithFavs = gifts.map((gift) => ({
