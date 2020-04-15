@@ -123,9 +123,10 @@ function ResponsiveDrawer(props) {
     return logIn(email, password)
       .then(() => {
         setLoggedIn(true);
+        handleClose();
       })
       .catch((err) => {
-        alert("Error logging in!");
+        alert("Złe hasło!");
         console.log(err);
         setLoggedIn(false);
       });
