@@ -14,6 +14,7 @@ import firebase from "firebase";
 import { database } from "./components/fireBase.config";
 
 function App() {
+  console.log(localStorage.getItem("localId"));
   useEffect(() => {
     fetchGifts();
     getFavorites();
@@ -47,7 +48,7 @@ function App() {
     fetchGifts();
   };
 
-  const idToken = "BxyhrMXaURNoIjtx7lTBnQGJtVy2";
+  const idToken = localStorage.getItem("localId");
 
   const setUserFavorites = (favorites) => {
     console.log(favorites);
