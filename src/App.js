@@ -66,10 +66,10 @@ function App() {
   //   }),
   // });
 
-  const setUserFavorites = () => {
+  const setUserFavorites = (favorites) => {
     console.log(favorites);
     database.ref("users/" + idToken).set({
-      favorites: favorites,
+      favorites,
     });
   };
 
@@ -87,13 +87,16 @@ function App() {
   };
 
   const toggleFavorite = (giftId) => {
-    setFavorites((favorites) =>
+    const filterFavorite = (favorites) =>
       favorites.includes(giftId)
         ? favorites.filter((id) => id !== giftId)
-        : [...favorites, giftId]
-    );
+        : [...favorites, giftId];
+
+    const favorite = filterFavorite(favorites);
+
+    setFavorites(favorite);
     // postFavorites()
-    setUserFavorites();
+    setUserFavorites(favorite);
   };
 
   const giftsWithFavs = gifts.map((gift) => ({
