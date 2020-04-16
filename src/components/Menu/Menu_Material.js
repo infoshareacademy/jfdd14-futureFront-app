@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import AppBar from "@material-ui/core/AppBar";
@@ -19,14 +19,13 @@ import QueueOutlinedIcon from "@material-ui/icons/QueueOutlined";
 import MenuIcon from "@material-ui/icons/Menu";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import Brightness7Icon from "@material-ui/icons/Brightness7";
 import Brightness4Icon from "@material-ui/icons/Brightness4";
 import AccountBoxIcon from "@material-ui/icons/AccountBox";
 import Button from "@material-ui/core/Button";
-import Auth from "../Auth/Auth";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -86,6 +85,13 @@ function ResponsiveDrawer(props) {
   const [password, setPassword] = useState("");
   const [isLoggedIn, setLoggedIn] = useState(isTokenInStorage());
 
+  useEffect(() => {
+    const id = setInterval(() => setLoggedIn(isTokenInStorage()));
+
+    return () => {
+      clearInterval(id);
+    };
+  }, []);
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -213,59 +219,62 @@ function ResponsiveDrawer(props) {
 
             <div className={classes.toolbarButtons}>
               <Hidden xsDown>
-                <Auth>
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    onClick={handleClickOpen}
-                    startIcon={<AccountBoxIcon />}
-                    style={{ marginRight: 20 }}
-                    className={classes.button}
-                  >
-                    Sign In
-                  </Button>
-                  <Dialog
-                    open={open}
-                    onClose={handleClose}
-                    aria-labelledby="form-dialog-title"
-                  >
-                    <DialogTitle id="form-dialog-title">SIGN IN</DialogTitle>
-                    <DialogContent>
-                      <DialogContentText>
-                        Podaj swój adres e-mail oraz hasło aby się zalogować.
-                      </DialogContentText>
-                      <TextField
-                        autoFocus
-                        margin="dense"
-                        id="name"
-                        label="Email Address"
-                        type="email"
-                        onChange={(e) => setEmail(e.target.value)}
-                        fullWidth
-                      />
-                      <TextField
-                        autoFocus
-                        margin="dense"
-                        id="name"
-                        label="Password"
-                        type="password"
-                        onChange={(e) => setPassword(e.target.value)}
-                        fullWidth
-                      />
-                    </DialogContent>
-                    <DialogActions>
-                      <Button onClick={handleClose} color="primary">
-                        Cancel
-                      </Button>
-                      <Button
-                        onClick={() => onLogInClick(email, password)}
-                        color="primary"
-                      >
-                        Login
-                      </Button>
-                    </DialogActions>
-                  </Dialog>
-                </Auth>
+                {!isLoggedIn ? (
+                  <>
+                    {" "}
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      onClick={handleClickOpen}
+                      startIcon={<AccountBoxIcon />}
+                      style={{ marginRight: 20 }}
+                      className={classes.button}
+                    >
+                      Sign In
+                    </Button>
+                    <Dialog
+                      open={open}
+                      onClose={handleClose}
+                      aria-labelledby="form-dialog-title"
+                    >
+                      <DialogTitle id="form-dialog-title">SIGN IN</DialogTitle>
+                      <DialogContent>
+                        <DialogContentText>
+                          Podaj swój adres e-mail oraz hasło aby się zalogować.
+                        </DialogContentText>
+                        <TextField
+                          autoFocus
+                          margin="dense"
+                          id="name"
+                          label="Email Address"
+                          type="email"
+                          onChange={(e) => setEmail(e.target.value)}
+                          fullWidth
+                        />
+                        <TextField
+                          autoFocus
+                          margin="dense"
+                          id="name"
+                          label="Password"
+                          type="password"
+                          onChange={(e) => setPassword(e.target.value)}
+                          fullWidth
+                        />
+                      </DialogContent>
+                      <DialogActions>
+                        <Button onClick={handleClose} color="primary">
+                          Cancel
+                        </Button>
+                        <Button
+                          onClick={() => onLogInClick(email, password)}
+                          color="primary"
+                        >
+                          Login
+                        </Button>
+                      </DialogActions>
+                    </Dialog>{" "}
+                  </>
+                ) : null}
               </Hidden>
               <Hidden smUp>
                 <IconButton onClick={handleClickOpen}>
