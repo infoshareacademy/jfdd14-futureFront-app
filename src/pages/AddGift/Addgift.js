@@ -39,15 +39,7 @@ const Addgift = (props) => {
   };
 
   const addToList = () => {
-    props.addGift({
-      name,
-      category,
-      photo,
-      price,
-      description,
-      id,
-      isFavorite,
-    });
+    props.addGift();
     setName("");
     setCategory("");
     setPhoto("");
