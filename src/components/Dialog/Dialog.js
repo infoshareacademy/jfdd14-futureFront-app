@@ -1,6 +1,6 @@
 import React from "react";
 import { withStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
+
 import Dialog from "@material-ui/core/Dialog";
 import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import MuiDialogContent from "@material-ui/core/DialogContent";
@@ -85,7 +85,7 @@ export default function CustomizedDialogs({
             <br />
             <br />
             <div style={{ display: "flex", justifyContent: "center" }}>
-              <img width="400px" height="auto" src={gift.photo} />
+              <img width="400px" height="auto" src={gift.photo} alt="gift" />
             </div>
             <br />
             <br />
