@@ -44,7 +44,7 @@ const DialogTitle = withStyles(styles)((props) => {
 const DialogContent = withStyles((theme) => ({
   root: {
     padding: theme.spacing(2),
-    minWidth: 500,
+    minWidth: 300,
   },
 }))(MuiDialogContent);
 
@@ -68,7 +68,7 @@ export default function CustomizedDialogs({
       isFavorite = el.isFavorite;
     }
   });
-  console.log(isFavorite);
+
   return (
     <div>
       <Dialog
@@ -81,11 +81,18 @@ export default function CustomizedDialogs({
         </DialogTitle>
         <DialogContent dividers>
           <Typography gutterBottom>
-            PRICE: {gift.price}
+            CENA: {gift.price} PLN
             <br />
-            DESRIPTION:
             <br />
-            {gift.description}
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <img width="400px" height="auto" src={gift.photo} />
+            </div>
+            <br />
+            <br />
+            OPIS:
+            <br />
+            <br />
+            <div style={{ textAlign: "justify" }}>{gift.description}</div>
           </Typography>
         </DialogContent>
         <DialogActions>
