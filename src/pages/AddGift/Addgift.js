@@ -12,6 +12,8 @@ import React, { useState } from "react";
 import "./AddGift.css";
 import Paper from "@material-ui/core/Paper";
 
+import Uploader from "../../components/Uploader/Uploader";
+
 const Addgift = (props) => {
   const [name, setName] = useState("");
   const [category, setCategory] = useState("");
@@ -78,7 +80,6 @@ const Addgift = (props) => {
                 style={{ paddingBottom: "2vh" }}
               />
             </Box>
-
             <FormControl
               variant="outlined"
               fullWidth
@@ -114,6 +115,8 @@ const Addgift = (props) => {
               variant="outlined"
               style={{ marginBottom: "2vh", marginTop: "2vh" }}
             />
+
+            <Uploader setPhoto={setPhoto} />
 
             <TextField
               color="primary"

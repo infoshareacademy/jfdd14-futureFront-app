@@ -10,17 +10,19 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Dialog from "./components/Dialog/Dialog";
 import Gift from "./components/Gift/Gift";
 import mapObjectToArray from "./mapObjectToArray";
+import firebase from "firebase";
+import { database } from "./components/fireBase.config";
 
 function App() {
-  const [gifts, setGift] = useState([]);
   useEffect(() => {
     fetchGifts();
+    getFavorites();
   }, []);
 
+  const [gifts, setGift] = useState([]);
   const [favorites, setFavorites] = useState([]);
   const [giftToExpand, setGiftToExpand] = useState({});
   const [open, setOpen] = useState(false);
-
   const [page, setPage] = useState(0);
   const [giftsPerPage, setGiftsPerPage] = useState(10);
 
@@ -45,12 +47,33 @@ function App() {
     fetchGifts();
   };
 
+  const idToken = "BxyhrMXaURNoIjtx7lTBnQGJtVy2";
+
+  const setUserFavorites = (favorites) => {
+    console.log(favorites);
+    database.ref("users/" + idToken).set({
+      favorites,
+    });
+  };
+
+  const getFavorites = () => {
+    database
+      .ref("/users/" + idToken)
+      .once("value")
+      .then(function (snapshot) {
+        const userFavorites = snapshot.child("favorites").val();
+        return userFavorites ? setFavorites((favorites) => userFavorites) : [];
+      });
+  };
+
   const toggleFavorite = (giftId) => {
-    setFavorites((favorites) =>
+    const filterFavorite = (favorites) =>
       favorites.includes(giftId)
         ? favorites.filter((id) => id !== giftId)
-        : [...favorites, giftId]
-    );
+        : [...favorites, giftId];
+    const favorite = filterFavorite(favorites);
+    setFavorites(favorite);
+    setUserFavorites(favorite);
   };
 
   const giftsWithFavs = gifts.map((gift) => ({
