@@ -16,7 +16,6 @@ import { database } from "./components/fireBase.config";
 function App() {
   useEffect(() => {
     fetchGifts();
-    // fetchFavorites();
     getFavorites();
   }, []);
 
@@ -48,23 +47,7 @@ function App() {
     fetchGifts();
   };
 
-  // const fetchFavorites = () => {
-  //   fetch(`https://jfdd14-futurefront.firebaseio.com/items.json?auth=${idToken}`).then(
-  //     (response) =>
-  //       response.json().then((response) => {
-  //         const favoriteList = mapObjectToArray(response);
-  //         setFavorites(favoriteList);
-  //       })
-  //   );
-  // };
-
   const idToken = "BxyhrMXaURNoIjtx7lTBnQGJtVy2";
-  // const postFavorites = () => fetch(`https://jfdd14-futurefrontapp.firebaseio.com/users.json`, {
-  //   method: "PUT",
-  //   body: JSON.stringify({
-  //     favorites,
-  //   }),
-  // });
 
   const setUserFavorites = (favorites) => {
     console.log(favorites);
@@ -72,9 +55,6 @@ function App() {
       favorites,
     });
   };
-
-  //Get the current userID
-  // var userId = firebase.auth().currentUser.uid;
 
   const getFavorites = () => {
     database
@@ -91,11 +71,8 @@ function App() {
       favorites.includes(giftId)
         ? favorites.filter((id) => id !== giftId)
         : [...favorites, giftId];
-
     const favorite = filterFavorite(favorites);
-
     setFavorites(favorite);
-    // postFavorites()
     setUserFavorites(favorite);
   };
 
