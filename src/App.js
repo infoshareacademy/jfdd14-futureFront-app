@@ -58,13 +58,10 @@ function App() {
   };
 
   const getFavorites = () => {
-    database
-      .ref("/users/" + idToken)
-      .once("value")
-      .then(function (snapshot) {
-        const userFavorites = snapshot.child("favorites").val();
-        return userFavorites ? setFavorites((favorites) => userFavorites) : [];
-      });
+    database.ref("/users/" + idToken).on("value", function (snapshot) {
+      const userFavorites = snapshot.child("favorites").val();
+      return userFavorites ? setFavorites((favorites) => userFavorites) : [];
+    });
   };
 
   const toggleFavorite = (giftId) => {
