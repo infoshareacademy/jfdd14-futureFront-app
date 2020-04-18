@@ -33,6 +33,9 @@ import { logIn, isTokenInStorage } from "../FirebaseAuth/FirebaseAuth";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import { auth } from "firebase";
+import { auth2, googleProvider } from "../fireBase.config";
 
 const drawerWidth = 240;
 
@@ -138,6 +141,10 @@ function ResponsiveDrawer(props) {
       });
   };
 
+  const onLogOutClick = () => {
+    auth2.signOut();
+  };
+
   const drawer = (
     <div>
       <Hidden xsDown>
@@ -232,6 +239,16 @@ function ResponsiveDrawer(props) {
                     >
                       Sign In
                     </Button>
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      onClick={onLogOutClick}
+                      startIcon={<ExitToAppIcon />}
+                      style={{ marginRight: 20 }}
+                      className={classes.button}
+                    >
+                      Log Out
+                    </Button>
                     <Dialog
                       open={open}
                       onClose={handleClose}
@@ -269,7 +286,13 @@ function ResponsiveDrawer(props) {
                           onClick={() => onLogInClick(email, password)}
                           color="primary"
                         >
-                          Login
+                          Log In
+                        </Button>
+                        <Button
+                          onClick={() => onLogInClick(email, password)}
+                          color="primary"
+                        >
+                          Log In by Google
                         </Button>
                       </DialogActions>
                     </Dialog>{" "}
@@ -277,14 +300,22 @@ function ResponsiveDrawer(props) {
                 ) : null}
               </Hidden>
               <Hidden smUp>
-                <IconButton onClick={handleClickOpen}>
-                  <AccountBoxIcon style={{ color: "white" }} />
+                <IconButton>
+                  <AccountBoxIcon
+                    onClick={handleClickOpen}
+                    style={{ color: "white" }}
+                  />
+                  <ExitToAppIcon
+                    onClick={onLogOutClick}
+                    style={{ color: "white", margin: "0px 0px 0px 10px" }}
+                  />
                   <Dialog
                     open={open}
                     onClose={handleClose}
                     aria-labelledby="form-dialog-title"
                   >
                     <DialogTitle id="form-dialog-title">SIGN IN</DialogTitle>
+
                     <DialogContent>
                       <DialogContentText>
                         Podaj swój adres e-mail oraz hasło aby się zalogować.
@@ -317,6 +348,12 @@ function ResponsiveDrawer(props) {
                         color="primary"
                       >
                         Login
+                      </Button>
+                      <Button
+                        onClick={() => onLogInClick(email, password)}
+                        color="primary"
+                      >
+                        Log In by Google
                       </Button>
                     </DialogActions>
                   </Dialog>
