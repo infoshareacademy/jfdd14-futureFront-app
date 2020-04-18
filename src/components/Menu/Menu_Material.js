@@ -90,11 +90,11 @@ function ResponsiveDrawer(props) {
 
   useEffect(() => {
     const id = setInterval(() => setLoggedIn(isTokenInStorage()));
-
     return () => {
       clearInterval(id);
     };
   }, []);
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };

@@ -61,9 +61,11 @@ function App() {
 
   const setUserFavorites = (favorites) => {
     console.log(favorites);
-    database.ref("users/" + idToken).set({
-      favorites,
-    });
+    if (idToken) {
+      database.ref("users/" + idToken).set({
+        favorites,
+      });
+    }
   };
 
   const getFavorites = () => {
@@ -104,7 +106,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Menu>
+      <Menu getFavorites={getFavorites}>
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/addgift">
