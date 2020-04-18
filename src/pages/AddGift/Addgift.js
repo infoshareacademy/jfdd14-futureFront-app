@@ -11,6 +11,7 @@ import TextField from "@material-ui/core/TextField";
 import React, { useState } from "react";
 import "./AddGift.css";
 import Paper from "@material-ui/core/Paper";
+import { database } from "../../components/fireBase.config";
 
 import Uploader from "../../components/Uploader/Uploader";
 
@@ -39,7 +40,54 @@ const Addgift = (props) => {
     setName(e.target.value);
     setGiftAddedText(false);
   };
+  const writeUserData = (
+    name,
+    category,
+    photo,
+    price,
+    description,
+    isFavorite,
+    id
+  ) => {
+    database.ref("gifts/").set({
+      name: name,
+      category: category,
+      photo: photo,
+      price: price,
+      description: description,
+      isFavorite: isFavorite,
+      id: id,
+    });
+  };
+  const writeNewPost = (
+    name,
+    category,
+    photo,
+    price,
+    description,
+    isFavorite,
+    id
+  ) => {
+    // A post entry.
+    const postData = {
+      name: name,
+      category: category,
+      photo: photo,
+      price: price,
+      description: description,
+      isFavorite: isFavorite,
+      id: id,
+    };
 
+    // Get a key for a new Post.
+    var newPostKey = database.ref().child("gifts").push().key;
+
+    // Write the new post's data simultaneously in the posts list and the user's post list.
+    var updates = {};
+    updates["/gifts/" + newPostKey] = postData;
+
+    return database.ref().update(updates);
+  };
   const addToList = () => {
     props.addGift();
     setName("");
@@ -60,6 +108,7 @@ const Addgift = (props) => {
         id: id,
       }),
     });
+    /* writeNewPost(name, category, photo, price, description, isFavorite, id) */
   };
 
   return (

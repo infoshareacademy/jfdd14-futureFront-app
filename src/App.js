@@ -35,6 +35,7 @@ function App() {
     setGiftsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+
   const fetchGifts = () => {
     fetch("https://jfdd14-futurefrontapp.firebaseio.com/gifts.json").then(
       (response) =>
@@ -45,7 +46,11 @@ function App() {
     );
   };
   const addGift = () => {
-    fetchGifts();
+    database.ref("gifts/").on("value", function (snapshot) {
+      const giftsList = mapObjectToArray(snapshot);
+      setGift(giftsList);
+      // console.log(snapshot.val())
+    });
   };
 
   const idToken = localStorage.getItem("localId");
