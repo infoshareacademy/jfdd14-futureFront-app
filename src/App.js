@@ -15,14 +15,8 @@ import firebase from "firebase";
 import { database } from "./components/fireBase.config";
 import Alert from "./components/Alert/Alert";
 
-import MuiAlert from "@material-ui/lab/Alert";
-
 function App() {
   console.log(localStorage.getItem("localId"));
-  useEffect(() => {
-    giftsFetch();
-    getFavorites();
-  }, []);
 
   const [gifts, setGift] = useState([]);
   const [favorites, setFavorites] = useState([]);
@@ -30,6 +24,11 @@ function App() {
   const [open, setOpen] = useState(false);
   const [page, setPage] = useState(0);
   const [giftsPerPage, setGiftsPerPage] = useState(10);
+
+  useEffect(() => {
+    giftsFetch();
+    getFavorites();
+  }, []);
 
   const [openAlert, setOpenAlert] = useState(false);
 
@@ -53,6 +52,7 @@ function App() {
   const giftsFetch = () => {
     database.ref("/gifts/").on("value", function (snapshot) {
       const giftsList = mapObjectToArray(snapshot.val());
+      getFavorites();
       return giftsList ? setGift(giftsList) : [];
     });
   };
@@ -69,6 +69,7 @@ function App() {
   };
 
   const getFavorites = () => {
+    console.log("get", favorites);
     database.ref("/users/" + idToken).on("value", function (snapshot) {
       const userFavorites = snapshot.child("favorites").val();
       return userFavorites ? setFavorites((favorites) => userFavorites) : [];
@@ -106,7 +107,11 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Menu getFavorites={getFavorites}>
+      <Menu
+        setFavorites={setFavorites}
+        getFavorites={getFavorites}
+        giftsFetch={giftsFetch}
+      >
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/addgift">
