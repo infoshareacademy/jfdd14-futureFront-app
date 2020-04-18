@@ -63,7 +63,7 @@ const Addgift = (props) => {
   };
 
   return (
-    <Grid item xs={10} sm={10} md={8} lg={6} justify-content="center">
+    <Grid item xs={12} sm={12} md={8} lg={6} justify-content="center">
       <Paper elevation={3} className="formPaper">
         <Container maxWidth="sm" className="formContainer">
           <form className="addGiftForm">
@@ -106,7 +106,7 @@ const Addgift = (props) => {
 
             <TextField
               value={photo}
-              placeholder="Adres URL"
+              placeholder="Adres URL lub wybierz plik"
               fullWidth
               color="primary"
               onChange={(e) => setPhoto(e.target.value)}

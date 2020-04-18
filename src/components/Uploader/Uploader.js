@@ -20,6 +20,10 @@ const useStyles = makeStyles((theme) => ({
   form: {
     width: "100%",
   },
+  button: {
+    minWidth: "129px",
+    margin: "0 5px 10px 5px",
+  },
 }));
 
 export default function Uploader({ setPhoto }) {
@@ -74,7 +78,9 @@ export default function Uploader({ setPhoto }) {
           ""
         )}
       </div>
-      <div style={{ display: "flex", justifyContent: "center" }}>
+      <div
+        style={{ display: "flex", justifyContent: "center", flexWrap: "wrap" }}
+      >
         <Input
           accept="image/*"
           className={classes.input}
@@ -90,7 +96,6 @@ export default function Uploader({ setPhoto }) {
             className={classes.button}
             color="primary"
             variant="outlined"
-            style={{ margin: "0 5px 10px 0" }}
           >
             Wybierz Plik
           </Button>
@@ -102,7 +107,6 @@ export default function Uploader({ setPhoto }) {
             className={classes.button}
             onClick={handleUpload}
             color="primary"
-            style={{ margin: "0 0 10px 5px" }}
           >
             Upload
           </Button>
