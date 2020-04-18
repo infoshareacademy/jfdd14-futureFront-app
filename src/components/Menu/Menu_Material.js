@@ -134,8 +134,7 @@ function ResponsiveDrawer(props) {
         setLoggedIn(true);
         handleClose();
       })
-      .catch((err) => {
-        alert("Złe hasło!");
+      .catch(() => {
         setLoggedIn(false);
       });
   };
@@ -144,14 +143,9 @@ function ResponsiveDrawer(props) {
     logOut();
   };
 
-  useEffect(() => {
-    auth2.onAuthStateChanged((isLoggedIn) => {
-      setLoggedIn(isLoggedIn);
-    });
-  }, []);
-
   const onLogInClickGoogle = () => {
     auth2.signInWithPopup(googleProvider);
+    handleClose();
   };
 
   const drawer = (
@@ -248,16 +242,6 @@ function ResponsiveDrawer(props) {
                     >
                       Sign In
                     </Button>
-                    <Button
-                      variant="contained"
-                      color="secondary"
-                      onClick={onLogOutClick}
-                      startIcon={<ExitToAppIcon />}
-                      style={{ marginRight: 20 }}
-                      className={classes.button}
-                    >
-                      Log Out
-                    </Button>
                     <Dialog
                       open={open}
                       onClose={handleClose}
@@ -278,6 +262,7 @@ function ResponsiveDrawer(props) {
                           fullWidth
                         />
                         <TextField
+                          className="textPassword"
                           autoFocus
                           margin="dense"
                           id="name"
@@ -322,10 +307,6 @@ function ResponsiveDrawer(props) {
                     <AccountBoxIcon
                       onClick={handleClickOpen}
                       style={{ color: "white" }}
-                    />
-                    <ExitToAppIcon
-                      onClick={onLogOutClick}
-                      style={{ color: "white", margin: "0px 0px 0px 10px" }}
                     />
                     <Dialog
                       open={open}
