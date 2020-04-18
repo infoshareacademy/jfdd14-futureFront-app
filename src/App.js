@@ -6,23 +6,40 @@ import Charts from "./pages/Charts/Charts";
 import Favorites from "./pages/Favorites/Favorites";
 import Home from "./pages/Home/Home";
 import Menu from "./components/Menu/Menu_Material";
+import Snackbar from "@material-ui/core/Snackbar";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Dialog from "./components/Dialog/Dialog";
 import Gift from "./components/Gift/Gift";
 import mapObjectToArray from "./mapObjectToArray";
+import firebase from "firebase";
+import { database } from "./components/fireBase.config";
+import Alert from "./components/Alert/Alert";
+
+import MuiAlert from "@material-ui/lab/Alert";
 
 function App() {
-  const [gifts, setGift] = useState([]);
+  console.log(localStorage.getItem("localId"));
   useEffect(() => {
-    fetchGifts();
+    giftsFetch();
+    getFavorites();
   }, []);
 
+  const [gifts, setGift] = useState([]);
   const [favorites, setFavorites] = useState([]);
   const [giftToExpand, setGiftToExpand] = useState({});
   const [open, setOpen] = useState(false);
-
   const [page, setPage] = useState(0);
   const [giftsPerPage, setGiftsPerPage] = useState(10);
+
+  const [openAlert, setOpenAlert] = useState(false);
+
+  const handleClickOpenAlert = () => {
+    setOpenAlert(true);
+  };
+
+  const handleCloseAlert = () => {
+    setOpenAlert(false);
+  };
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -32,25 +49,43 @@ function App() {
     setGiftsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-  const fetchGifts = () => {
-    fetch("https://jfdd14-futurefrontapp.firebaseio.com/gifts.json").then(
-      (response) =>
-        response.json().then((response) => {
-          const giftsList = mapObjectToArray(response);
-          setGift(giftsList);
-        })
-    );
+
+  const giftsFetch = () => {
+    database.ref("/gifts/").on("value", function (snapshot) {
+      const giftsList = mapObjectToArray(snapshot.val());
+      return giftsList ? setGift(giftsList) : [];
+    });
   };
-  const addGift = () => {
-    fetchGifts();
+
+  const idToken = localStorage.getItem("localId");
+
+  const setUserFavorites = (favorites) => {
+    console.log(favorites);
+    database.ref("users/" + idToken).set({
+      favorites,
+    });
+  };
+
+  const getFavorites = () => {
+    database.ref("/users/" + idToken).on("value", function (snapshot) {
+      const userFavorites = snapshot.child("favorites").val();
+      return userFavorites ? setFavorites((favorites) => userFavorites) : [];
+    });
   };
 
   const toggleFavorite = (giftId) => {
-    setFavorites((favorites) =>
-      favorites.includes(giftId)
-        ? favorites.filter((id) => id !== giftId)
-        : [...favorites, giftId]
-    );
+    if (localStorage.getItem("localId")) {
+      const filterFavorite = (favorites) =>
+        favorites.includes(giftId)
+          ? favorites.filter((id) => id !== giftId)
+          : [...favorites, giftId];
+      const favorite = filterFavorite(favorites);
+      setFavorites(favorite);
+      setUserFavorites(favorite);
+    } else {
+      handleClickOpenAlert();
+      console.log("loguj sie");
+    }
   };
 
   const giftsWithFavs = gifts.map((gift) => ({
@@ -73,7 +108,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/addgift">
-            <Addgift addGift={addGift} />
+            <Addgift giftsFetch={giftsFetch} />
           </Route>
           <Route path="/gifts">
             <Giftslist
@@ -84,6 +119,7 @@ function App() {
               handleChangeGiftsPerPage={handleChangeGiftsPerPage}
               handleChangePage={handleChangePage}
               page={page}
+              handleClickOpenAlert={handleClickOpenAlert}
             />
           </Route>
           <Route path="/charts" component={Charts} />
@@ -102,9 +138,12 @@ function App() {
           open={open}
           gift={giftToExpand}
           gifts={giftsWithFavs}
-        >
-          <Gift item={giftToExpand} />
-        </Dialog>
+        ></Dialog>
+        <Alert
+          open={openAlert}
+          handleClickOpen={handleClickOpenAlert}
+          handleClose={handleCloseAlert}
+        ></Alert>
       </Menu>
     </BrowserRouter>
   );

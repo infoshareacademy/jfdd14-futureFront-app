@@ -3,7 +3,6 @@ import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
 import { makeStyles } from "@material-ui/core/styles";
-import { red } from "@material-ui/core/colors";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import IconButton from "@material-ui/core/IconButton";
 import CardActions from "@material-ui/core/CardActions";
@@ -13,7 +12,6 @@ import CardContent from "@material-ui/core/CardContent";
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 import ShareIcon from "@material-ui/icons/Share";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme) => ({
@@ -41,7 +39,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Gift(props) {
-  const { toggleFavorite, handleClickOpen, item } = props;
+  const capital = props.item.category.charAt(0);
+  const { toggleFavorite, handleClickOpen, item, handleClickOpenAlert } = props;
   const classes = useStyles();
 
   return (
@@ -50,7 +49,7 @@ export default function Gift(props) {
         <CardHeader
           avatar={
             <Avatar aria-label="recipe" className={classes.avatar}>
-              R
+              {capital}
             </Avatar>
           }
           title={props.item.name}
@@ -69,17 +68,15 @@ export default function Gift(props) {
         <CardActions disableSpacing>
           <IconButton
             aria-label="add to favorites"
-            onClick={() => toggleFavorite(props.item.id)}
+            onClick={() => {
+              toggleFavorite(props.item.id);
+            }}
           >
             <FavoriteIcon
               style={{ color: props.item.isFavorite ? "red" : undefined }}
               aria-label="add to favorites"
             />
           </IconButton>
-          <IconButton aria-label="share">
-            <ShareIcon />
-          </IconButton>
-
           <Button
             className={clsx(classes.expand, {})}
             onClick={() => handleClickOpen(item)}

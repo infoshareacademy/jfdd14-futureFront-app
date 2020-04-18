@@ -1,6 +1,6 @@
 import React from "react";
 import { withStyles } from "@material-ui/core/styles";
-
+import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import MuiDialogContent from "@material-ui/core/DialogContent";
@@ -55,20 +55,7 @@ const DialogActions = withStyles((theme) => ({
   },
 }))(MuiDialogActions);
 
-export default function CustomizedDialogs({
-  handleClose,
-  open,
-  gift,
-  toggleFavorite,
-  gifts,
-}) {
-  let isFavorite = false;
-  gifts.forEach((el) => {
-    if (el.id === gift.id) {
-      isFavorite = el.isFavorite;
-    }
-  });
-
+export default function ALert({ handleClose, open }) {
   return (
     <div>
       <Dialog
@@ -76,33 +63,17 @@ export default function CustomizedDialogs({
         aria-labelledby="customized-dialog-title"
         open={open}
       >
-        <DialogTitle id="customized-dialog-title" onClose={handleClose}>
-          {gift.name}
-        </DialogTitle>
-        <DialogContent dividers>
-          <Typography gutterBottom>
-            CENA: {gift.price} PLN
-            <br />
-            <br />
-            <div style={{ display: "flex", justifyContent: "center" }}>
-              <img width="400px" height="auto" src={gift.photo} alt="gift" />
-            </div>
-            <br />
-            <br />
-            OPIS:
-            <br />
-            <br />
-            <div style={{ textAlign: "justify" }}>{gift.description}</div>
-          </Typography>
+        <DialogTitle
+          id="customized-dialog-title"
+          onClose={handleClose}
+        ></DialogTitle>
+        <DialogContent>
+          <br />
+          <h3>Zaloguj się aby dodawac prezenty do listy ulubionych.</h3>
         </DialogContent>
-        <DialogActions>
-          <IconButton
-            aria-label="add to favorites"
-            onClick={() => toggleFavorite(gift.id)}
-          >
-            <FavoriteIcon style={{ color: isFavorite ? "red" : undefined }} />
-          </IconButton>
-        </DialogActions>
+        <br />
+        <br />
+        <DialogActions></DialogActions>
       </Dialog>
     </div>
   );

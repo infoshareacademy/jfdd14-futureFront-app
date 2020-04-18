@@ -11,6 +11,9 @@ import TextField from "@material-ui/core/TextField";
 import React, { useState } from "react";
 import "./AddGift.css";
 import Paper from "@material-ui/core/Paper";
+import { database } from "../../components/fireBase.config";
+
+import Uploader from "../../components/Uploader/Uploader";
 
 const Addgift = (props) => {
   const [name, setName] = useState("");
@@ -38,30 +41,51 @@ const Addgift = (props) => {
     setGiftAddedText(false);
   };
 
+  const postGiftToDatabase = (
+    name,
+    category,
+    photo,
+    price,
+    description,
+    isFavorite,
+    id
+  ) => {
+    const postData = {
+      name: name,
+      category: category,
+      photo: photo,
+      price: price,
+      description: description,
+      isFavorite: isFavorite,
+      id: id,
+    };
+    const giftKey = database.ref().child("gifts").push().key;
+    var updates = {};
+    updates["/gifts/" + giftKey] = postData;
+
+    return database.ref().update(updates);
+  };
   const addToList = () => {
-    props.addGift();
+    props.giftsFetch();
     setName("");
     setCategory("");
     setPhoto("");
     setPrice("");
     setDescription("");
     setGiftAddedText(true);
-    fetch("https://jfdd14-futurefrontapp.firebaseio.com/gifts.json", {
-      method: "POST",
-      body: JSON.stringify({
-        name: name,
-        category: category,
-        photo: photo,
-        price: price,
-        description: description,
-        isFavorite: isFavorite,
-        id: id,
-      }),
-    });
+    postGiftToDatabase(
+      name,
+      category,
+      photo,
+      price,
+      description,
+      isFavorite,
+      id
+    );
   };
 
   return (
-    <Grid item xs={10} sm={10} md={8} lg={6} justify-content="center">
+    <Grid item xs={12} sm={12} md={8} lg={6} justify-content="center">
       <Paper elevation={3} className="formPaper">
         <Container maxWidth="sm" className="formContainer">
           <form className="addGiftForm">
@@ -78,7 +102,6 @@ const Addgift = (props) => {
                 style={{ paddingBottom: "2vh" }}
               />
             </Box>
-
             <FormControl
               variant="outlined"
               fullWidth
@@ -105,15 +128,17 @@ const Addgift = (props) => {
 
             <TextField
               value={photo}
-              placeholder="Adres URL"
+              placeholder="Adres URL lub wybierz plik"
               fullWidth
               color="primary"
               onChange={(e) => setPhoto(e.target.value)}
               id="standard-basic"
               label="Zdjęcie"
               variant="outlined"
-              style={{ marginBottom: "2vh", marginTop: "2vh" }}
+              style={{ marginTop: "2vh" }}
             />
+
+            <Uploader setPhoto={setPhoto} />
 
             <TextField
               color="primary"

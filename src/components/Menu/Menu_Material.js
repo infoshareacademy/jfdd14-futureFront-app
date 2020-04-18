@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import AppBar from "@material-ui/core/AppBar";
@@ -19,13 +19,23 @@ import QueueOutlinedIcon from "@material-ui/icons/QueueOutlined";
 import MenuIcon from "@material-ui/icons/Menu";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import Brightness7Icon from "@material-ui/icons/Brightness7";
+import Brightness4Icon from "@material-ui/icons/Brightness4";
 import AccountBoxIcon from "@material-ui/icons/AccountBox";
 import Button from "@material-ui/core/Button";
-import Brightness4Icon from "@material-ui/icons/Brightness4";
+import TextField from "@material-ui/core/TextField";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import { logIn, isTokenInStorage, logOut } from "../FirebaseAuth/FirebaseAuth";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import { auth } from "firebase";
+import { auth2, googleProvider } from "../fireBase.config";
 
 const drawerWidth = 240;
 
@@ -73,11 +83,21 @@ function ResponsiveDrawer(props) {
   const classes = useStyles();
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [selected, setSelected] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoggedIn, setLoggedIn] = useState(isTokenInStorage());
 
+  useEffect(() => {
+    const id = setInterval(() => setLoggedIn(isTokenInStorage()));
+
+    return () => {
+      clearInterval(id);
+    };
+  }, []);
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-
   const theme = createMuiTheme({
     palette: {
       type: `${selected ? "dark" : "light"}`,
@@ -99,6 +119,39 @@ function ResponsiveDrawer(props) {
       },
     },
   });
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const onLogInClick = (email, password) => {
+    return logIn(email, password)
+      .then(() => {
+        setLoggedIn(true);
+        handleClose();
+      })
+      .catch((err) => {
+        alert("Złe hasło!");
+        setLoggedIn(false);
+      });
+  };
+
+  const onLogOutClick = () => {
+    auth2.signOut();
+    logOut();
+  };
+
+  useEffect(() => {
+    auth2.onAuthStateChanged((isLoggedIn) => {
+      setLoggedIn(isLoggedIn);
+    });
+  }, []);
+
+  const onLogInClickGoogle = () => auth2.signInWithPopup(googleProvider);
 
   const drawer = (
     <div>
@@ -181,19 +234,145 @@ function ResponsiveDrawer(props) {
 
             <div className={classes.toolbarButtons}>
               <Hidden xsDown>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  className={classes.button}
-                  startIcon={<AccountBoxIcon />}
-                  style={{ marginRight: 20, color: "white" }}
-                >
-                  Sign In
-                </Button>
+                {!isLoggedIn ? (
+                  <>
+                    {" "}
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      onClick={handleClickOpen}
+                      startIcon={<AccountBoxIcon />}
+                      style={{ marginRight: 20 }}
+                      className={classes.button}
+                    >
+                      Sign In
+                    </Button>
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      onClick={onLogOutClick}
+                      startIcon={<ExitToAppIcon />}
+                      style={{ marginRight: 20 }}
+                      className={classes.button}
+                    >
+                      Log Out
+                    </Button>
+                    <Dialog
+                      open={open}
+                      onClose={handleClose}
+                      aria-labelledby="form-dialog-title"
+                    >
+                      <DialogTitle id="form-dialog-title">SIGN IN</DialogTitle>
+                      <DialogContent>
+                        <DialogContentText>
+                          Podaj swój adres e-mail oraz hasło aby się zalogować.
+                        </DialogContentText>
+                        <TextField
+                          autoFocus
+                          margin="dense"
+                          id="name"
+                          label="Email Address"
+                          type="email"
+                          onChange={(e) => setEmail(e.target.value)}
+                          fullWidth
+                        />
+                        <TextField
+                          autoFocus
+                          margin="dense"
+                          id="name"
+                          label="Password"
+                          type="password"
+                          onChange={(e) => setPassword(e.target.value)}
+                          fullWidth
+                        />
+                      </DialogContent>
+                      <DialogActions>
+                        <Button onClick={handleClose} color="primary">
+                          Cancel
+                        </Button>
+                        <Button
+                          onClick={() => onLogInClick(email, password)}
+                          color="primary"
+                        >
+                          Log In
+                        </Button>
+                        <Button onClick={onLogInClickGoogle} color="primary">
+                          Log In by Google
+                        </Button>
+                      </DialogActions>
+                    </Dialog>{" "}
+                  </>
+                ) : (
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    onClick={onLogOutClick}
+                    startIcon={<ExitToAppIcon />}
+                    style={{ marginRight: 20 }}
+                    className={classes.button}
+                  >
+                    Log Out
+                  </Button>
+                )}
               </Hidden>
               <Hidden smUp>
                 <IconButton>
-                  <AccountBoxIcon style={{ color: "white" }} />
+                  <AccountBoxIcon
+                    onClick={handleClickOpen}
+                    style={{ color: "white" }}
+                  />
+                  <ExitToAppIcon
+                    onClick={onLogOutClick}
+                    style={{ color: "white", margin: "0px 0px 0px 10px" }}
+                  />
+                  <Dialog
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="form-dialog-title"
+                  >
+                    <DialogTitle id="form-dialog-title">SIGN IN</DialogTitle>
+
+                    <DialogContent>
+                      <DialogContentText>
+                        Podaj swój adres e-mail oraz hasło aby się zalogować.
+                      </DialogContentText>
+                      <TextField
+                        autoFocus
+                        margin="dense"
+                        id="name"
+                        label="Email Address"
+                        type="email"
+                        onChange={(e) => setEmail(e.target.value)}
+                        fullWidth
+                      />
+                      <TextField
+                        autoFocus
+                        margin="dense"
+                        id="name"
+                        label="Password"
+                        type="password"
+                        onChange={(e) => setPassword(e.target.value)}
+                        fullWidth
+                      />
+                    </DialogContent>
+                    <DialogActions>
+                      <Button onClick={handleClose} color="primary">
+                        Cancel
+                      </Button>
+                      <Button
+                        onClick={() => onLogInClick(email, password)}
+                        color="primary"
+                      >
+                        Login
+                      </Button>
+                      <Button
+                        onClick={() => onLogInClickGoogle()}
+                        color="primary"
+                      >
+                        Log In by Google
+                      </Button>
+                    </DialogActions>
+                  </Dialog>
                 </IconButton>
               </Hidden>
               <IconButton
