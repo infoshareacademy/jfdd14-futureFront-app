@@ -6,6 +6,8 @@ import { NoResults } from "../../components/NoResults/NoResults";
 import CustomizedSlider from "../../components/Slider/Slider";
 import Grid from "@material-ui/core/Grid";
 
+import Loading from "../../components/Loading/Loading";
+
 const GiftList = function (props) {
   const [searchInput, setSearchInput] = useState("");
   const [sliderInput, setSliderInput] = useState([0, 100000]);
@@ -110,7 +112,9 @@ const GiftList = function (props) {
             <NoResults />
           )}{" "}
         </>
-      ) : null}
+      ) : (
+        <Loading />
+      )}
     </Fragment>
   );
 };
