@@ -29,7 +29,7 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
-import { logIn, isTokenInStorage } from "../FirebaseAuth/FirebaseAuth";
+import { logIn, isTokenInStorage, logOut } from "../FirebaseAuth/FirebaseAuth";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
@@ -142,6 +142,7 @@ function ResponsiveDrawer(props) {
 
   const onLogOutClick = () => {
     auth2.signOut();
+    logOut();
   };
 
   useEffect(() => {
@@ -301,7 +302,18 @@ function ResponsiveDrawer(props) {
                       </DialogActions>
                     </Dialog>{" "}
                   </>
-                ) : null}
+                ) : (
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    onClick={onLogOutClick}
+                    startIcon={<ExitToAppIcon />}
+                    style={{ marginRight: 20 }}
+                    className={classes.button}
+                  >
+                    Log Out
+                  </Button>
+                )}
               </Hidden>
               <Hidden smUp>
                 <IconButton>
