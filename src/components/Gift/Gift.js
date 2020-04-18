@@ -41,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Gift(props) {
+  const capital = props.item.category.charAt(0);
   const { toggleFavorite, handleClickOpen, item, handleClickOpenAlert } = props;
   const classes = useStyles();
 
@@ -50,7 +51,7 @@ export default function Gift(props) {
         <CardHeader
           avatar={
             <Avatar aria-label="recipe" className={classes.avatar}>
-              R
+              {capital}
             </Avatar>
           }
           title={props.item.name}
