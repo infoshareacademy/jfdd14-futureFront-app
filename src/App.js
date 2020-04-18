@@ -16,7 +16,7 @@ import { database } from "./components/fireBase.config";
 function App() {
   console.log(localStorage.getItem("localId"));
   useEffect(() => {
-    giftsInitFetch();
+    giftsFetch();
     getFavorites();
   }, []);
 
@@ -36,13 +36,7 @@ function App() {
     setPage(0);
   };
 
-  const giftsInitFetch = () => {
-    database.ref("/gifts/").on("value", function (snapshot) {
-      const giftsList = mapObjectToArray(snapshot.val());
-      return giftsList ? setGift(giftsList) : [];
-    });
-  };
-  const giftsFetchAfterAddNewGift = () => {
+  const giftsFetch = () => {
     database.ref("/gifts/").on("value", function (snapshot) {
       const giftsList = mapObjectToArray(snapshot.val());
       return giftsList ? setGift(giftsList) : [];
@@ -95,7 +89,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/addgift">
-            <Addgift giftsFetchAfterAddNewGift={giftsFetchAfterAddNewGift} />
+            <Addgift giftsFetch={giftsFetch} />
           </Route>
           <Route path="/gifts">
             <Giftslist

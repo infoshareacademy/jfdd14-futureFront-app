@@ -66,7 +66,7 @@ const Addgift = (props) => {
     return database.ref().update(updates);
   };
   const addToList = () => {
-    props.giftsFetchAfterAddNewGift();
+    props.giftsFetch();
     setName("");
     setCategory("");
     setPhoto("");
