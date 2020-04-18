@@ -69,7 +69,7 @@ export default function ALert({ handleClose, open }) {
         ></DialogTitle>
         <DialogContent>
           <br />
-          Zaloguj się aby dodawac prezenty do listy ulubionych.
+          <h3>Zaloguj się aby dodawac prezenty do listy ulubionych.</h3>
         </DialogContent>
         <br />
         <br />
