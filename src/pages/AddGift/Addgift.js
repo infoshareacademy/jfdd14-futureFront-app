@@ -96,7 +96,7 @@ const Addgift = (props) => {
     setPrice("");
     setDescription("");
     setGiftAddedText(true);
-    fetch("https://jfdd14-futurefrontapp.firebaseio.com/gifts.json", {
+    /* fetch("https://jfdd14-futurefrontapp.firebaseio.com/gifts.json", {
       method: "POST",
       body: JSON.stringify({
         name: name,
@@ -107,8 +107,8 @@ const Addgift = (props) => {
         isFavorite: isFavorite,
         id: id,
       }),
-    });
-    /* writeNewPost(name, category, photo, price, description, isFavorite, id) */
+    }); */
+    writeNewPost(name, category, photo, price, description, isFavorite, id);
   };
 
   return (
