@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Gift(props) {
-  const { toggleFavorite, handleClickOpen, item } = props;
+  const { toggleFavorite, handleClickOpen, item, handleClickOpenAlert } = props;
   const classes = useStyles();
 
   return (
@@ -69,17 +69,15 @@ export default function Gift(props) {
         <CardActions disableSpacing>
           <IconButton
             aria-label="add to favorites"
-            onClick={() => toggleFavorite(props.item.id)}
+            onClick={() => {
+              toggleFavorite(props.item.id);
+            }}
           >
             <FavoriteIcon
               style={{ color: props.item.isFavorite ? "red" : undefined }}
               aria-label="add to favorites"
             />
           </IconButton>
-          <IconButton aria-label="share">
-            <ShareIcon />
-          </IconButton>
-
           <Button
             className={clsx(classes.expand, {})}
             onClick={() => handleClickOpen(item)}

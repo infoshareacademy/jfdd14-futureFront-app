@@ -113,7 +113,7 @@ const Addgift = (props) => {
               id="standard-basic"
               label="Zdjęcie"
               variant="outlined"
-              style={{ marginBottom: "2vh", marginTop: "2vh" }}
+              style={{ marginTop: "2vh" }}
             />
 
             <Uploader setPhoto={setPhoto} />

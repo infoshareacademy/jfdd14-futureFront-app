@@ -6,12 +6,16 @@ import Charts from "./pages/Charts/Charts";
 import Favorites from "./pages/Favorites/Favorites";
 import Home from "./pages/Home/Home";
 import Menu from "./components/Menu/Menu_Material";
+import Snackbar from "@material-ui/core/Snackbar";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Dialog from "./components/Dialog/Dialog";
 import Gift from "./components/Gift/Gift";
 import mapObjectToArray from "./mapObjectToArray";
 import firebase from "firebase";
 import { database } from "./components/fireBase.config";
+import Alert from "./components/Alert/Alert";
+
+import MuiAlert from "@material-ui/lab/Alert";
 
 function App() {
   useEffect(() => {
@@ -25,6 +29,16 @@ function App() {
   const [open, setOpen] = useState(false);
   const [page, setPage] = useState(0);
   const [giftsPerPage, setGiftsPerPage] = useState(10);
+
+  const [openAlert, setOpenAlert] = useState(false);
+
+  const handleClickOpenAlert = () => {
+    setOpenAlert(true);
+  };
+
+  const handleCloseAlert = () => {
+    setOpenAlert(false);
+  };
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -67,13 +81,18 @@ function App() {
   };
 
   const toggleFavorite = (giftId) => {
-    const filterFavorite = (favorites) =>
-      favorites.includes(giftId)
-        ? favorites.filter((id) => id !== giftId)
-        : [...favorites, giftId];
-    const favorite = filterFavorite(favorites);
-    setFavorites(favorite);
-    setUserFavorites(favorite);
+    if (localStorage.getItem("localId")) {
+      const filterFavorite = (favorites) =>
+        favorites.includes(giftId)
+          ? favorites.filter((id) => id !== giftId)
+          : [...favorites, giftId];
+      const favorite = filterFavorite(favorites);
+      setFavorites(favorite);
+      setUserFavorites(favorite);
+    } else {
+      handleClickOpenAlert();
+      console.log("loguj sie");
+    }
   };
 
   const giftsWithFavs = gifts.map((gift) => ({
@@ -107,6 +126,7 @@ function App() {
               handleChangeGiftsPerPage={handleChangeGiftsPerPage}
               handleChangePage={handleChangePage}
               page={page}
+              handleClickOpenAlert={handleClickOpenAlert}
             />
           </Route>
           <Route path="/charts" component={Charts} />
@@ -125,9 +145,12 @@ function App() {
           open={open}
           gift={giftToExpand}
           gifts={giftsWithFavs}
-        >
-          <Gift item={giftToExpand} />
-        </Dialog>
+        ></Dialog>
+        <Alert
+          open={openAlert}
+          handleClickOpen={handleClickOpenAlert}
+          handleClose={handleCloseAlert}
+        ></Alert>
       </Menu>
     </BrowserRouter>
   );

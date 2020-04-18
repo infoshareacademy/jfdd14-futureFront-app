@@ -24,6 +24,7 @@ const GiftList = function (props) {
     handleChangeGiftsPerPage,
     handleChangePage,
     page,
+    handleClickSnackbar,
   } = props;
 
   return (
@@ -98,6 +99,7 @@ const GiftList = function (props) {
               toggleFavorite={toggleFavorite}
               item={gift}
               handleClickOpen={() => handleClickOpen(gift)}
+              handleClickSnackbar={() => handleClickSnackbar()}
             />
           ))
       ) : (

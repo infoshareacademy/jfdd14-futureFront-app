@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   progress: {
     width: "100%",
     height: 5,
-    marginBottom: 2,
+    marginBottom: 5,
   },
   form: {
     width: "100%",
@@ -74,7 +74,7 @@ export default function Uploader({ setPhoto }) {
           ""
         )}
       </div>
-      <div style={{ dispaly: "flex", textAlign: "center" }}>
+      <div style={{ display: "flex", justifyContent: "center" }}>
         <Input
           accept="image/*"
           className={classes.input}
@@ -85,16 +85,24 @@ export default function Uploader({ setPhoto }) {
           onChange={handleChange}
         />
         <label htmlFor="raised-button-file">
-          <Button variant="raised" component="span" className={classes.button}>
+          <Button
+            component="span"
+            className={classes.button}
+            color="primary"
+            variant="outlined"
+            style={{ margin: "0 5px 10px 0" }}
+          >
             Wybierz Plik
           </Button>
         </label>
         <label htmlFor="uplad-button-file">
           <Button
-            variant="raised"
+            variant="outlined"
             component="span"
             className={classes.button}
             onClick={handleUpload}
+            color="primary"
+            style={{ margin: "0 0 10px 5px" }}
           >
             Upload
           </Button>
