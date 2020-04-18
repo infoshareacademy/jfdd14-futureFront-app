@@ -29,10 +29,13 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
-import { logIn, isTokenInStorage } from "../FirebaseAuth/FirebaseAuth";
+import { logIn, isTokenInStorage, logOut } from "../FirebaseAuth/FirebaseAuth";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import { auth } from "firebase";
+import { auth2, googleProvider } from "../fireBase.config";
 
 const drawerWidth = 240;
 
@@ -133,10 +136,22 @@ function ResponsiveDrawer(props) {
       })
       .catch((err) => {
         alert("Złe hasło!");
-        console.log(err);
         setLoggedIn(false);
       });
   };
+
+  const onLogOutClick = () => {
+    auth2.signOut();
+    logOut();
+  };
+
+  useEffect(() => {
+    auth2.onAuthStateChanged((isLoggedIn) => {
+      setLoggedIn(isLoggedIn);
+    });
+  }, []);
+
+  const onLogInClickGoogle = () => auth2.signInWithPopup(googleProvider);
 
   const drawer = (
     <div>
@@ -232,6 +247,16 @@ function ResponsiveDrawer(props) {
                     >
                       Sign In
                     </Button>
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      onClick={onLogOutClick}
+                      startIcon={<ExitToAppIcon />}
+                      style={{ marginRight: 20 }}
+                      className={classes.button}
+                    >
+                      Log Out
+                    </Button>
                     <Dialog
                       open={open}
                       onClose={handleClose}
@@ -269,22 +294,44 @@ function ResponsiveDrawer(props) {
                           onClick={() => onLogInClick(email, password)}
                           color="primary"
                         >
-                          Login
+                          Log In
+                        </Button>
+                        <Button onClick={onLogInClickGoogle} color="primary">
+                          Log In by Google
                         </Button>
                       </DialogActions>
                     </Dialog>{" "}
                   </>
-                ) : null}
+                ) : (
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    onClick={onLogOutClick}
+                    startIcon={<ExitToAppIcon />}
+                    style={{ marginRight: 20 }}
+                    className={classes.button}
+                  >
+                    Log Out
+                  </Button>
+                )}
               </Hidden>
               <Hidden smUp>
-                <IconButton onClick={handleClickOpen}>
-                  <AccountBoxIcon style={{ color: "white" }} />
+                <IconButton>
+                  <AccountBoxIcon
+                    onClick={handleClickOpen}
+                    style={{ color: "white" }}
+                  />
+                  <ExitToAppIcon
+                    onClick={onLogOutClick}
+                    style={{ color: "white", margin: "0px 0px 0px 10px" }}
+                  />
                   <Dialog
                     open={open}
                     onClose={handleClose}
                     aria-labelledby="form-dialog-title"
                   >
                     <DialogTitle id="form-dialog-title">SIGN IN</DialogTitle>
+
                     <DialogContent>
                       <DialogContentText>
                         Podaj swój adres e-mail oraz hasło aby się zalogować.
@@ -317,6 +364,12 @@ function ResponsiveDrawer(props) {
                         color="primary"
                       >
                         Login
+                      </Button>
+                      <Button
+                        onClick={() => onLogInClickGoogle()}
+                        color="primary"
+                      >
+                        Log In by Google
                       </Button>
                     </DialogActions>
                   </Dialog>
