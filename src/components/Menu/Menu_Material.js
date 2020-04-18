@@ -136,7 +136,6 @@ function ResponsiveDrawer(props) {
       })
       .catch((err) => {
         alert("Złe hasło!");
-        console.log(err);
         setLoggedIn(false);
       });
   };
@@ -144,6 +143,14 @@ function ResponsiveDrawer(props) {
   const onLogOutClick = () => {
     auth2.signOut();
   };
+
+  useEffect(() => {
+    auth2.onAuthStateChanged((isLoggedIn) => {
+      setLoggedIn(isLoggedIn);
+    });
+  }, []);
+
+  const onLogInClickGoogle = () => auth2.signInWithPopup(googleProvider);
 
   const drawer = (
     <div>
@@ -288,10 +295,7 @@ function ResponsiveDrawer(props) {
                         >
                           Log In
                         </Button>
-                        <Button
-                          onClick={() => onLogInClick(email, password)}
-                          color="primary"
-                        >
+                        <Button onClick={onLogInClickGoogle} color="primary">
                           Log In by Google
                         </Button>
                       </DialogActions>
@@ -350,7 +354,7 @@ function ResponsiveDrawer(props) {
                         Login
                       </Button>
                       <Button
-                        onClick={() => onLogInClick(email, password)}
+                        onClick={() => onLogInClickGoogle()}
                         color="primary"
                       >
                         Log In by Google
