@@ -40,7 +40,8 @@ const Addgift = (props) => {
     setName(e.target.value);
     setGiftAddedText(false);
   };
-  const writeUserData = (
+
+  const postGiftToDatabase = (
     name,
     category,
     photo,
@@ -49,26 +50,6 @@ const Addgift = (props) => {
     isFavorite,
     id
   ) => {
-    database.ref("gifts/").set({
-      name: name,
-      category: category,
-      photo: photo,
-      price: price,
-      description: description,
-      isFavorite: isFavorite,
-      id: id,
-    });
-  };
-  const writeNewPost = (
-    name,
-    category,
-    photo,
-    price,
-    description,
-    isFavorite,
-    id
-  ) => {
-    // A post entry.
     const postData = {
       name: name,
       category: category,
@@ -78,37 +59,29 @@ const Addgift = (props) => {
       isFavorite: isFavorite,
       id: id,
     };
-
-    // Get a key for a new Post.
-    var newPostKey = database.ref().child("gifts").push().key;
-
-    // Write the new post's data simultaneously in the posts list and the user's post list.
+    const giftKey = database.ref().child("gifts").push().key;
     var updates = {};
-    updates["/gifts/" + newPostKey] = postData;
+    updates["/gifts/" + giftKey] = postData;
 
     return database.ref().update(updates);
   };
   const addToList = () => {
-    props.addGift();
+    props.giftsFetchAfterAddNewGift();
     setName("");
     setCategory("");
     setPhoto("");
     setPrice("");
     setDescription("");
     setGiftAddedText(true);
-    /* fetch("https://jfdd14-futurefrontapp.firebaseio.com/gifts.json", {
-      method: "POST",
-      body: JSON.stringify({
-        name: name,
-        category: category,
-        photo: photo,
-        price: price,
-        description: description,
-        isFavorite: isFavorite,
-        id: id,
-      }),
-    }); */
-    writeNewPost(name, category, photo, price, description, isFavorite, id);
+    postGiftToDatabase(
+      name,
+      category,
+      photo,
+      price,
+      description,
+      isFavorite,
+      id
+    );
   };
 
   return (

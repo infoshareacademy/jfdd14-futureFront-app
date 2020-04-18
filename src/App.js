@@ -16,7 +16,7 @@ import { database } from "./components/fireBase.config";
 function App() {
   console.log(localStorage.getItem("localId"));
   useEffect(() => {
-    fetchGifts();
+    giftsInitFetch();
     getFavorites();
   }, []);
 
@@ -36,20 +36,16 @@ function App() {
     setPage(0);
   };
 
-  const fetchGifts = () => {
-    fetch("https://jfdd14-futurefrontapp.firebaseio.com/gifts.json").then(
-      (response) =>
-        response.json().then((response) => {
-          const giftsList = mapObjectToArray(response);
-          setGift(giftsList);
-        })
-    );
+  const giftsInitFetch = () => {
+    database.ref("/gifts/").on("value", function (snapshot) {
+      const giftsList = mapObjectToArray(snapshot.val());
+      return giftsList ? setGift(giftsList) : [];
+    });
   };
-  const addGift = () => {
-    database.ref("gifts/").on("value", function (snapshot) {
-      const giftsList = mapObjectToArray(snapshot);
-      setGift(giftsList);
-      // console.log(snapshot.val())
+  const giftsFetchAfterAddNewGift = () => {
+    database.ref("/gifts/").on("value", function (snapshot) {
+      const giftsList = mapObjectToArray(snapshot.val());
+      return giftsList ? setGift(giftsList) : [];
     });
   };
 
@@ -99,7 +95,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/addgift">
-            <Addgift addGift={addGift} />
+            <Addgift giftsFetchAfterAddNewGift={giftsFetchAfterAddNewGift} />
           </Route>
           <Route path="/gifts">
             <Giftslist
