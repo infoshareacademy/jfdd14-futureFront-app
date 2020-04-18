@@ -11,6 +11,7 @@ import TextField from "@material-ui/core/TextField";
 import React, { useState } from "react";
 import "./AddGift.css";
 import Paper from "@material-ui/core/Paper";
+import { database } from "../../components/fireBase.config";
 
 import Uploader from "../../components/Uploader/Uploader";
 
@@ -40,26 +41,47 @@ const Addgift = (props) => {
     setGiftAddedText(false);
   };
 
+  const postGiftToDatabase = (
+    name,
+    category,
+    photo,
+    price,
+    description,
+    isFavorite,
+    id
+  ) => {
+    const postData = {
+      name: name,
+      category: category,
+      photo: photo,
+      price: price,
+      description: description,
+      isFavorite: isFavorite,
+      id: id,
+    };
+    const giftKey = database.ref().child("gifts").push().key;
+    var updates = {};
+    updates["/gifts/" + giftKey] = postData;
+
+    return database.ref().update(updates);
+  };
   const addToList = () => {
-    props.addGift();
+    props.giftsFetch();
     setName("");
     setCategory("");
     setPhoto("");
     setPrice("");
     setDescription("");
     setGiftAddedText(true);
-    fetch("https://jfdd14-futurefrontapp.firebaseio.com/gifts.json", {
-      method: "POST",
-      body: JSON.stringify({
-        name: name,
-        category: category,
-        photo: photo,
-        price: price,
-        description: description,
-        isFavorite: isFavorite,
-        id: id,
-      }),
-    });
+    postGiftToDatabase(
+      name,
+      category,
+      photo,
+      price,
+      description,
+      isFavorite,
+      id
+    );
   };
 
   return (

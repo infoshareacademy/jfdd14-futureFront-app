@@ -20,7 +20,7 @@ import MuiAlert from "@material-ui/lab/Alert";
 function App() {
   console.log(localStorage.getItem("localId"));
   useEffect(() => {
-    fetchGifts();
+    giftsFetch();
     getFavorites();
   }, []);
 
@@ -49,17 +49,12 @@ function App() {
     setGiftsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-  const fetchGifts = () => {
-    fetch("https://jfdd14-futurefrontapp.firebaseio.com/gifts.json").then(
-      (response) =>
-        response.json().then((response) => {
-          const giftsList = mapObjectToArray(response);
-          setGift(giftsList);
-        })
-    );
-  };
-  const addGift = () => {
-    fetchGifts();
+
+  const giftsFetch = () => {
+    database.ref("/gifts/").on("value", function (snapshot) {
+      const giftsList = mapObjectToArray(snapshot.val());
+      return giftsList ? setGift(giftsList) : [];
+    });
   };
 
   const idToken = localStorage.getItem("localId");
@@ -72,13 +67,10 @@ function App() {
   };
 
   const getFavorites = () => {
-    database
-      .ref("/users/" + idToken)
-      .once("value")
-      .then(function (snapshot) {
-        const userFavorites = snapshot.child("favorites").val();
-        return userFavorites ? setFavorites((favorites) => userFavorites) : [];
-      });
+    database.ref("/users/" + idToken).on("value", function (snapshot) {
+      const userFavorites = snapshot.child("favorites").val();
+      return userFavorites ? setFavorites((favorites) => userFavorites) : [];
+    });
   };
 
   const toggleFavorite = (giftId) => {
@@ -116,7 +108,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/addgift">
-            <Addgift addGift={addGift} />
+            <Addgift giftsFetch={giftsFetch} />
           </Route>
           <Route path="/gifts">
             <Giftslist
