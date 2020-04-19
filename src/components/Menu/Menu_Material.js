@@ -87,13 +87,21 @@ function ResponsiveDrawer(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoggedIn, setLoggedIn] = useState(isTokenInStorage());
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     const id = setInterval(() => setLoggedIn(isTokenInStorage()));
+    console.log(isLoggedIn);
 
     return () => {
       clearInterval(id);
     };
+  }, []);
+
+  useEffect(() => {
+    auth2.onAuthStateChanged((user) => {
+      setUser(user);
+    });
   }, []);
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -134,13 +142,18 @@ function ResponsiveDrawer(props) {
         setLoggedIn(true);
         handleClose();
       })
-      .catch(() => {
+      .catch((error) => {
         setLoggedIn(false);
+        //display toast: Błąd logowania. Niepoprawny email lub hasło
       });
   };
 
   const onLogOutClick = () => {
     logOut();
+  };
+
+  const onLogOutClickGoogle = () => {
+    auth2.signOut();
   };
 
   const onLogInClickGoogle = () => {
@@ -229,6 +242,30 @@ function ResponsiveDrawer(props) {
 
             <div className={classes.toolbarButtons}>
               <Hidden xsDown>
+                {!user ? (
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    onClick={onLogInClickGoogle}
+                    startIcon={<AccountBoxIcon />}
+                    style={{ marginRight: 20 }}
+                    className={classes.button}
+                  >
+                    Log In by Google
+                  </Button>
+                ) : (
+                  <Button
+                    variant="contained"
+                    color="red"
+                    onClick={onLogOutClickGoogle}
+                    startIcon={<ExitToAppIcon />}
+                    style={{ marginRight: 20 }}
+                    className={classes.button}
+                  >
+                    Log Out Google
+                  </Button>
+                )}
+
                 {!isLoggedIn ? (
                   <>
                     {" "}
@@ -281,9 +318,6 @@ function ResponsiveDrawer(props) {
                           color="primary"
                         >
                           Log In
-                        </Button>
-                        <Button onClick={onLogInClickGoogle} color="primary">
-                          Log In by Google
                         </Button>
                       </DialogActions>
                     </Dialog>{" "}
