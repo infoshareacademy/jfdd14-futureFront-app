@@ -271,21 +271,24 @@ function ResponsiveDrawer(props) {
                           Podaj swój adres e-mail oraz hasło aby się zalogować.
                         </DialogContentText>
                         <TextField
+                          error={passwordError}
                           autoFocus
                           margin="dense"
-                          id="name"
-                          label="Email Address"
+                          id="email"
+                          label="Adres Email"
                           type="email"
                           onChange={(e) => setEmail(e.target.value)}
                           fullWidth
                         />
                         <TextField
                           error={passwordError}
-                          helperText={passwordError ? "Niepoprawne hasło." : ""}
+                          helperText={
+                            passwordError ? "Niepoprawne hasło lub email" : ""
+                          }
                           autoFocus
                           margin="dense"
-                          id="name"
-                          label="Password"
+                          id="password"
+                          label="Hasło"
                           type="password"
                           onChange={(e) => setPassword(e.target.value)}
                           fullWidth
