@@ -275,7 +275,7 @@ function ResponsiveDrawer(props) {
                 ) : (
                   <Button
                     variant="contained"
-                    color="red"
+                    color="secondary"
                     onClick={onLogOutClickGoogle}
                     startIcon={<ExitToAppIcon />}
                     style={{ marginRight: 20 }}

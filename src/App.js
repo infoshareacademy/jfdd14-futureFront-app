@@ -16,8 +16,6 @@ import { database } from "./components/fireBase.config";
 import Alert from "./components/Alert/Alert";
 
 function App() {
-  console.log(localStorage.getItem("localId"));
-
   const [gifts, setGift] = useState([]);
   const [favorites, setFavorites] = useState([]);
   const [giftToExpand, setGiftToExpand] = useState({});
@@ -30,9 +28,9 @@ function App() {
     getFavorites();
     firebase.auth().onAuthStateChanged(function (user) {
       window.user = user; // user is undefined if no user signed in
-      setUser(user);
-      getFavorites(user);
-      setUserFavorites();
+      setUser();
+      getFavorites();
+      // setUserFavorites()
     });
   }, []);
 
@@ -65,19 +63,18 @@ function App() {
 
   let idToken = null;
 
-  const setUser = (user) => {
+  const setUser = () => {
     const userLocalId = localStorage.getItem("localId");
     // const user = firebase.auth().currentUser;
     let userUid = null;
-    if (user) {
-      userUid = user.uid;
+    if (window.user) {
+      userUid = window.user.uid;
     }
     console.log(userUid, "USER UID");
     idToken = userUid ? userUid : userLocalId;
   };
 
   const setUserFavorites = (favorites) => {
-    console.log(idToken, "idToken");
     if (idToken) {
       database.ref("users/" + idToken).set({
         favorites,
@@ -85,9 +82,8 @@ function App() {
     }
   };
 
-  const getFavorites = (user) => {
-    setUser(user);
-    console.log("get", favorites);
+  const getFavorites = () => {
+    setUser();
     database.ref("/users/" + idToken).on("value", function (snapshot) {
       const userFavorites = snapshot.child("favorites").val();
       return userFavorites ? setFavorites((favorites) => userFavorites) : [];
