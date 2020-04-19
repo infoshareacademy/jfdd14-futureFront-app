@@ -96,6 +96,11 @@ function ResponsiveDrawer(props) {
     };
   }, []);
 
+  useEffect(() => {
+    auth2.onAuthStateChanged((user) => {
+      setUser(user);
+    });
+  }, []);
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -138,23 +143,24 @@ function ResponsiveDrawer(props) {
       .catch((err) => {
         setPasswordError(true);
         setLoggedIn(false);
+        //display toast: Błąd logowania. Niepoprawny email lub hasło
       });
   };
 
   const onLogOutClick = () => {
-    auth2.signOut();
     logOut();
     props.setFavorites([]);
     console.log(isLoggedIn, "login");
   };
 
-  useEffect(() => {
-    auth2.onAuthStateChanged((isLoggedIn) => {
-      setLoggedIn(isLoggedIn);
-    });
-  }, []);
+  const onLogOutClickGoogle = () => {
+    auth2.signOut();
+  };
 
-  const onLogInClickGoogle = () => auth2.signInWithPopup(googleProvider);
+  const onLogInClickGoogle = () => {
+    auth2.signInWithPopup(googleProvider);
+    handleClose();
+  };
 
   const drawer = (
     <div>
@@ -237,6 +243,30 @@ function ResponsiveDrawer(props) {
 
             <div className={classes.toolbarButtons}>
               <Hidden xsDown>
+                {!user ? (
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    onClick={onLogInClickGoogle}
+                    startIcon={<AccountBoxIcon />}
+                    style={{ marginRight: 20 }}
+                    className={classes.button}
+                  >
+                    Log In by Google
+                  </Button>
+                ) : (
+                  <Button
+                    variant="contained"
+                    color="red"
+                    onClick={onLogOutClickGoogle}
+                    startIcon={<ExitToAppIcon />}
+                    style={{ marginRight: 20 }}
+                    className={classes.button}
+                  >
+                    Log Out Google
+                  </Button>
+                )}
+
                 {!isLoggedIn ? (
                   <>
                     {" "}
@@ -249,16 +279,6 @@ function ResponsiveDrawer(props) {
                       className={classes.button}
                     >
                       Sign In
-                    </Button>
-                    <Button
-                      variant="contained"
-                      color="secondary"
-                      onClick={onLogOutClick}
-                      startIcon={<ExitToAppIcon />}
-                      style={{ marginRight: 20 }}
-                      className={classes.button}
-                    >
-                      Log Out
                     </Button>
                     <Dialog
                       open={open}
@@ -304,9 +324,6 @@ function ResponsiveDrawer(props) {
                         >
                           Log In
                         </Button>
-                        <Button onClick={onLogInClickGoogle} color="primary">
-                          Log In by Google
-                        </Button>
                       </DialogActions>
                     </Dialog>{" "}
                   </>
@@ -324,65 +341,69 @@ function ResponsiveDrawer(props) {
                 )}
               </Hidden>
               <Hidden smUp>
-                <IconButton>
-                  <AccountBoxIcon
-                    onClick={handleClickOpen}
-                    style={{ color: "white" }}
-                  />
+                {!isLoggedIn ? (
+                  <IconButton>
+                    <AccountBoxIcon
+                      onClick={handleClickOpen}
+                      style={{ color: "white" }}
+                    />
+                    <Dialog
+                      open={open}
+                      onClose={handleClose}
+                      aria-labelledby="form-dialog-title"
+                    >
+                      <DialogTitle id="form-dialog-title">SIGN IN</DialogTitle>
+
+                      <DialogContent>
+                        <DialogContentText>
+                          Podaj swój adres e-mail oraz hasło aby się zalogować.
+                        </DialogContentText>
+                        <TextField
+                          autoFocus
+                          margin="dense"
+                          id="name"
+                          label="Email Address"
+                          type="email"
+                          onChange={(e) => setEmail(e.target.value)}
+                          fullWidth
+                        />
+                        <TextField
+                          autoFocus
+                          margin="dense"
+                          id="name"
+                          label="Password"
+                          type="password"
+                          onChange={(e) => setPassword(e.target.value)}
+                          fullWidth
+                        />
+                      </DialogContent>
+                      <DialogActions>
+                        <Button onClick={handleClose} color="primary">
+                          Cancel
+                        </Button>
+                        <Button
+                          onClick={() => onLogInClick(email, password)}
+                          color="primary"
+                        >
+                          Login
+                        </Button>
+                        <Button
+                          onClick={() => onLogInClickGoogle()}
+                          color="primary"
+                        >
+                          Log In by Google
+                        </Button>
+                      </DialogActions>
+                    </Dialog>
+                  </IconButton>
+                ) : (
                   <ExitToAppIcon
                     onClick={onLogOutClick}
-                    style={{ color: "white", margin: "0px 0px 0px 10px" }}
+                    style={{ color: "white" }}
                   />
-                  <Dialog
-                    open={open}
-                    onClose={handleClose}
-                    aria-labelledby="form-dialog-title"
-                  >
-                    <DialogTitle id="form-dialog-title">SIGN IN</DialogTitle>
-
-                    <DialogContent>
-                      <DialogContentText>
-                        Podaj swój adres e-mail oraz hasło aby się zalogować.
-                      </DialogContentText>
-                      <TextField
-                        autoFocus
-                        margin="dense"
-                        id="name"
-                        label="Email Address"
-                        type="email"
-                        onChange={(e) => setEmail(e.target.value)}
-                        fullWidth
-                      />
-                      <TextField
-                        autoFocus
-                        margin="dense"
-                        id="name"
-                        label="Password"
-                        type="password"
-                        onChange={(e) => setPassword(e.target.value)}
-                        fullWidth
-                      />
-                    </DialogContent>
-                    <DialogActions>
-                      <Button onClick={handleClose} color="primary">
-                        Cancel
-                      </Button>
-                      <Button
-                        onClick={() => onLogInClick(email, password)}
-                        color="primary"
-                      >
-                        Login
-                      </Button>
-                      <Button
-                        onClick={() => onLogInClickGoogle()}
-                        color="primary"
-                      >
-                        Log In by Google
-                      </Button>
-                    </DialogActions>
-                  </Dialog>
-                </IconButton>
+                )}
               </Hidden>
+
               <IconButton
                 onClick={() => {
                   setSelected(!selected);
