@@ -7,8 +7,6 @@ const useStyles = makeStyles((theme) => ({
   root: {
     paddingLeft: 30,
     paddingRight: 30,
-    // width: 300 + theme.spacing(3) * 2,
-    // maxWidth: '30%',
   },
   margin: {
     height: theme.spacing(1),

@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from "react";
-import "./App.css";
 import Addgift from "./pages/AddGift/Addgift";
 import Giftslist from "./pages/Giftslist/Giftslist";
 import Charts from "./pages/Charts/Charts";
 import Favorites from "./pages/Favorites/Favorites";
 import Home from "./pages/Home/Home";
 import Menu from "./components/Menu/Menu_Material";
-import Snackbar from "@material-ui/core/Snackbar";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Dialog from "./components/Dialog/Dialog";
-import Gift from "./components/Gift/Gift";
 import mapObjectToArray from "./mapObjectToArray";
 import firebase from "firebase";
 import { database } from "./components/fireBase.config";
@@ -70,7 +67,6 @@ function App() {
     if (window.user) {
       userUid = window.user.uid;
     }
-    console.log(userUid, "USER UID");
     idToken = userUid ? userUid : userLocalId;
   };
 
@@ -102,7 +98,6 @@ function App() {
       setUserFavorites(favorite);
     } else {
       handleClickOpenAlert();
-      console.log("loguj sie");
     }
   };
 

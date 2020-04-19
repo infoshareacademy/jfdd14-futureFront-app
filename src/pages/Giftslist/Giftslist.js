@@ -5,7 +5,6 @@ import Searchbar from "../../components/Searchbar/Searchbar";
 import { NoResults } from "../../components/NoResults/NoResults";
 import CustomizedSlider from "../../components/Slider/Slider";
 import Grid from "@material-ui/core/Grid";
-
 import Loading from "../../components/Loading/Loading";
 
 const GiftList = function (props) {
@@ -29,8 +28,6 @@ const GiftList = function (props) {
     page,
     handleClickSnackbar,
   } = props;
-
-  console.log("GIFT LIST", gifts);
 
   return (
     <Fragment>

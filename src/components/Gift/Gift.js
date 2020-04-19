@@ -11,7 +11,6 @@ import clsx from "clsx";
 import CardContent from "@material-ui/core/CardContent";
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
-import ShareIcon from "@material-ui/icons/Share";
 import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme) => ({
@@ -40,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Gift(props) {
   const capital = props.item.category.charAt(0);
-  const { toggleFavorite, handleClickOpen, item, handleClickOpenAlert } = props;
+  const { toggleFavorite, handleClickOpen, item } = props;
   const classes = useStyles();
 
   return (
