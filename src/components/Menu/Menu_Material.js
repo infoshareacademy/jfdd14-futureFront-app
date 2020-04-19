@@ -87,6 +87,7 @@ function ResponsiveDrawer(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoggedIn, setLoggedIn] = useState(isTokenInStorage());
+  const [passwordError, setPasswordError] = useState(false);
 
   useEffect(() => {
     const id = setInterval(() => setLoggedIn(isTokenInStorage()));
@@ -135,7 +136,7 @@ function ResponsiveDrawer(props) {
         handleClose();
       })
       .catch((err) => {
-        alert("Złe hasło!");
+        setPasswordError(true);
         setLoggedIn(false);
       });
   };
@@ -279,6 +280,8 @@ function ResponsiveDrawer(props) {
                           fullWidth
                         />
                         <TextField
+                          error={passwordError}
+                          helperText={passwordError ? "Niepoprawne hasło." : ""}
                           autoFocus
                           margin="dense"
                           id="name"
