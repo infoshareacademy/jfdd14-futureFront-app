@@ -88,6 +88,7 @@ function ResponsiveDrawer(props) {
   const [password, setPassword] = useState("");
   const [isLoggedIn, setLoggedIn] = useState(isTokenInStorage());
   const [passwordError, setPasswordError] = useState(false);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     const id = setInterval(() => setLoggedIn(isTokenInStorage()));

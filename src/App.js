@@ -57,10 +57,21 @@ function App() {
     });
   };
 
-  const idToken = localStorage.getItem("localId");
+  let idToken = null;
+
+  const setUser = () => {
+    const userLocalId = localStorage.getItem("localId");
+    const user = firebase.auth().currentUser;
+    let userUid = null;
+    if (user) {
+      userUid = user.uid;
+    }
+    console.log(userUid, "USER UID");
+    idToken = userUid ? userUid : userLocalId;
+  };
 
   const setUserFavorites = (favorites) => {
-    console.log(favorites);
+    console.log(idToken, "idToken");
     if (idToken) {
       database.ref("users/" + idToken).set({
         favorites,
@@ -69,6 +80,7 @@ function App() {
   };
 
   const getFavorites = () => {
+    setUser();
     console.log("get", favorites);
     database.ref("/users/" + idToken).on("value", function (snapshot) {
       const userFavorites = snapshot.child("favorites").val();
@@ -77,7 +89,8 @@ function App() {
   };
 
   const toggleFavorite = (giftId) => {
-    if (localStorage.getItem("localId")) {
+    setUser();
+    if (idToken) {
       const filterFavorite = (favorites) =>
         favorites.includes(giftId)
           ? favorites.filter((id) => id !== giftId)
