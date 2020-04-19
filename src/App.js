@@ -67,7 +67,8 @@ function App() {
     if (window.user) {
       userUid = window.user.uid;
     }
-    idToken = userUid ? userUid : userLocalId;
+    // idToken = userUid ? userUid : userLocalId;
+    idToken = userUid;
   };
 
   const setUserFavorites = (favorites) => {
