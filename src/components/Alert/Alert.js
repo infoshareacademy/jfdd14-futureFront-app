@@ -67,7 +67,9 @@ export default function ALert({ handleClose, open }) {
         ></DialogTitle>
         <DialogContent>
           <br />
-          <h3>Zaloguj się aby dodawac prezenty do listy ulubionych.</h3>
+          <h3 style={{ textAlign: "center" }}>
+            Zaloguj się aby dodawac prezenty do listy ulubionych.
+          </h3>
         </DialogContent>
         <br />
         <br />
