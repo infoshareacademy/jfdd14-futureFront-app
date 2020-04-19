@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import AppBar from "@material-ui/core/AppBar";
@@ -29,7 +29,7 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
-import { logIn, isTokenInStorage, logOut } from "../FirebaseAuth/FirebaseAuth";
+import { isTokenInStorage } from "../FirebaseAuth/FirebaseAuth";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
@@ -90,20 +90,13 @@ function ResponsiveDrawer(props) {
   const [isLoggedIn, setLoggedIn] = useState(isTokenInStorage());
   const [passwordError, setPasswordError] = useState(false);
   const [passwordErrorText, setPasswordErrorText] = useState("");
-  const [user, setUser] = useState(null);
-
-  // useEffect(() => {
-  //   const id = setInterval(() => setLoggedIn(isTokenInStorage()));
-  //   return () => {
-  //     clearInterval(id);
-  //   };
-  // }, []);
+  /*  const [user, setUser] = useState(null);
 
   useEffect(() => {
     auth2.onAuthStateChanged((user) => {
       setUser(user);
     });
-  }, []);
+  }, []); */
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -138,19 +131,6 @@ function ResponsiveDrawer(props) {
     setPasswordError(false);
   };
 
-  // const onLogInClick = (email, password) => {
-  //   return logIn(email, password)
-  //     .then(() => {
-  //       setLoggedIn(true);
-  //       handleClose();
-  //     })
-  //     .catch((err) => {
-  //       setPasswordError(true);
-  //       setLoggedIn(false);
-  //       //display toast: Błąd logowania. Niepoprawny email lub hasło
-  //     });
-  // };
-
   const onLogInClick = (email, password) => {
     firebase
       .auth()
@@ -166,19 +146,6 @@ function ResponsiveDrawer(props) {
         setLoggedIn(false);
         //display toast: Błąd logowania. Niepoprawny email lub hasło
       });
-  };
-
-  const onLogOutClick = () => {
-    firebase
-      .auth()
-      .signOut()
-      .then(() => {
-        setLoggedIn(false);
-      })
-      .catch(function (err) {
-        // Handle errors
-      });
-    props.setFavorites([]);
   };
 
   const onLogOutClickGoogle = () => {
@@ -295,7 +262,7 @@ function ResponsiveDrawer(props) {
                       style={{ marginRight: 20 }}
                       className={classes.button}
                     >
-                      Sign In
+                      ZALOGUJ SIĘ
                     </Button>
                   </>
                 ) : (
@@ -307,7 +274,7 @@ function ResponsiveDrawer(props) {
                     style={{ marginRight: 20 }}
                     className={classes.button}
                   >
-                    Log Out
+                    Wyloguj
                   </Button>
                 )}
               </Hidden>
@@ -340,7 +307,7 @@ function ResponsiveDrawer(props) {
                 onClose={handleClose}
                 aria-labelledby="form-dialog-title"
               >
-                <DialogTitle id="form-dialog-title">SIGN IN</DialogTitle>
+                <DialogTitle id="form-dialog-title">ZALOGUJ SIĘ</DialogTitle>
                 <DialogContent>
                   <DialogContentText>
                     Podaj swój adres e-mail oraz hasło aby się zalogować.
@@ -369,19 +336,19 @@ function ResponsiveDrawer(props) {
                 </DialogContent>
                 <DialogActions>
                   <Button onClick={handleClose} color="primary">
-                    Cancel
+                    Anuluj
                   </Button>
                   <Button
                     onClick={() => onLogInClick(email, password)}
                     color="primary"
                   >
-                    Login
+                    Zaloguj się
                   </Button>
                   <Button onClick={onLogInClickGoogle} color="primary">
-                    Google Login
+                    Zaloguj przez Google
                   </Button>
                   <Button onClick={newUser} color="primary">
-                    Register
+                    Rejestracja
                   </Button>
                 </DialogActions>
               </Dialog>{" "}
