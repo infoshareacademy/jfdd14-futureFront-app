@@ -134,7 +134,6 @@ function ResponsiveDrawer(props) {
 
   const handleClose = () => {
     setOpen(false);
-    setPasswordError(false);
   };
 
   // const onLogInClick = (email, password) => {
@@ -166,7 +165,15 @@ function ResponsiveDrawer(props) {
   };
 
   const onLogOutClick = () => {
-    logOut();
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        setLoggedIn(false);
+      })
+      .catch(function (err) {
+        // Handle errors
+      });
     props.setFavorites([]);
     console.log(isLoggedIn, "login");
   };
@@ -180,6 +187,8 @@ function ResponsiveDrawer(props) {
     auth2.signInWithPopup(googleProvider);
     handleClose();
   };
+
+  const newUser = auth().createUserWithEmailAndPassword(email, password);
 
   const drawer = (
     <div>
@@ -262,107 +271,85 @@ function ResponsiveDrawer(props) {
 
             <div className={classes.toolbarButtons}>
               <Hidden xsDown>
-                {!user ? (
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    onClick={onLogInClickGoogle}
-                    startIcon={<AccountBoxIcon />}
-                    style={{ marginRight: 20 }}
-                    className={classes.button}
-                  >
-                    Log In by Google
-                  </Button>
+                {!setLoggedIn ? (
+                  <>
+                    {" "}
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      onClick={handleClickOpen}
+                      startIcon={<AccountBoxIcon />}
+                      style={{ marginRight: 20 }}
+                      className={classes.button}
+                    >
+                      Sign In
+                    </Button>
+                    <Dialog
+                      open={open}
+                      onClose={handleClose}
+                      aria-labelledby="form-dialog-title"
+                    >
+                      <DialogTitle id="form-dialog-title">SIGN IN</DialogTitle>
+                      <DialogContent>
+                        <DialogContentText>
+                          Podaj swój adres e-mail oraz hasło aby się zalogować.
+                        </DialogContentText>
+                        <TextField
+                          error={passwordError}
+                          autoFocus
+                          margin="dense"
+                          id="email"
+                          label="Adres Email"
+                          type="email"
+                          onChange={(e) => setEmail(e.target.value)}
+                          fullWidth
+                        />
+                        <TextField
+                          error={passwordError}
+                          helperText={
+                            passwordError ? "Niepoprawne hasło lub email" : ""
+                          }
+                          autoFocus
+                          margin="dense"
+                          id="password"
+                          label="Hasło"
+                          type="password"
+                          onChange={(e) => setPassword(e.target.value)}
+                          fullWidth
+                        />
+                      </DialogContent>
+                      <DialogActions>
+                        <Button onClick={handleClose} color="primary">
+                          Cancel
+                        </Button>
+                        <Button
+                          onClick={() => onLogInClick(email, password)}
+                          color="primary"
+                        >
+                          Login
+                        </Button>
+                        <Button onClick={onLogInClickGoogle} color="primary">
+                          Google Login
+                        </Button>
+                        <Button onClick={newUser} color="primary">
+                          Register
+                        </Button>
+                      </DialogActions>
+                    </Dialog>{" "}
+                  </>
                 ) : (
                   <Button
                     variant="contained"
                     color="secondary"
-                    onClick={onLogOutClickGoogle}
+                    onClick={onLogOutClick}
                     startIcon={<ExitToAppIcon />}
                     style={{ marginRight: 20 }}
                     className={classes.button}
                   >
-                    Log Out Google
+                    Log Out
                   </Button>
                 )}
               </Hidden>
-
-              {!isLoggedIn ? (
-                <>
-                  {" "}
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    onClick={handleClickOpen}
-                    startIcon={<AccountBoxIcon />}
-                    style={{ marginRight: 20 }}
-                    className={classes.button}
-                  >
-                    Sign In
-                  </Button>
-                  <Dialog
-                    open={open}
-                    onClose={handleClose}
-                    aria-labelledby="form-dialog-title"
-                  >
-                    <DialogTitle id="form-dialog-title">SIGN IN</DialogTitle>
-                    <DialogContent>
-                      <DialogContentText>
-                        Podaj swój adres e-mail oraz hasło aby się zalogować.
-                      </DialogContentText>
-                      <TextField
-                        error={passwordError}
-                        autoFocus
-                        margin="dense"
-                        id="email"
-                        label="Adres Email"
-                        type="email"
-                        onChange={(e) => setEmail(e.target.value)}
-                        fullWidth
-                      />
-                      <TextField
-                        error={passwordError}
-                        helperText={
-                          passwordError ? "Niepoprawne hasło lub email" : ""
-                        }
-                        autoFocus
-                        margin="dense"
-                        id="password"
-                        label="Hasło"
-                        type="password"
-                        onChange={(e) => setPassword(e.target.value)}
-                        fullWidth
-                      />
-                    </DialogContent>
-                    <DialogActions>
-                      <Button onClick={handleClose} color="primary">
-                        Cancel
-                      </Button>
-                      <Button
-                        onClick={() => onLogInClick(email, password)}
-                        color="primary"
-                      >
-                        Log In
-                      </Button>
-                      <Button onClick={onLogInClickGoogle} color="primary">
-                        Google Log In
-                      </Button>
-                    </DialogActions>
-                  </Dialog>{" "}
-                </>
-              ) : (
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  onClick={onLogOutClick}
-                  startIcon={<ExitToAppIcon />}
-                  style={{ marginRight: 20 }}
-                  className={classes.button}
-                >
-                  Log Out
-                </Button>
-              )}
-
               <Hidden smUp>
                 {!isLoggedIn ? (
                   <IconButton>
@@ -370,6 +357,58 @@ function ResponsiveDrawer(props) {
                       onClick={handleClickOpen}
                       style={{ color: "white" }}
                     />
+                    <Dialog
+                      open={open}
+                      onClose={handleClose}
+                      aria-labelledby="form-dialog-title"
+                    >
+                      <DialogTitle id="form-dialog-title">SIGN IN</DialogTitle>
+                      <DialogContent>
+                        <DialogContentText>
+                          Podaj swój adres e-mail oraz hasło aby się zalogować.
+                        </DialogContentText>
+                        <TextField
+                          error={passwordError}
+                          autoFocus
+                          margin="dense"
+                          id="email"
+                          label="Adres Email"
+                          type="email"
+                          onChange={(e) => setEmail(e.target.value)}
+                          fullWidth
+                        />
+                        <TextField
+                          error={passwordError}
+                          helperText={
+                            passwordError ? "Niepoprawne hasło lub email" : ""
+                          }
+                          autoFocus
+                          margin="dense"
+                          id="password"
+                          label="Hasło"
+                          type="password"
+                          onChange={(e) => setPassword(e.target.value)}
+                          fullWidth
+                        />
+                      </DialogContent>
+                      <DialogActions>
+                        <Button onClick={handleClose} color="primary">
+                          Cancel
+                        </Button>
+                        <Button
+                          onClick={() => onLogInClick(email, password)}
+                          color="primary"
+                        >
+                          Login
+                        </Button>
+                        <Button onClick={onLogInClickGoogle} color="primary">
+                          Google Login
+                        </Button>
+                        <Button onClick={newUser} color="primary">
+                          Register
+                        </Button>
+                      </DialogActions>
+                    </Dialog>{" "}
                   </IconButton>
                 ) : (
                   <ExitToAppIcon
