@@ -172,6 +172,7 @@ function ResponsiveDrawer(props) {
 
   const onLogOutClickGoogle = () => {
     auth2.signOut();
+    props.setFavorites([]);
   };
 
   const onLogInClickGoogle = () => {
@@ -340,6 +341,9 @@ function ResponsiveDrawer(props) {
                           color="primary"
                         >
                           Log In
+                        </Button>
+                        <Button onClick={onLogInClickGoogle} color="primary">
+                          Google Log In
                         </Button>
                       </DialogActions>
                     </Dialog>{" "}
