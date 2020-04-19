@@ -30,6 +30,8 @@ const GiftList = function (props) {
     handleClickSnackbar,
   } = props;
 
+  console.log("GIFT LIST", gifts);
+
   return (
     <Fragment>
       {gifts.length > 0 ? (
