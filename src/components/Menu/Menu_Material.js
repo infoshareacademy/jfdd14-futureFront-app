@@ -295,6 +295,7 @@ function ResponsiveDrawer(props) {
                 open={open}
                 onClose={handleClose}
                 aria-labelledby="form-dialog-title"
+                style={{ textAlign: "center" }}
               >
                 <DialogTitle id="form-dialog-title">ZALOGUJ SIĘ</DialogTitle>
                 <DialogContent>
@@ -323,22 +324,21 @@ function ResponsiveDrawer(props) {
                     fullWidth
                   />
                 </DialogContent>
-                <DialogActions>
-                  <Button onClick={handleClose} color="primary">
-                    Anuluj
-                  </Button>
-                  <Button
-                    onClick={() => onLogInClick(email, password)}
-                    color="primary"
-                  >
+                <DialogActions
+                  style={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Button onClick={() => onLogInClick(email, password)}>
                     Zaloguj się
                   </Button>
-                  <Button onClick={onLogInClickGoogle} color="primary">
+                  <Button onClick={onLogInClickGoogle}>
                     <FontAwesomeIcon icon={faGoogle} />
                   </Button>
-                  <Button onClick={newUser} color="primary">
-                    Rejestracja
-                  </Button>
+                  <Button onClick={newUser}>Rejestracja</Button>
+                  <Button onClick={handleClose}>Anuluj</Button>
                 </DialogActions>
               </Dialog>{" "}
             </div>
