@@ -348,7 +348,10 @@ function ResponsiveDrawer(props) {
                   <Button onClick={() => onLogInClick(email, password)}>
                     Zaloguj się
                   </Button>
-                  <Button onClick={onLogInClickGoogle}>
+                  <Button
+                    onClick={onLogInClickGoogle}
+                    style={{ width: "10px" }}
+                  >
                     <FontAwesomeIcon icon={faGoogle} />
                   </Button>
                   <Button onClick={newUser}>Rejestracja</Button>
