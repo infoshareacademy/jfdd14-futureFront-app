@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import AppBar from "@material-ui/core/AppBar";
@@ -29,16 +29,16 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
-import { logIn, isTokenInStorage, logOut } from "../FirebaseAuth/FirebaseAuth";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { auth } from "firebase";
 import { auth2, googleProvider } from "../fireBase.config";
+import firebase from "firebase";
 
 const drawerWidth = 240;
-
+const emailRegex = /\S+@\S+\.\S+/;
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -86,15 +86,11 @@ function ResponsiveDrawer(props) {
   const [open, setOpen] = React.useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoggedIn, setLoggedIn] = useState(isTokenInStorage());
+  const [passwordError, setPasswordError] = useState(false);
+  const [passwordErrorText, setPasswordErrorText] = useState("");
+  const [emailError, setEmailError] = useState(false);
+  const [emailErrorText, setEmailErrorText] = useState(false);
 
-  useEffect(() => {
-    const id = setInterval(() => setLoggedIn(isTokenInStorage()));
-
-    return () => {
-      clearInterval(id);
-    };
-  }, []);
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -126,32 +122,54 @@ function ResponsiveDrawer(props) {
 
   const handleClose = () => {
     setOpen(false);
+    setPasswordError(false);
   };
 
   const onLogInClick = (email, password) => {
-    return logIn(email, password)
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
       .then(() => {
-        setLoggedIn(true);
         handleClose();
       })
       .catch((err) => {
-        alert("Złe hasło!");
-        setLoggedIn(false);
+        setPasswordError(true);
+        setPasswordErrorText("Nieprawidłowy email lub hasło");
       });
   };
 
-  const onLogOutClick = () => {
+  const onLogOutClickGoogle = () => {
     auth2.signOut();
-    logOut();
+    window.user = null;
+    props.setFavorites([]);
   };
 
-  useEffect(() => {
-    auth2.onAuthStateChanged((isLoggedIn) => {
-      setLoggedIn(isLoggedIn);
-    });
-  }, []);
+  const onLogInClickGoogle = () => {
+    auth2.signInWithPopup(googleProvider);
+    handleClose();
+  };
 
-  const onLogInClickGoogle = () => auth2.signInWithPopup(googleProvider);
+  const newUser = () => {
+    if (password.length < 8 && !emailRegex.test(email)) {
+      setEmailError(true);
+      setEmailErrorText("Nieprawidłowy adres email");
+      setPasswordError(true);
+      setPasswordErrorText("Hasło musi posiadac conajmniej 8 znaków");
+    } else if (password.length < 8) {
+      setEmailError(false);
+      setPasswordError(true);
+      setPasswordErrorText("Hasło musi posiadac conajmniej 8 znaków");
+    } else if (!emailRegex.test(email)) {
+      setPasswordError(false);
+      setEmailError(true);
+      setEmailErrorText("Nieprawidłowy adres email");
+    } else {
+      auth().createUserWithEmailAndPassword(email, password);
+      handleClose();
+      setPasswordError(false);
+      setEmailError(false);
+    }
+  };
 
   const drawer = (
     <div>
@@ -231,10 +249,9 @@ function ResponsiveDrawer(props) {
             <Typography variant="h5" noWrap style={{ color: "white" }}>
               GiftMatcher
             </Typography>
-
             <div className={classes.toolbarButtons}>
               <Hidden xsDown>
-                {!isLoggedIn ? (
+                {!window.user ? (
                   <>
                     {" "}
                     <Button
@@ -245,135 +262,38 @@ function ResponsiveDrawer(props) {
                       style={{ marginRight: 20 }}
                       className={classes.button}
                     >
-                      Sign In
+                      ZALOGUJ SIĘ
                     </Button>
-                    <Button
-                      variant="contained"
-                      color="secondary"
-                      onClick={onLogOutClick}
-                      startIcon={<ExitToAppIcon />}
-                      style={{ marginRight: 20 }}
-                      className={classes.button}
-                    >
-                      Log Out
-                    </Button>
-                    <Dialog
-                      open={open}
-                      onClose={handleClose}
-                      aria-labelledby="form-dialog-title"
-                    >
-                      <DialogTitle id="form-dialog-title">SIGN IN</DialogTitle>
-                      <DialogContent>
-                        <DialogContentText>
-                          Podaj swój adres e-mail oraz hasło aby się zalogować.
-                        </DialogContentText>
-                        <TextField
-                          autoFocus
-                          margin="dense"
-                          id="name"
-                          label="Email Address"
-                          type="email"
-                          onChange={(e) => setEmail(e.target.value)}
-                          fullWidth
-                        />
-                        <TextField
-                          autoFocus
-                          margin="dense"
-                          id="name"
-                          label="Password"
-                          type="password"
-                          onChange={(e) => setPassword(e.target.value)}
-                          fullWidth
-                        />
-                      </DialogContent>
-                      <DialogActions>
-                        <Button onClick={handleClose} color="primary">
-                          Cancel
-                        </Button>
-                        <Button
-                          onClick={() => onLogInClick(email, password)}
-                          color="primary"
-                        >
-                          Log In
-                        </Button>
-                        <Button onClick={onLogInClickGoogle} color="primary">
-                          Log In by Google
-                        </Button>
-                      </DialogActions>
-                    </Dialog>{" "}
                   </>
                 ) : (
                   <Button
                     variant="contained"
                     color="secondary"
-                    onClick={onLogOutClick}
+                    onClick={onLogOutClickGoogle}
                     startIcon={<ExitToAppIcon />}
                     style={{ marginRight: 20 }}
                     className={classes.button}
                   >
-                    Log Out
+                    Wyloguj
                   </Button>
                 )}
               </Hidden>
               <Hidden smUp>
-                <IconButton>
-                  <AccountBoxIcon
-                    onClick={handleClickOpen}
-                    style={{ color: "white" }}
-                  />
-                  <ExitToAppIcon
-                    onClick={onLogOutClick}
-                    style={{ color: "white", margin: "0px 0px 0px 10px" }}
-                  />
-                  <Dialog
-                    open={open}
-                    onClose={handleClose}
-                    aria-labelledby="form-dialog-title"
-                  >
-                    <DialogTitle id="form-dialog-title">SIGN IN</DialogTitle>
-
-                    <DialogContent>
-                      <DialogContentText>
-                        Podaj swój adres e-mail oraz hasło aby się zalogować.
-                      </DialogContentText>
-                      <TextField
-                        autoFocus
-                        margin="dense"
-                        id="name"
-                        label="Email Address"
-                        type="email"
-                        onChange={(e) => setEmail(e.target.value)}
-                        fullWidth
-                      />
-                      <TextField
-                        autoFocus
-                        margin="dense"
-                        id="name"
-                        label="Password"
-                        type="password"
-                        onChange={(e) => setPassword(e.target.value)}
-                        fullWidth
-                      />
-                    </DialogContent>
-                    <DialogActions>
-                      <Button onClick={handleClose} color="primary">
-                        Cancel
-                      </Button>
-                      <Button
-                        onClick={() => onLogInClick(email, password)}
-                        color="primary"
-                      >
-                        Login
-                      </Button>
-                      <Button
-                        onClick={() => onLogInClickGoogle()}
-                        color="primary"
-                      >
-                        Log In by Google
-                      </Button>
-                    </DialogActions>
-                  </Dialog>
-                </IconButton>
+                {!window.user ? (
+                  <IconButton>
+                    <AccountBoxIcon
+                      onClick={handleClickOpen}
+                      style={{ color: "white" }}
+                    />
+                  </IconButton>
+                ) : (
+                  <IconButton>
+                    <ExitToAppIcon
+                      onClick={onLogOutClickGoogle}
+                      style={{ color: "white" }}
+                    />
+                  </IconButton>
+                )}
               </Hidden>
               <IconButton
                 onClick={() => {
@@ -382,6 +302,57 @@ function ResponsiveDrawer(props) {
               >
                 {brightnessIcon}
               </IconButton>
+              <Dialog
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="form-dialog-title"
+              >
+                <DialogTitle id="form-dialog-title">ZALOGUJ SIĘ</DialogTitle>
+                <DialogContent>
+                  <DialogContentText>
+                    Podaj swój adres e-mail oraz hasło aby się zalogować.
+                  </DialogContentText>
+                  <TextField
+                    error={emailError}
+                    helperText={emailError ? emailErrorText : ""}
+                    autoFocus
+                    margin="dense"
+                    id="email"
+                    label="Adres Email"
+                    type="email"
+                    onChange={(e) => setEmail(e.target.value)}
+                    fullWidth
+                  />
+                  <TextField
+                    error={passwordError}
+                    helperText={passwordError ? passwordErrorText : ""}
+                    autoFocus
+                    margin="dense"
+                    id="password"
+                    label="Hasło"
+                    type="password"
+                    onChange={(e) => setPassword(e.target.value)}
+                    fullWidth
+                  />
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleClose} color="primary">
+                    Anuluj
+                  </Button>
+                  <Button
+                    onClick={() => onLogInClick(email, password)}
+                    color="primary"
+                  >
+                    Zaloguj się
+                  </Button>
+                  <Button onClick={onLogInClickGoogle} color="primary">
+                    Zaloguj przez Google
+                  </Button>
+                  <Button onClick={newUser} color="primary">
+                    Rejestracja
+                  </Button>
+                </DialogActions>
+              </Dialog>{" "}
             </div>
           </Toolbar>
         </AppBar>

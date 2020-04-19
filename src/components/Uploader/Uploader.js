@@ -28,11 +28,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Uploader({ setPhoto }) {
   const classes = useStyles();
-
   const [image, setImage] = useState(null);
-  const [url, setUrl] = useState(null);
   const [progress, setProgress] = useState(0);
-  const [error, setError] = useState("");
 
   const handleChange = (e) => {
     const file = e.target.files[0];
@@ -50,19 +47,15 @@ export default function Uploader({ setPhoto }) {
           );
           setProgress(progress);
         },
-        (error) => {
-          setError(error);
-        },
+
         () => {
           storage
             .ref("images")
             .child(image.name)
             .getDownloadURL()
             .then((url) => {
-              setUrl(url);
               setProgress(0);
               setPhoto(url);
-              console.log(url);
             });
         }
       );

@@ -6,7 +6,7 @@ const Favorites = function (props) {
   const { gifts, toggleFavorite, handleClickOpen } = props;
 
   const [page, setPage] = useState(0);
-  const [giftsPerPage, setGiftsPerPage] = useState(5);
+  const [giftsPerPage, setGiftsPerPage] = useState(10);
 
   const favoritesArray =
     [] && gifts.filter((gift, i) => gift.isFavorite === true);
@@ -29,7 +29,7 @@ const Favorites = function (props) {
         }}
       >
         <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
+          rowsPerPageOptions={[10, 15, 20]}
           labelRowsPerPage="Gifts"
           component="div"
           count={favoritesArray.length}

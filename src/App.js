@@ -1,35 +1,35 @@
 import React, { useState, useEffect } from "react";
-import "./App.css";
 import Addgift from "./pages/AddGift/Addgift";
 import Giftslist from "./pages/Giftslist/Giftslist";
 import Charts from "./pages/Charts/Charts";
 import Favorites from "./pages/Favorites/Favorites";
 import Home from "./pages/Home/Home";
 import Menu from "./components/Menu/Menu_Material";
-import Snackbar from "@material-ui/core/Snackbar";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Dialog from "./components/Dialog/Dialog";
-import Gift from "./components/Gift/Gift";
 import mapObjectToArray from "./mapObjectToArray";
 import firebase from "firebase";
 import { database } from "./components/fireBase.config";
 import Alert from "./components/Alert/Alert";
 
-import MuiAlert from "@material-ui/lab/Alert";
-
 function App() {
-  console.log(localStorage.getItem("localId"));
-  useEffect(() => {
-    giftsFetch();
-    getFavorites();
-  }, []);
-
   const [gifts, setGift] = useState([]);
   const [favorites, setFavorites] = useState([]);
   const [giftToExpand, setGiftToExpand] = useState({});
   const [open, setOpen] = useState(false);
   const [page, setPage] = useState(0);
   const [giftsPerPage, setGiftsPerPage] = useState(10);
+
+  useEffect(() => {
+    giftsFetch();
+    getFavorites();
+    firebase.auth().onAuthStateChanged(function (user) {
+      window.user = user; // user is undefined if no user signed in
+      setUser();
+      getFavorites();
+      // setUserFavorites()
+    });
+  }, []);
 
   const [openAlert, setOpenAlert] = useState(false);
 
@@ -53,20 +53,33 @@ function App() {
   const giftsFetch = () => {
     database.ref("/gifts/").on("value", function (snapshot) {
       const giftsList = mapObjectToArray(snapshot.val());
+      getFavorites();
       return giftsList ? setGift(giftsList) : [];
     });
   };
 
-  const idToken = localStorage.getItem("localId");
+  let idToken = null;
+
+  const setUser = () => {
+    const userLocalId = localStorage.getItem("localId");
+    // const user = firebase.auth().currentUser;
+    let userUid = null;
+    if (window.user) {
+      userUid = window.user.uid;
+    }
+    idToken = userUid ? userUid : userLocalId;
+  };
 
   const setUserFavorites = (favorites) => {
-    console.log(favorites);
-    database.ref("users/" + idToken).set({
-      favorites,
-    });
+    if (idToken) {
+      database.ref("users/" + idToken).set({
+        favorites,
+      });
+    }
   };
 
   const getFavorites = () => {
+    setUser();
     database.ref("/users/" + idToken).on("value", function (snapshot) {
       const userFavorites = snapshot.child("favorites").val();
       return userFavorites ? setFavorites((favorites) => userFavorites) : [];
@@ -74,7 +87,8 @@ function App() {
   };
 
   const toggleFavorite = (giftId) => {
-    if (localStorage.getItem("localId")) {
+    setUser();
+    if (idToken) {
       const filterFavorite = (favorites) =>
         favorites.includes(giftId)
           ? favorites.filter((id) => id !== giftId)
@@ -84,7 +98,6 @@ function App() {
       setUserFavorites(favorite);
     } else {
       handleClickOpenAlert();
-      console.log("loguj sie");
     }
   };
 
@@ -104,7 +117,11 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Menu>
+      <Menu
+        setFavorites={setFavorites}
+        getFavorites={getFavorites}
+        giftsFetch={giftsFetch}
+      >
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/addgift">
