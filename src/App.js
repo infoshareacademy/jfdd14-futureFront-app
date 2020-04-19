@@ -16,8 +16,6 @@ import { database } from "./components/fireBase.config";
 import Alert from "./components/Alert/Alert";
 
 function App() {
-  console.log(localStorage.getItem("localId"));
-
   const [gifts, setGift] = useState([]);
   const [favorites, setFavorites] = useState([]);
   const [giftToExpand, setGiftToExpand] = useState({});
@@ -57,10 +55,8 @@ function App() {
     });
   };
 
-  const idToken = localStorage.getItem("localId");
-
   const setUserFavorites = (favorites) => {
-    console.log(favorites);
+    const idToken = localStorage.getItem("localId");
     if (idToken) {
       database.ref("users/" + idToken).set({
         favorites,
@@ -69,10 +65,12 @@ function App() {
   };
 
   const getFavorites = () => {
-    console.log("get", favorites);
+    const idToken = localStorage.getItem("localId");
     database.ref("/users/" + idToken).on("value", function (snapshot) {
       const userFavorites = snapshot.child("favorites").val();
-      return userFavorites ? setFavorites((favorites) => userFavorites) : [];
+      return idToken
+        ? setFavorites((favorites) => userFavorites)
+        : setFavorites([]);
     });
   };
 

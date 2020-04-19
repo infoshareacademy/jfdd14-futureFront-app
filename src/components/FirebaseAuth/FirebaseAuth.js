@@ -1,3 +1,4 @@
+import { auth2 } from "../fireBase.config";
 const API_KEY = "AIzaSyDf7A1aQgcKDMbwKmYIh7RHjwtOfKcsJUI";
 
 const SIGN_IN_URL = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${API_KEY}`;
@@ -53,4 +54,5 @@ export const logOut = () => {
   localStorage.removeItem("localId");
   localStorage.removeItem("idToken");
   localStorage.removeItem("email");
+  auth2.signOut();
 };

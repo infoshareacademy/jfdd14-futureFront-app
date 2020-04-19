@@ -142,11 +142,11 @@ function ResponsiveDrawer(props) {
   };
 
   const onLogOutClick = () => {
-    auth2.signOut();
     logOut();
-    props.setFavorites([]);
-    console.log(isLoggedIn, "login");
   };
+  useEffect(() => {
+    props.getFavorites();
+  }, [isLoggedIn]);
 
   useEffect(() => {
     auth2.onAuthStateChanged((isLoggedIn) => {
