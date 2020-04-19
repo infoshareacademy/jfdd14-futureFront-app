@@ -125,6 +125,7 @@ function ResponsiveDrawer(props) {
   const handleClose = () => {
     setOpen(false);
     setPasswordError(false);
+    setEmailError(false);
   };
 
   const onLogInClick = (email, password) => {
