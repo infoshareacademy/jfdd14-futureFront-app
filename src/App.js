@@ -28,6 +28,12 @@ function App() {
   useEffect(() => {
     giftsFetch();
     getFavorites();
+    firebase.auth().onAuthStateChanged(function (user) {
+      window.user = user; // user is undefined if no user signed in
+      setUser(user);
+      getFavorites(user);
+      setUserFavorites();
+    });
   }, []);
 
   const [openAlert, setOpenAlert] = useState(false);
@@ -59,9 +65,9 @@ function App() {
 
   let idToken = null;
 
-  const setUser = () => {
+  const setUser = (user) => {
     const userLocalId = localStorage.getItem("localId");
-    const user = firebase.auth().currentUser;
+    // const user = firebase.auth().currentUser;
     let userUid = null;
     if (user) {
       userUid = user.uid;
@@ -79,8 +85,8 @@ function App() {
     }
   };
 
-  const getFavorites = () => {
-    setUser();
+  const getFavorites = (user) => {
+    setUser(user);
     console.log("get", favorites);
     database.ref("/users/" + idToken).on("value", function (snapshot) {
       const userFavorites = snapshot.child("favorites").val();

@@ -36,6 +36,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { auth } from "firebase";
 import { auth2, googleProvider } from "../fireBase.config";
+import firebase from "firebase";
 
 const drawerWidth = 240;
 
@@ -135,8 +136,23 @@ function ResponsiveDrawer(props) {
     setOpen(false);
   };
 
+  // const onLogInClick = (email, password) => {
+  //   return logIn(email, password)
+  //     .then(() => {
+  //       setLoggedIn(true);
+  //       handleClose();
+  //     })
+  //     .catch((err) => {
+  //       setPasswordError(true);
+  //       setLoggedIn(false);
+  //       //display toast: Błąd logowania. Niepoprawny email lub hasło
+  //     });
+  // };
+
   const onLogInClick = (email, password) => {
-    return logIn(email, password)
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
       .then(() => {
         setLoggedIn(true);
         handleClose();
