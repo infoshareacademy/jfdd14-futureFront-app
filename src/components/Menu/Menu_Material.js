@@ -165,7 +165,15 @@ function ResponsiveDrawer(props) {
   };
 
   const onLogOutClick = () => {
-    logOut();
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        setLoggedIn(false);
+      })
+      .catch(function (err) {
+        // Handle errors
+      });
     props.setFavorites([]);
     console.log(isLoggedIn, "login");
   };
@@ -179,6 +187,8 @@ function ResponsiveDrawer(props) {
     auth2.signInWithPopup(googleProvider);
     handleClose();
   };
+
+  const newUser = auth().createUserWithEmailAndPassword(email, password);
 
   const drawer = (
     <div>
@@ -261,31 +271,7 @@ function ResponsiveDrawer(props) {
 
             <div className={classes.toolbarButtons}>
               <Hidden xsDown>
-                {!user ? (
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    onClick={onLogInClickGoogle}
-                    startIcon={<AccountBoxIcon />}
-                    style={{ marginRight: 20 }}
-                    className={classes.button}
-                  >
-                    Log In by Google
-                  </Button>
-                ) : (
-                  <Button
-                    variant="contained"
-                    color="red"
-                    onClick={onLogOutClickGoogle}
-                    startIcon={<ExitToAppIcon />}
-                    style={{ marginRight: 20 }}
-                    className={classes.button}
-                  >
-                    Log Out Google
-                  </Button>
-                )}
-
-                {!isLoggedIn ? (
+                {!setLoggedIn ? (
                   <>
                     {" "}
                     <Button
@@ -340,10 +326,13 @@ function ResponsiveDrawer(props) {
                           onClick={() => onLogInClick(email, password)}
                           color="primary"
                         >
-                          Log In
+                          Login
                         </Button>
                         <Button onClick={onLogInClickGoogle} color="primary">
-                          Google Log In
+                          Google Login
+                        </Button>
+                        <Button onClick={newUser} color="primary">
+                          Register
                         </Button>
                       </DialogActions>
                     </Dialog>{" "}
@@ -374,25 +363,29 @@ function ResponsiveDrawer(props) {
                       aria-labelledby="form-dialog-title"
                     >
                       <DialogTitle id="form-dialog-title">SIGN IN</DialogTitle>
-
                       <DialogContent>
                         <DialogContentText>
                           Podaj swój adres e-mail oraz hasło aby się zalogować.
                         </DialogContentText>
                         <TextField
+                          error={passwordError}
                           autoFocus
                           margin="dense"
-                          id="name"
-                          label="Email Address"
+                          id="email"
+                          label="Adres Email"
                           type="email"
                           onChange={(e) => setEmail(e.target.value)}
                           fullWidth
                         />
                         <TextField
+                          error={passwordError}
+                          helperText={
+                            passwordError ? "Niepoprawne hasło lub email" : ""
+                          }
                           autoFocus
                           margin="dense"
-                          id="name"
-                          label="Password"
+                          id="password"
+                          label="Hasło"
                           type="password"
                           onChange={(e) => setPassword(e.target.value)}
                           fullWidth
@@ -408,14 +401,14 @@ function ResponsiveDrawer(props) {
                         >
                           Login
                         </Button>
-                        <Button
-                          onClick={() => onLogInClickGoogle()}
-                          color="primary"
-                        >
-                          Log In by Google
+                        <Button onClick={onLogInClickGoogle} color="primary">
+                          Google Login
+                        </Button>
+                        <Button onClick={newUser} color="primary">
+                          Register
                         </Button>
                       </DialogActions>
-                    </Dialog>
+                    </Dialog>{" "}
                   </IconButton>
                 ) : (
                   <ExitToAppIcon
