@@ -1,6 +1,12 @@
 # GiftMatcher
 
-GiftMatcher is a web application that can be used to find most suitable gift idea for our loved ones, or our own gift to existing database that will be searchable by every user. You can check how it looks like [here](http://app.futurefront.jfdd14.is-academy.pl/).
+GiftMatcher is a web application that can be used to find most suitable gift idea for our loved ones, or our own gift to existing database that will be searchable by every user. You can check our app [here](http://app.futurefront.jfdd14.is-academy.pl/)
+
+We also made landing page that you can find here: [Landing page](http://www.futurefront.jfdd14.is-academy.pl/)
+
+And exciting game that you can play here: [Game](http://www.futurefront.jfdd14.is-academy.pl/Game/game_worldv2.html)
+
+(if you want to check our code for landing page and game, you can do this [here](https://github.com/infoshareacademy/jfdd14-futureFront))
 
 ## Features
 
@@ -12,6 +18,12 @@ Current features include:
 - add your own gifts to existing database
 - check application statistics
 
+## Technologies
+
+- Giftmatcher is built with React
+- We used Material UI framework for styling
+- Firebase was our choice for database
+
 ## Creators
 
 - Bartek Ciesielski [Github](https://github.com/bartek-ciesielski) [Linkedin](https://www.linkedin.com/in/bartek-ciesielski/)
@@ -19,7 +31,7 @@ Current features include:
 - Dawid Domański [Github](https://github.com/Davioli91) [Linkedin](https://www.linkedin.com/in/dawid-doma%C5%84ski-6235b4132/)
 - Borys Maciuch [Github](https://github.com/BorysMaciuch) [Linkedin](https://www.linkedin.com/in/borys-maciuch/)
 
-## Start
+## Start locally
 
 To start application you need to run npm install command first:
 
