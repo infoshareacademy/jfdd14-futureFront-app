@@ -36,6 +36,8 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { auth } from "firebase";
 import { auth2, googleProvider } from "../fireBase.config";
 import firebase from "firebase";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 
 const drawerWidth = 240;
 
@@ -332,7 +334,7 @@ function ResponsiveDrawer(props) {
                     Zaloguj się
                   </Button>
                   <Button onClick={onLogInClickGoogle} color="primary">
-                    Zaloguj przez Google
+                    <FontAwesomeIcon icon={faGoogle} />
                   </Button>
                   <Button onClick={newUser} color="primary">
                     Rejestracja
