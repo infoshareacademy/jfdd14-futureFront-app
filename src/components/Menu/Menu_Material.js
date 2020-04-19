@@ -38,7 +38,7 @@ import { auth2, googleProvider } from "../fireBase.config";
 import firebase from "firebase";
 
 const drawerWidth = 240;
-
+const emailRegex = /\S+@\S+\.\S+/;
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -88,6 +88,8 @@ function ResponsiveDrawer(props) {
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState(false);
   const [passwordErrorText, setPasswordErrorText] = useState("");
+  const [emailError, setEmailError] = useState(false);
+  const [emailErrorText, setEmailErrorText] = useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -148,13 +150,24 @@ function ResponsiveDrawer(props) {
   };
 
   const newUser = () => {
-    if (password.length < 8) {
+    if (password.length < 8 && !emailRegex.test(email)) {
+      setEmailError(true);
+      setEmailErrorText("Nieprawidłowy adres email");
       setPasswordError(true);
       setPasswordErrorText("Hasło musi posiadac conajmniej 8 znaków");
+    } else if (password.length < 8) {
+      setEmailError(false);
+      setPasswordError(true);
+      setPasswordErrorText("Hasło musi posiadac conajmniej 8 znaków");
+    } else if (!emailRegex.test(email)) {
+      setPasswordError(false);
+      setEmailError(true);
+      setEmailErrorText("Nieprawidłowy adres email");
     } else {
       auth().createUserWithEmailAndPassword(email, password);
       handleClose();
       setPasswordError(false);
+      setEmailError(false);
     }
   };
 
@@ -300,7 +313,8 @@ function ResponsiveDrawer(props) {
                     Podaj swój adres e-mail oraz hasło aby się zalogować.
                   </DialogContentText>
                   <TextField
-                    error={passwordError}
+                    error={emailError}
+                    helperText={emailError ? emailErrorText : ""}
                     autoFocus
                     margin="dense"
                     id="email"
