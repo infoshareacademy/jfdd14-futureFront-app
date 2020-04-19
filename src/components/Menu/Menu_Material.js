@@ -320,10 +320,12 @@ function ResponsiveDrawer(props) {
                     />
                   </IconButton>
                 ) : (
-                  <ExitToAppIcon
-                    onClick={onLogOutClickGoogle}
-                    style={{ color: "white" }}
-                  />
+                  <IconButton>
+                    <ExitToAppIcon
+                      onClick={onLogOutClickGoogle}
+                      style={{ color: "white" }}
+                    />
+                  </IconButton>
                 )}
               </Hidden>
               <IconButton
