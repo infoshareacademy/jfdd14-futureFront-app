@@ -89,14 +89,15 @@ function ResponsiveDrawer(props) {
   const [password, setPassword] = useState("");
   const [isLoggedIn, setLoggedIn] = useState(isTokenInStorage());
   const [passwordError, setPasswordError] = useState(false);
+  const [passwordErrorText, setPasswordErrorText] = useState("");
   const [user, setUser] = useState(null);
 
-  useEffect(() => {
-    const id = setInterval(() => setLoggedIn(isTokenInStorage()));
-    return () => {
-      clearInterval(id);
-    };
-  }, []);
+  // useEffect(() => {
+  //   const id = setInterval(() => setLoggedIn(isTokenInStorage()));
+  //   return () => {
+  //     clearInterval(id);
+  //   };
+  // }, []);
 
   useEffect(() => {
     auth2.onAuthStateChanged((user) => {
@@ -134,6 +135,7 @@ function ResponsiveDrawer(props) {
 
   const handleClose = () => {
     setOpen(false);
+    setPasswordError(false);
   };
 
   // const onLogInClick = (email, password) => {
@@ -156,9 +158,11 @@ function ResponsiveDrawer(props) {
       .then(() => {
         setLoggedIn(true);
         handleClose();
+        console.log(isLoggedIn, "login");
       })
       .catch((err) => {
         setPasswordError(true);
+        setPasswordErrorText("Nieprawidłowy email lub hasło");
         setLoggedIn(false);
         //display toast: Błąd logowania. Niepoprawny email lub hasło
       });
@@ -175,11 +179,10 @@ function ResponsiveDrawer(props) {
         // Handle errors
       });
     props.setFavorites([]);
-    console.log(isLoggedIn, "login");
   };
 
   const onLogOutClickGoogle = () => {
-    auth2.signOut();
+    auth2.signOut().then(() => setLoggedIn(false));
     props.setFavorites([]);
   };
 
@@ -188,7 +191,16 @@ function ResponsiveDrawer(props) {
     handleClose();
   };
 
-  const newUser = auth().createUserWithEmailAndPassword(email, password);
+  const newUser = () => {
+    if (password.length < 8) {
+      setPasswordError(true);
+      setPasswordErrorText("Hasło musi posiadac conajmniej 8 znaków");
+    } else {
+      auth().createUserWithEmailAndPassword(email, password);
+      handleClose();
+      setPasswordError(false);
+    }
+  };
 
   const drawer = (
     <div>
@@ -271,7 +283,7 @@ function ResponsiveDrawer(props) {
 
             <div className={classes.toolbarButtons}>
               <Hidden xsDown>
-                {!setLoggedIn ? (
+                {!window.user ? (
                   <>
                     {" "}
                     <Button
@@ -284,64 +296,12 @@ function ResponsiveDrawer(props) {
                     >
                       Sign In
                     </Button>
-                    <Dialog
-                      open={open}
-                      onClose={handleClose}
-                      aria-labelledby="form-dialog-title"
-                    >
-                      <DialogTitle id="form-dialog-title">SIGN IN</DialogTitle>
-                      <DialogContent>
-                        <DialogContentText>
-                          Podaj swój adres e-mail oraz hasło aby się zalogować.
-                        </DialogContentText>
-                        <TextField
-                          error={passwordError}
-                          autoFocus
-                          margin="dense"
-                          id="email"
-                          label="Adres Email"
-                          type="email"
-                          onChange={(e) => setEmail(e.target.value)}
-                          fullWidth
-                        />
-                        <TextField
-                          error={passwordError}
-                          helperText={
-                            passwordError ? "Niepoprawne hasło lub email" : ""
-                          }
-                          autoFocus
-                          margin="dense"
-                          id="password"
-                          label="Hasło"
-                          type="password"
-                          onChange={(e) => setPassword(e.target.value)}
-                          fullWidth
-                        />
-                      </DialogContent>
-                      <DialogActions>
-                        <Button onClick={handleClose} color="primary">
-                          Cancel
-                        </Button>
-                        <Button
-                          onClick={() => onLogInClick(email, password)}
-                          color="primary"
-                        >
-                          Login
-                        </Button>
-                        <Button onClick={onLogInClickGoogle} color="primary">
-                          Google Login
-                        </Button>
-                        <Button onClick={newUser} color="primary">
-                          Register
-                        </Button>
-                      </DialogActions>
-                    </Dialog>{" "}
                   </>
                 ) : (
                   <Button
                     variant="contained"
                     color="secondary"
-                    onClick={onLogOutClick}
+                    onClick={onLogOutClickGoogle}
                     startIcon={<ExitToAppIcon />}
                     style={{ marginRight: 20 }}
                     className={classes.button}
@@ -351,64 +311,12 @@ function ResponsiveDrawer(props) {
                 )}
               </Hidden>
               <Hidden smUp>
-                {!isLoggedIn ? (
+                {!window.user ? (
                   <IconButton>
                     <AccountBoxIcon
                       onClick={handleClickOpen}
                       style={{ color: "white" }}
                     />
-                    <Dialog
-                      open={open}
-                      onClose={handleClose}
-                      aria-labelledby="form-dialog-title"
-                    >
-                      <DialogTitle id="form-dialog-title">SIGN IN</DialogTitle>
-                      <DialogContent>
-                        <DialogContentText>
-                          Podaj swój adres e-mail oraz hasło aby się zalogować.
-                        </DialogContentText>
-                        <TextField
-                          error={passwordError}
-                          autoFocus
-                          margin="dense"
-                          id="email"
-                          label="Adres Email"
-                          type="email"
-                          onChange={(e) => setEmail(e.target.value)}
-                          fullWidth
-                        />
-                        <TextField
-                          error={passwordError}
-                          helperText={
-                            passwordError ? "Niepoprawne hasło lub email" : ""
-                          }
-                          autoFocus
-                          margin="dense"
-                          id="password"
-                          label="Hasło"
-                          type="password"
-                          onChange={(e) => setPassword(e.target.value)}
-                          fullWidth
-                        />
-                      </DialogContent>
-                      <DialogActions>
-                        <Button onClick={handleClose} color="primary">
-                          Cancel
-                        </Button>
-                        <Button
-                          onClick={() => onLogInClick(email, password)}
-                          color="primary"
-                        >
-                          Login
-                        </Button>
-                        <Button onClick={onLogInClickGoogle} color="primary">
-                          Google Login
-                        </Button>
-                        <Button onClick={newUser} color="primary">
-                          Register
-                        </Button>
-                      </DialogActions>
-                    </Dialog>{" "}
                   </IconButton>
                 ) : (
                   <ExitToAppIcon
@@ -417,7 +325,6 @@ function ResponsiveDrawer(props) {
                   />
                 )}
               </Hidden>
-
               <IconButton
                 onClick={() => {
                   setSelected(!selected);
@@ -425,6 +332,56 @@ function ResponsiveDrawer(props) {
               >
                 {brightnessIcon}
               </IconButton>
+              <Dialog
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="form-dialog-title"
+              >
+                <DialogTitle id="form-dialog-title">SIGN IN</DialogTitle>
+                <DialogContent>
+                  <DialogContentText>
+                    Podaj swój adres e-mail oraz hasło aby się zalogować.
+                  </DialogContentText>
+                  <TextField
+                    error={passwordError}
+                    autoFocus
+                    margin="dense"
+                    id="email"
+                    label="Adres Email"
+                    type="email"
+                    onChange={(e) => setEmail(e.target.value)}
+                    fullWidth
+                  />
+                  <TextField
+                    error={passwordError}
+                    helperText={passwordError ? passwordErrorText : ""}
+                    autoFocus
+                    margin="dense"
+                    id="password"
+                    label="Hasło"
+                    type="password"
+                    onChange={(e) => setPassword(e.target.value)}
+                    fullWidth
+                  />
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleClose} color="primary">
+                    Cancel
+                  </Button>
+                  <Button
+                    onClick={() => onLogInClick(email, password)}
+                    color="primary"
+                  >
+                    Login
+                  </Button>
+                  <Button onClick={onLogInClickGoogle} color="primary">
+                    Google Login
+                  </Button>
+                  <Button onClick={newUser} color="primary">
+                    Register
+                  </Button>
+                </DialogActions>
+              </Dialog>{" "}
             </div>
           </Toolbar>
         </AppBar>
