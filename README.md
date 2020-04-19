@@ -1,6 +1,9 @@
 # GiftMatcher
 
-GiftMatcher is a web application that can be used to find most suitable gift idea for our loved ones, or our own gift to existing database that will be searchable by every user. You can check how it looks like [here](http://app.futurefront.jfdd14.is-academy.pl/).
+GiftMatcher is a web application that can be used to find most suitable gift idea for our loved ones, or our own gift to existing database that will be searchable by every user. You can check our app [here](http://app.futurefront.jfdd14.is-academy.pl/).
+
+We also made landing page that you can find here: [Landing page](http://www.futurefront.jfdd14.is-academy.pl/) ...
+... and exciting game that you can play here: [Game](http://www.futurefront.jfdd14.is-academy.pl/Game/game_worldv2.html)
 
 ## Features
 
@@ -11,6 +14,12 @@ Current features include:
 - add gifts to favorites
 - add your own gifts to existing database
 - check application statistics
+
+## Technologies
+
+- Giftmatcher is built with React
+- We used Material UI framework for styling
+- Firebase was our choice for database
 
 ## Creators
 
