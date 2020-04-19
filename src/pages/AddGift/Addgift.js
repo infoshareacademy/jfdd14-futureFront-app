@@ -122,6 +122,10 @@ const Addgift = (props) => {
               >
                 <MenuItem value="Sport">Sport</MenuItem>
                 <MenuItem value="Muzyka">Muzyka</MenuItem>
+                <MenuItem value="Elektronika">Elektronika</MenuItem>
+                <MenuItem value="Fotoprezenty">Fotoprezenty</MenuItem>
+                <MenuItem value="Gry">Gry</MenuItem>
+                <MenuItem value="Erotyczne">Erotyczne</MenuItem>
                 <MenuItem value="Inne">Inne</MenuItem>
               </Select>
             </FormControl>
