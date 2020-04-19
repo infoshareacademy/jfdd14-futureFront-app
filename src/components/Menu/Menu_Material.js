@@ -182,7 +182,8 @@ function ResponsiveDrawer(props) {
   };
 
   const onLogOutClickGoogle = () => {
-    auth2.signOut().then(() => setLoggedIn(false));
+    auth2.signOut();
+    window.user = null;
     props.setFavorites([]);
   };
 
@@ -320,7 +321,7 @@ function ResponsiveDrawer(props) {
                   </IconButton>
                 ) : (
                   <ExitToAppIcon
-                    onClick={onLogOutClick}
+                    onClick={onLogOutClickGoogle}
                     style={{ color: "white" }}
                   />
                 )}
