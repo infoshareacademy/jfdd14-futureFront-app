@@ -49,7 +49,7 @@ export default function RegisterForm({
         <DialogTitle id="customized-dialog-title" onClose={handleCloseRegister}>
           REJESTRACJA
         </DialogTitle>
-        <DialogContentText>
+        <DialogContentText style={{ padding: "10px" }}>
           Podaj swój adres e-mail oraz hasło aby się zarejestrowac.
         </DialogContentText>
         <DialogContent>
