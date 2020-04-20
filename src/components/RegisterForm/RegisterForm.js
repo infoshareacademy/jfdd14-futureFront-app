@@ -94,8 +94,17 @@ export default function RegisterForm({
             justifyContent: "center",
           }}
         >
-          <Button onClick={newUser}>Rejestracja</Button>
-          <Button onClick={handleCloseRegister}>Anuluj</Button>
+          {!window.user ? (
+            <div>
+              <Button onClick={newUser}>Rejestracja</Button>
+              <Button onClick={handleCloseRegister}>Anuluj</Button>{" "}
+            </div>
+          ) : (
+            <div>
+              <div className="giftAdded">Konto założone pomyślnie! </div>
+              <Button onClick={handleCloseRegister}>Zamknij</Button>
+            </div>
+          )}
         </DialogActions>
       </Dialog>
     </div>
