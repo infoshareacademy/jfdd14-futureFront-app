@@ -13,7 +13,6 @@ import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import SportsTennisIcon from "@material-ui/icons/SportsTennis";
-import LiveTvIcon from "@material-ui/icons/LiveTv";
 import MusicNoteIcon from "@material-ui/icons/MusicNote";
 import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
 import SportsEsportsIcon from "@material-ui/icons/SportsEsports";
@@ -55,7 +54,6 @@ const avatars = {
 };
 
 export default function Gift(props) {
-  const capital = props.item.category.charAt(0);
   const { toggleFavorite, handleClickOpen, item } = props;
   const classes = useStyles();
 
