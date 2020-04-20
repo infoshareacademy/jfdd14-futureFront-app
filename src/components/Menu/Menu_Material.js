@@ -305,18 +305,12 @@ function ResponsiveDrawer(props) {
               </Hidden>
               <Hidden smUp>
                 {!window.user ? (
-                  <IconButton>
-                    <AccountBoxIcon
-                      onClick={handleClickOpen}
-                      style={{ color: "white" }}
-                    />
+                  <IconButton onClick={handleClickOpen}>
+                    <AccountBoxIcon style={{ color: "white" }} />
                   </IconButton>
                 ) : (
-                  <IconButton>
-                    <ExitToAppIcon
-                      onClick={onLogOutClickGoogle}
-                      style={{ color: "white" }}
-                    />
+                  <IconButton onClick={onLogOutClickGoogle}>
+                    <ExitToAppIcon style={{ color: "white" }} />
                   </IconButton>
                 )}
               </Hidden>
