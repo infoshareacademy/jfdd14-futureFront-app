@@ -6,9 +6,7 @@ import { database } from "../../components/fireBase.config";
 var cat = database.ref("category");
 cat.on("value", getCat);
 
-function getCat(data) {
-  console.log(data);
-}
+function getCat(data) {}
 
 const data = [
   { name: "Fotografia", value: 400 },
