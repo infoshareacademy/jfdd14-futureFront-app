@@ -62,7 +62,6 @@ export default function Uploader({ setPhoto }) {
               setUrl(url);
               setProgress(0);
               setPhoto(url);
-              console.log(url);
             });
         }
       );

@@ -61,13 +61,10 @@ function App() {
   let idToken = null;
 
   const setUser = () => {
-    const userLocalId = localStorage.getItem("localId");
-    // const user = firebase.auth().currentUser;
     let userUid = null;
     if (window.user) {
       userUid = window.user.uid;
     }
-    // idToken = userUid ? userUid : userLocalId;
     idToken = userUid;
   };
 
