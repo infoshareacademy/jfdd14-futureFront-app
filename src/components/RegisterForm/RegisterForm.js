@@ -37,6 +37,7 @@ export default function RegisterForm({
   passwordError,
   passwordErrorText,
   setPasswordConfirm,
+  classSucess,
 }) {
   return (
     <div>
@@ -101,7 +102,12 @@ export default function RegisterForm({
             </div>
           ) : (
             <div>
-              <div className="giftAdded">Konto założone pomyślnie! </div>
+              <div
+                className={classSucess}
+                style={{ width: "100%", textAlign: "center" }}
+              >
+                Konto założone pomyślnie!
+              </div>
               <Button onClick={handleCloseRegister}>Zamknij</Button>
             </div>
           )}
