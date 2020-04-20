@@ -10,12 +10,12 @@ import {
 import "./pie.css";
 import { database, storage } from "../../components/fireBase.config";
 
-var cat = database.ref("category");
-cat.on("value", getCat);
+// var cat = database.ref("category");
+// cat.on("value", getCat);
 
-function getCat(data) {
-  console.log(data);
-}
+// function getCat(data) {
+//   console.log(data);
+// }
 
 const data = [
   { name: "Fotografia", value: 400 },
