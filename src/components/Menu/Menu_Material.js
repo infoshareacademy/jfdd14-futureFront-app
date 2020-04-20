@@ -187,7 +187,7 @@ function ResponsiveDrawer(props) {
       setPasswordErrorText("Hasła nie są takie same");
     } else {
       auth().createUserWithEmailAndPassword(email, password);
-      handleCloseRegister();
+      //handleCloseRegister();
       setPasswordError(false);
       setEmailError(false);
       window.user = true;
