@@ -1,12 +1,27 @@
 import React, { Component } from "react";
-import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
+import {
+  PieChart,
+  Pie,
+  Cell,
+  ResponsiveContainer,
+  Legend,
+  Line,
+} from "recharts";
 import "./pie.css";
+import { database, storage } from "../../components/fireBase.config";
+
+var cat = database.ref("category");
+cat.on("value", getCat);
+
+function getCat(data) {
+  console.log(data);
+}
 
 const data = [
-  { name: "Group A", value: 555 },
-  { name: "Group B", value: 300 },
-  { name: "Group C", value: 300 },
-  { name: "Group D", value: 200 },
+  { name: "Fotografia", value: 400 },
+  { name: "Muzyka", value: 355 },
+  { name: "Sport", value: 155 },
+  { name: "Inne", value: 100 },
 ];
 
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
@@ -45,6 +60,12 @@ export default class PieTemp extends Component {
     return (
       <ResponsiveContainer width={"100%"} height={500}>
         <PieChart>
+          <Legend
+            layout="vertical"
+            align="left"
+            verticalAlign="middle"
+            height={36}
+          />
           <Pie
             data={data}
             labelLine={false}
