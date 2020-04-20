@@ -12,6 +12,13 @@ import CardContent from "@material-ui/core/CardContent";
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
+import SportsTennisIcon from "@material-ui/icons/SportsTennis";
+import LiveTvIcon from "@material-ui/icons/LiveTv";
+import MusicNoteIcon from "@material-ui/icons/MusicNote";
+import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
+import SportsEsportsIcon from "@material-ui/icons/SportsEsports";
+import DevicesOtherIcon from "@material-ui/icons/DevicesOther";
+import DynamicFeedIcon from "@material-ui/icons/DynamicFeed";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,6 +44,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const avatars = {
+  Sport: <SportsTennisIcon />,
+  Muzyka: <MusicNoteIcon />,
+  Elektronika: <DevicesOtherIcon />,
+  Fotoprezenty: <PhotoCameraIcon />,
+  Gry: <SportsEsportsIcon />,
+  Erotyczne: <FavoriteIcon />,
+  Inne: <DynamicFeedIcon />,
+};
+
 export default function Gift(props) {
   const capital = props.item.category.charAt(0);
   const { toggleFavorite, handleClickOpen, item } = props;
@@ -48,7 +65,7 @@ export default function Gift(props) {
         <CardHeader
           avatar={
             <Avatar aria-label="recipe" className={classes.avatar}>
-              {capital}
+              {avatars[props.item.category]}
             </Avatar>
           }
           title={props.item.name}

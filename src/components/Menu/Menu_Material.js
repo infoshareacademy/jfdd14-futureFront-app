@@ -38,6 +38,7 @@ import { auth2, googleProvider } from "../fireBase.config";
 import firebase from "firebase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
+import RegisterForm from "../RegisterForm/RegisterForm";
 
 const drawerWidth = 240;
 const emailRegex = /\S+@\S+\.\S+/;
@@ -93,6 +94,9 @@ function ResponsiveDrawer(props) {
   const [emailError, setEmailError] = useState(false);
   const [emailErrorText, setEmailErrorText] = useState(false);
 
+  const [openRegister, setOpenRegister] = React.useState(false);
+  const [passwordConfirm, setPasswordConfirm] = useState("");
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -118,6 +122,17 @@ function ResponsiveDrawer(props) {
     },
   });
 
+  const handleClickOpenRegister = () => {
+    handleClose();
+    setOpenRegister(true);
+  };
+
+  const handleCloseRegister = () => {
+    setOpenRegister(false);
+    setPasswordError(false);
+    setEmailError(false);
+  };
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -125,6 +140,7 @@ function ResponsiveDrawer(props) {
   const handleClose = () => {
     setOpen(false);
     setPasswordError(false);
+    setEmailError(false);
   };
 
   const onLogInClick = (email, password) => {
@@ -165,11 +181,16 @@ function ResponsiveDrawer(props) {
       setPasswordError(false);
       setEmailError(true);
       setEmailErrorText("Nieprawidłowy adres email");
+    } else if (password !== passwordConfirm) {
+      setPasswordError(true);
+      setEmailError(false);
+      setPasswordErrorText("Hasła nie są takie same");
     } else {
       auth().createUserWithEmailAndPassword(email, password);
-      handleClose();
+      //handleCloseRegister();
       setPasswordError(false);
       setEmailError(false);
+      window.user = true;
     }
   };
 
@@ -348,10 +369,13 @@ function ResponsiveDrawer(props) {
                   <Button onClick={() => onLogInClick(email, password)}>
                     Zaloguj się
                   </Button>
-                  <Button onClick={onLogInClickGoogle}>
+                  <Button
+                    onClick={onLogInClickGoogle}
+                    style={{ width: "10px" }}
+                  >
                     <FontAwesomeIcon icon={faGoogle} />
                   </Button>
-                  <Button onClick={newUser}>Rejestracja</Button>
+                  <Button onClick={handleClickOpenRegister}>Rejestracja</Button>
                   <Button onClick={handleClose}>Anuluj</Button>
                 </DialogActions>
               </Dialog>{" "}
@@ -401,6 +425,18 @@ function ResponsiveDrawer(props) {
           </Grid>
         </main>
       </div>
+      <RegisterForm
+        open={openRegister}
+        handleCloseRegister={handleCloseRegister}
+        setEmail={setEmail}
+        setPassword={setPassword}
+        newUser={newUser}
+        emailError={emailError}
+        emailErrorText={emailErrorText}
+        passwordError={passwordError}
+        passwordErrorText={passwordErrorText}
+        setPasswordConfirm={setPasswordConfirm}
+      />
     </ThemeProvider>
   );
 }
