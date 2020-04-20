@@ -125,3 +125,7 @@ dist
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# fireBaseConfig
+
+/jfdd14-futureFront-app/src/components/fireBase.config.js

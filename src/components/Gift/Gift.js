@@ -21,8 +21,8 @@ import DynamicFeedIcon from "@material-ui/icons/DynamicFeed";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 3000,
-    // height: 400,
+    // maxWidth: 3000,
+    // height: 426,
   },
   media: {
     height: 0,
@@ -61,6 +61,7 @@ export default function Gift(props) {
     <Grid item xs={10} sm={8} md={4} lg={3} mr={0}>
       <Card className={classes.root} style={{ margin: "0 auto" }}>
         <CardHeader
+          className={classes.header}
           avatar={
             <Avatar aria-label="recipe" className={classes.avatar}>
               {avatars[props.item.category]}

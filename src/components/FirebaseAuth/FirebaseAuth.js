@@ -1,4 +1,4 @@
-const API_KEY = "AIzaSyDf7A1aQgcKDMbwKmYIh7RHjwtOfKcsJUI";
+const API_KEY = "xxx";
 
 const SIGN_IN_URL = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${API_KEY}`;
 
