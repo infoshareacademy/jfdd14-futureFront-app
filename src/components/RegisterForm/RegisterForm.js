@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { withStyles } from "@material-ui/core/styles";
 
 import IconButton from "@material-ui/core/IconButton";
@@ -36,6 +36,7 @@ export default function RegisterForm({
   emailErrorText,
   passwordError,
   passwordErrorText,
+  setPasswordConfirm,
 }) {
   return (
     <div>
@@ -43,6 +44,7 @@ export default function RegisterForm({
         onClose={handleCloseRegister}
         aria-labelledby="customized-dialog-title"
         open={open}
+        style={{ textAlign: "center" }}
       >
         <DialogTitle id="customized-dialog-title" onClose={handleCloseRegister}>
           REJESTRACJA
@@ -69,6 +71,17 @@ export default function RegisterForm({
             margin="dense"
             id="password"
             label="Hasło"
+            type="password"
+            onChange={(e) => setPasswordConfirm(e.target.value)}
+            fullWidth
+          />
+          <TextField
+            error={passwordError}
+            helperText={passwordError ? passwordErrorText : ""}
+            autoFocus
+            margin="dense"
+            id="passwordConfirm"
+            label="Powtórz hasło"
             type="password"
             onChange={(e) => setPassword(e.target.value)}
             fullWidth

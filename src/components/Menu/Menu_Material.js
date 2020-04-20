@@ -95,6 +95,7 @@ function ResponsiveDrawer(props) {
   const [emailErrorText, setEmailErrorText] = useState(false);
 
   const [openRegister, setOpenRegister] = React.useState(false);
+  const [passwordConfirm, setPasswordConfirm] = useState("");
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -122,6 +123,7 @@ function ResponsiveDrawer(props) {
   });
 
   const handleClickOpenRegister = () => {
+    handleClose();
     setOpenRegister(true);
   };
 
@@ -179,9 +181,13 @@ function ResponsiveDrawer(props) {
       setPasswordError(false);
       setEmailError(true);
       setEmailErrorText("Nieprawidłowy adres email");
+    } else if (password !== passwordConfirm) {
+      setPasswordError(true);
+      setEmailError(false);
+      setPasswordErrorText("Hasła nie są takie same");
     } else {
       auth().createUserWithEmailAndPassword(email, password);
-      handleClose();
+      handleCloseRegister();
       setPasswordError(false);
       setEmailError(false);
     }
@@ -428,6 +434,7 @@ function ResponsiveDrawer(props) {
         emailErrorText={emailErrorText}
         passwordError={passwordError}
         passwordErrorText={passwordErrorText}
+        setPasswordConfirm={setPasswordConfirm}
       />
     </ThemeProvider>
   );
