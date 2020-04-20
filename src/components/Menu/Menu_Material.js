@@ -190,6 +190,7 @@ function ResponsiveDrawer(props) {
       handleCloseRegister();
       setPasswordError(false);
       setEmailError(false);
+      window.user = true;
     }
   };
 
