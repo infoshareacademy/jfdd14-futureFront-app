@@ -149,6 +149,7 @@ function ResponsiveDrawer(props) {
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then(() => {
+        window.user = true;
         handleClose();
       })
       .catch((err) => {
