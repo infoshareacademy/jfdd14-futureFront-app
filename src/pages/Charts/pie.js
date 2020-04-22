@@ -1,21 +1,12 @@
 import React, { Component } from "react";
-import {
-  PieChart,
-  Pie,
-  Cell,
-  ResponsiveContainer,
-  Legend,
-  Line,
-} from "recharts";
+import { PieChart, Pie, Cell, ResponsiveContainer, Legend } from "recharts";
 import "./pie.css";
-import { database, storage } from "../../components/fireBase.config";
+import { database } from "../../components/fireBase.config";
 
 // var cat = database.ref("category");
 // cat.on("value", getCat);
 
-// function getCat(data) {
-//   console.log(data);
-// }
+function getCat(data) {}
 
 const data = [
   { name: "Fotografia", value: 400 },
