@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Addgift from "./pages/AddGift/Addgift";
 import Giftslist from "./pages/Giftslist/Giftslist";
-import Charts from "./pages/Charts/Charts";
 import Favorites from "./pages/Favorites/Favorites";
 import Home from "./pages/Home/Home";
 import Menu from "./components/Menu/Menu_Material";
@@ -137,7 +136,6 @@ function App() {
               handleClickOpenAlert={handleClickOpenAlert}
             />
           </Route>
-          <Route path="/charts" component={Charts} />
           <Route path="/favorites">
             <Favorites
               gifts={giftsWithFavs}

@@ -219,24 +219,17 @@ function ResponsiveDrawer(props) {
           </ListItemIcon>
           <ListItemText primary="Dodaj prezent" />
         </ListItem>
-        <ListItem button component={Link} to={"/charts"}>
-          <ListItemIcon>
-            <EqualizerOutlinedIcon
-              fontSize={"large"}
-              style={{ color: "#F1D1D6" }}
-            />
-          </ListItemIcon>
-          <ListItemText primary="Statystyki" />
-        </ListItem>
-        <ListItem button component={Link} to={"/favorites"}>
-          <ListItemIcon>
-            <FavoriteOutlinedIcon
-              fontSize={"large"}
-              style={{ color: "#F1D1D6" }}
-            />
-          </ListItemIcon>
-          <ListItemText primary="Ulubione" />
-        </ListItem>
+        {window.user ? (
+          <ListItem button component={Link} to={"/favorites"}>
+            <ListItemIcon>
+              <FavoriteOutlinedIcon
+                fontSize={"large"}
+                style={{ color: "#F1D1D6" }}
+              />
+            </ListItemIcon>
+            <ListItemText primary="Ulubione" />
+          </ListItem>
+        ) : null}
         <ListItem button component={Link} to={"/gifts"}>
           <ListItemIcon>
             <RedeemOutlinedIcon
