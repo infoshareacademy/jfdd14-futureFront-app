@@ -149,6 +149,7 @@ function ResponsiveDrawer(props) {
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then(() => {
+        window.user = true;
         handleClose();
       })
       .catch((err) => {
@@ -218,24 +219,17 @@ function ResponsiveDrawer(props) {
           </ListItemIcon>
           <ListItemText primary="Dodaj prezent" />
         </ListItem>
-        <ListItem button component={Link} to={"/charts"}>
-          <ListItemIcon>
-            <EqualizerOutlinedIcon
-              fontSize={"large"}
-              style={{ color: "#F1D1D6" }}
-            />
-          </ListItemIcon>
-          <ListItemText primary="Statystyki" />
-        </ListItem>
-        <ListItem button component={Link} to={"/favorites"}>
-          <ListItemIcon>
-            <FavoriteOutlinedIcon
-              fontSize={"large"}
-              style={{ color: "#F1D1D6" }}
-            />
-          </ListItemIcon>
-          <ListItemText primary="Ulubione" />
-        </ListItem>
+        {window.user ? (
+          <ListItem button component={Link} to={"/favorites"}>
+            <ListItemIcon>
+              <FavoriteOutlinedIcon
+                fontSize={"large"}
+                style={{ color: "#F1D1D6" }}
+              />
+            </ListItemIcon>
+            <ListItemText primary="Ulubione" />
+          </ListItem>
+        ) : null}
         <ListItem button component={Link} to={"/gifts"}>
           <ListItemIcon>
             <RedeemOutlinedIcon
@@ -305,18 +299,12 @@ function ResponsiveDrawer(props) {
               </Hidden>
               <Hidden smUp>
                 {!window.user ? (
-                  <IconButton>
-                    <AccountBoxIcon
-                      onClick={handleClickOpen}
-                      style={{ color: "white" }}
-                    />
+                  <IconButton onClick={handleClickOpen}>
+                    <AccountBoxIcon style={{ color: "white" }} />
                   </IconButton>
                 ) : (
-                  <IconButton>
-                    <ExitToAppIcon
-                      onClick={onLogOutClickGoogle}
-                      style={{ color: "white" }}
-                    />
+                  <IconButton onClick={onLogOutClickGoogle}>
+                    <ExitToAppIcon style={{ color: "white" }} />
                   </IconButton>
                 )}
               </Hidden>

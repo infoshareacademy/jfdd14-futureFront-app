@@ -30,7 +30,7 @@ export default function Uploader({ setPhoto }) {
   const classes = useStyles();
 
   const [image, setImage] = useState(null);
-  const [url, setUrl] = useState(null);
+  // const [url, setUrl] = useState(null);
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState("");
 
@@ -59,7 +59,7 @@ export default function Uploader({ setPhoto }) {
             .child(image.name)
             .getDownloadURL()
             .then((url) => {
-              setUrl(url);
+              // setUrl(url);
               setProgress(0);
               setPhoto(url);
             });

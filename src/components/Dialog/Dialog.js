@@ -84,15 +84,15 @@ export default function CustomizedDialogs({
             CENA: {gift.price} PLN
             <br />
             <br />
-            <div style={{ display: "flex", justifyContent: "center" }}>
+            <span style={{ display: "flex", justifyContent: "center" }}>
               <img width="400px" height="auto" src={gift.photo} alt="gift" />
-            </div>
+            </span>
             <br />
             <br />
             OPIS:
             <br />
             <br />
-            <div style={{ textAlign: "justify" }}>{gift.description}</div>
+            <span style={{ textAlign: "justify" }}>{gift.description}</span>
           </Typography>
         </DialogContent>
         <DialogActions>
